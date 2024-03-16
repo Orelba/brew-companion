@@ -1,4 +1,4 @@
-const BrewingMethod = require('../models/brewingMethod')
+import BrewingMethod from '../models/brewingMethod.js'
 
-const asyncHandler = require('express-async-handler')
-const { body, validationResult } = require('express-validator')
+import asyncHandler from 'express-async-handler'
+import { body, validationResult } from 'express-validator'

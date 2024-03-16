@@ -1,10 +1,10 @@
-const express = require('express')
-const router = express.Router()
+import { Router } from 'express'
+const router = Router()
 
-const coffeeRoutes = require('./coffeeRoutes')
-const brewRoutes = require('./brewRoutes')
+import coffeeRoutes from './coffeeRoutes.js'
+import brewRoutes from './brewRoutes.js'
 
 router.use('/coffee', coffeeRoutes)
 router.use('/brew', brewRoutes)
 
-module.exports = router
+export default router

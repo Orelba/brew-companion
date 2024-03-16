@@ -1,11 +1,13 @@
-const express = require('express')
-const router = express.Router()
+import { Router } from 'express'
+const router = Router()
 
-const coffee_controller = require('../../controllers/coffeeController')
+import {
+  coffee_list,
+  coffee_create_post,
+} from '../../controllers/coffeeController.js'
 
-/* GET home page. */
-router.get('/', coffee_controller.coffee_list)
+router.get('/', coffee_list)
 
-router.post('/create', coffee_controller.coffee_create_post)
+router.post('/create', coffee_create_post)
 
-module.exports = router
+export default router

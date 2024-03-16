@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
@@ -8,4 +8,4 @@ const CoffeeSchema = new Schema({
   archived: { type: Boolean, default: false, required: true },
 })
 
-module.exports = mongoose.model('Coffee', CoffeeSchema)
+export default mongoose.model('Coffee', CoffeeSchema)

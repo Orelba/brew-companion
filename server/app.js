@@ -1,25 +1,16 @@
-const express = require('express')
-const path = require('path')
-const cookieParser = require('cookie-parser')
-const logger = require('morgan')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const compression = require('compression')
-const helmet = require('helmet')
-const createError = require('http-errors')
+import express from 'express'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import cookieParser from 'cookie-parser'
+import logger from 'morgan'
+import mongoose from 'mongoose'
+import cors from 'cors'
+import compression from 'compression'
+import helmet from 'helmet'
+import createError from 'http-errors'
 
-const indexRouter = require('./routes/api/index')
-// TODO: Check if ES6 is needed
-// import express from 'express'
-// import path from 'path'
-// import cookieParser from 'cookie-parser'
-// import logger from 'morgan'
-// import mongoose from 'mongoose'
-// import cors from 'cors'
-// import compression from 'compression'
-// import helmet from 'helmet'
-
-// import indexRouter from './routes/api/index.js'
+// API Router
+import indexRouter from './routes/api/index.js'
 
 const app = express()
 
@@ -60,6 +51,9 @@ app.use(
 // Compress response bodies for all requests
 app.use(compression())
 
+// TODO: No public dir, Check if needed
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/api', indexRouter)
@@ -75,9 +69,9 @@ app.use((err, req, res, next) => {
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
-    // render the error page
-    res.status(err.status || 500)
-    res.send(err)
+  // render the error page
+  res.status(err.status || 500)
+  res.send(err)
 })
 
-module.exports = app
+export default app

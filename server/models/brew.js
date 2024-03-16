@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
@@ -15,6 +15,4 @@ const BrewSchema = new Schema({
   date: { type: Date, default: Date.now },
 })
 
-
-
-module.exports = mongoose.model('Brew', BrewSchema)
+export default mongoose.model('Brew', BrewSchema)

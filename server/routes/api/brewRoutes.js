@@ -1,10 +1,13 @@
-const express = require('express')
-const router = express.Router()
+import { Router } from 'express'
+const router = Router()
 
-const brew_controller = require('../../controllers/brewController')
+import {
+  brew_list,
+  brew_create_post,
+} from '../../controllers/brewController.js'
 
-router.get('/', brew_controller.brew_list)
+router.get('/', brew_list)
 
-router.post('/create', brew_controller.brew_create_post)
+router.post('/create', brew_create_post)
 
-module.exports = router
+export default router

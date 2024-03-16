@@ -1,12 +1,14 @@
-const Coffee = require('../models/coffee')
-const Roastery = require('../models/roastery')
+import Coffee from '../models/coffee.js'
+import Roastery from '../models/roastery.js'
 
-const asyncHandler = require('express-async-handler')
-const { body, validationResult } = require('express-validator')
+import asyncHandler from 'express-async-handler'
+import { body, validationResult } from 'express-validator'
 
-exports.coffee_list = asyncHandler(async (req, res, next) => {
+const coffee_list = asyncHandler(async (req, res, next) => {
   const allCoffees = await Coffee.find({}).populate('roastery').exec()
   res.json(allCoffees)
 })
 
-exports.coffee_create_post = asyncHandler(async (req, res, next) => {})
+const coffee_create_post = asyncHandler(async (req, res, next) => {})
+
+export { coffee_list, coffee_create_post }

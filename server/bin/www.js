@@ -4,9 +4,11 @@
  * Module dependencies.
  */
 
-const app = require('../app')
-const debug = require('debug')('server:server')
-const http = require('http')
+import app from '../app.js'
+import debugLib from 'debug'
+import http from 'http'
+
+const debug = debugLib('server:server')
 
 // TODO: Check if ES6 is needed
 // import app from '../app.js'

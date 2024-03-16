@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
@@ -8,7 +8,7 @@ const BrewingMethodSchema = new Schema({
 
 const collectionName = 'brewing_methods'
 
-module.exports = mongoose.model(
+export default mongoose.model(
   'BrewingMethod',
   BrewingMethodSchema,
   collectionName

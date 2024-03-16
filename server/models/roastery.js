@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
@@ -7,4 +7,4 @@ const RoasterySchema = new Schema({
   country: { type: String },
 })
 
-module.exports = mongoose.model('Roastery', RoasterySchema)
+export default mongoose.model('Roastery', RoasterySchema)
