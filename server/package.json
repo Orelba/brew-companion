@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "prettier": "npx prettier . --w",
     "start": "node --env-file=.env ./bin/www",
     "devstart": "nodemon --env-file=.env ./bin/www",
     "serverstart": "SET DEBUG=server:* & npm run devstart"
@@ -16,10 +17,13 @@
     "express-async-handler": "^1.2.0",
     "express-validator": "^7.0.1",
     "helmet": "^7.1.0",
+    "http-errors": "^2.0.0",
+    "luxon": "^3.4.4",
     "mongoose": "^8.0.3",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "prettier": "3.2.5"
   }
 }

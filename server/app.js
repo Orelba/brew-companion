@@ -6,9 +6,20 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const compression = require('compression')
 const helmet = require('helmet')
+const createError = require('http-errors')
 
-const indexRouter = require('./routes/index')
-const newRouter = require('./routes/new')
+const indexRouter = require('./routes/api/index')
+// TODO: Check if ES6 is needed
+// import express from 'express'
+// import path from 'path'
+// import cookieParser from 'cookie-parser'
+// import logger from 'morgan'
+// import mongoose from 'mongoose'
+// import cors from 'cors'
+// import compression from 'compression'
+// import helmet from 'helmet'
+
+// import indexRouter from './routes/api/index.js'
 
 const app = express()
 
@@ -22,28 +33,28 @@ async function main() {
 }
 
 app.use(logger('dev'))
-app.use(cors(
+app.use(
+  cors()
   // {
   //   origin: [''], // TODO: Change to frontend address
   //   methods: ['POST', 'GET'],
   //   credentials: true,
   // }
-))
+)
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 // Set secure HTTP response headers, allow Google fonts to be loaded
 app.use(
-  helmet(
-    // {
-    //   contentSecurityPolicy: {
-    //     directives: {
-    //       'font-src': ['self', ''] // TODO: Add CSP Directives
-    //     }
-    //   }
-    // }
-  )
+  helmet()
+  // {
+  //   contentSecurityPolicy: {
+  //     directives: {
+  //       'font-src': ['self', ''] // TODO: Add CSP Directives
+  //     }
+  //   }
+  // }
 )
 
 // Compress response bodies for all requests
@@ -51,7 +62,22 @@ app.use(compression())
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/', indexRouter)
-app.use('/users', newRouter)
+app.use('/api', indexRouter)
+
+// Catch 404 and forward to error handler
+app.use((req, res, next) => {
+  next(createError(404))
+})
+
+// Error handler
+app.use((err, req, res, next) => {
+  // Set locals, only providing error in development
+  res.locals.message = err.message
+  res.locals.error = req.app.get('env') === 'development' ? err : {}
+
+    // render the error page
+    res.status(err.status || 500)
+    res.send(err)
+})
 
 module.exports = app
