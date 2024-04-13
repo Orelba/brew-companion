@@ -1,0 +1,51 @@
+// ADD //
+Cold Brew
+
+// HEADER // 
+Fix header burger menu on mobile
+Check how the global font size changes and if it affects the header 3.5rem height (note the height I set in the layout AppShell)
+
+// Inventory //
+merge the coffees and roasteries page? maybe make the coffees roasteries tab an archive (Coffees, Archive)
+Make filter for coffees
+
+// Brews //
+Make the dose yield change, depending on brew method.
+  dose - water
+  coffee - water
+  Maybe a universal in - out
+
+Save only last 15 brews from a certain coffee in a certain brewing method
+  Burundi bujumbura - Espresso
+  when there are 15 start deleting the first ones by date
+
+// SASS //
+Migrate regular css to scss structure
+
+
+// Ideas //
+Brew helper tool: 
+  Let user choose brewing method and taste and offer ways to make brew better.
+    Example: 
+      Espresso, muddy and sour, visible channeling.
+        Grind a little bit coarser.
+
+      Espresso, salty.
+        Grind Finer.
+        Increase Yield.
+        Increase Temperature.
+
+      Filter, too sour.
+        Grind Finer,
+        Increase water temp.
+
+      Filter, Hollow, Bitter, Muddy
+        Grind Coarser,
+        Pour more gently
+        Decrease water temp
+        Give temp ranges for their bean roast
+
+Brewing Recipes Section:
+  Recipes for V60, KALITA, Aeropress, Chemex, French Press etc.
+
+

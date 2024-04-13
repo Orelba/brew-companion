@@ -1,0 +1,35 @@
+.container {
+  background-image: black;
+
+  .card {
+    --darken: 50%;
+
+    color: var(--mantine-color-white);
+    height: rem(200px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 0 100vmax inset rgba(0, 0, 0, var(--darken, 50%));
+    cursor: pointer;
+
+    transition: transform 0.2s cubic-bezier(0.5, 1, 0.89, 1);
+
+    &:hover {
+      --darken: 35%;
+    }
+
+    &:active {
+      transform: scale(0.96)
+    }
+
+    .title {
+      font-weight: 700;
+      line-height: 1.2;
+      font-size: 1.95rem;
+      margin-top: var(--mantine-spacing-xs);
+    }
+  }
+}

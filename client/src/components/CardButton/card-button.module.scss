@@ -1,0 +1,22 @@
+.card {
+  transition: transform 0.2s cubic-bezier(0.5, 1, 0.89, 1);
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(1.08);
+  }
+
+  img {
+    // Prevent dragging and selection
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+}
