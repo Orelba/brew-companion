@@ -1,6 +1,6 @@
 import { AppShell } from '@mantine/core'
 import { useTranslation } from 'react-i18next'
-import { APP_NAME } from '../constants'
+import { APP_NAME } from '../../constants'
 
 const Footer = () => {
   const { t } = useTranslation()

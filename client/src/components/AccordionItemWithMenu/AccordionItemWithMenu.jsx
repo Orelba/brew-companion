@@ -32,7 +32,7 @@ const AccordionItemWithMenu = ({
 
   const isVariantBrew = variant === 'brew'
   const isVariantCoffee = variant === 'coffee'
-  const isVariantRoastery = variant === 'roastery'
+  const isVariantRoastery = variant === 'roastery' // TODO: is this necessary?
 
   return (
     <Accordion.Item value={item._id}>

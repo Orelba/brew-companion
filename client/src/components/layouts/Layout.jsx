@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { AppShell } from '@mantine/core'
 import Header from '../Header/Header'
-import Footer from '../../Footer/Footer'
+import Footer from '../Footer/Footer'
 
 const Layout = () => {
 

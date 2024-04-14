@@ -4,7 +4,6 @@ import { InventoryContext } from '../../contexts/InventoryContext'
 
 import { SimpleGrid } from '@mantine/core'
 import CoffeeCard from '../../components/CoffeeCard/CoffeeCard'
-// import styles from './coffees-page.module.scss'
 
 const CoffeesPage = () => {
   const { coffees, searchValue } = useContext(InventoryContext)

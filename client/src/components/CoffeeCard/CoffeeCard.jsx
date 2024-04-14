@@ -1,5 +1,4 @@
 import { Paper, Title, Text } from '@mantine/core'
-import styles from './coffee-card.module.scss'
 
 const CoffeeCard = ({ data }) => {
   const { name, roastery } = data
