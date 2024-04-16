@@ -63,7 +63,7 @@ const Header = () => {
           />
         </Group>
         <Group>
-          <Group ml={50} gap={5} visibleFrom='sm'>
+          <Group gap={5} visibleFrom='sm'>
             {items}
             <LanguagePicker />
           </Group>

@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
 export const InventoryContext = createContext()
@@ -8,29 +9,27 @@ export const InventoryProvider = ({ children }) => {
   const [roasteries, setRoasteries] = useState([])
   const [searchValue, setSearchValue] = useState('')
 
-  // TODO: better error handling
-  const fetchCoffees = async () => {
-    try {
-      const response = await axios.get('/api/coffee')
-      setCoffees(response.data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  const coffeesQuery = useQuery({
+    queryKey: ['coffees'],
+    queryFn: () => axios.get('/api/coffee').then((res) => res.data),
+  })
 
-  const fetchRoasteries = async () => {
-    try {
-      const response = await axios.get('/api/roasteries')
-      setRoasteries(response.data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  const roasteriesQuery = useQuery({
+    queryKey: ['roasteries'],
+    queryFn: () => axios.get('/api/roasteries').then((res) => res.data),
+  })
 
   useEffect(() => {
-    fetchCoffees()
-    fetchRoasteries()
-  }, [])
+    if (coffeesQuery.data) {
+      setCoffees(coffeesQuery.data)
+    }
+  }, [coffeesQuery.data])
+
+  useEffect(() => {
+    if (roasteriesQuery.data) {
+      setRoasteries(roasteriesQuery.data)
+    }
+  }, [roasteriesQuery.data])
 
   return (
     <InventoryContext.Provider

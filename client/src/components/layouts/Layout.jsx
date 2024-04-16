@@ -4,7 +4,6 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 
 const Layout = () => {
-
   return (
     // FIXME: Header Height base xs sm md lg xl
     <AppShell header={{ height: '3.5rem' }} footer={{ height: '1.6rem' }}>

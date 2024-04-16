@@ -1,0 +1,53 @@
+@-webkit-keyframes animate-svg-fill-1 {
+  0% {
+    fill: transparent;
+  }
+
+  100% {
+    fill: rgb(0, 0, 0);
+  }
+}
+
+@keyframes animate-svg-fill-1 {
+  0% {
+    fill: transparent;
+  }
+
+  100% {
+    fill: rgb(0, 0, 0);
+  }
+}
+
+.svg-elem-1 {
+  -webkit-animation: animate-svg-fill-1 1.5s
+    cubic-bezier(0.445, 0.05, 0.55, 0.95) 0s both infinite alternate;
+  animation: animate-svg-fill-1 1.5s cubic-bezier(0.445, 0.05, 0.55, 0.95) 0s
+    both infinite alternate;
+}
+
+@-webkit-keyframes animate-svg-fill-2 {
+  0% {
+    fill: transparent;
+  }
+
+  100% {
+    fill: rgb(186, 132, 96);
+  }
+}
+
+@keyframes animate-svg-fill-2 {
+  0% {
+    fill: transparent;
+  }
+
+  100% {
+    fill: rgb(186, 132, 96);
+  }
+}
+
+.svg-elem-2 {
+  -webkit-animation: animate-svg-fill-2 1.5s
+    cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.4s both infinite alternate;
+  animation: animate-svg-fill-2 1.5s cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.4s
+    both infinite alternate;
+}

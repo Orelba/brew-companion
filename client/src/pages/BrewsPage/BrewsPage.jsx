@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { usePageTitle } from '../../hooks/usePageTitle'
 import PageTransitionWrapper from '../../components/PageTransitionWrapper/PageTransitionWrapper'
 import {
+  LoadingOverlay,
   Container,
   Group,
   Space,
@@ -11,12 +12,14 @@ import {
   ActionIcon,
   Accordion,
 } from '@mantine/core'
+import LoaderLogo from '../../components/LoaderLogo/LoaderLogo'
 import { IconRotate } from '@tabler/icons-react'
 import AccordionItemWithMenu from '../../components/AccordionItemWithMenu/AccordionItemWithMenu'
+import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
 const BrewsPage = () => {
-  const [brews, setBrews] = useState([])
+  const [brews, setBrews] = useState([]) // TODO: IS THIS NEEDED WITH REACT-QUERY?
   const [coffeeSelectValue, setCoffeeSelectValue] = useState(null)
   const [methodSelectValue, setMethodSelectValue] = useState(null)
 
@@ -24,6 +27,23 @@ const BrewsPage = () => {
 
   // Set the page title
   usePageTitle('Brews')
+
+  // Fetch all brews
+  const {
+    data: brewsData,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ['brews'],
+    queryFn: () => axios.get('/api/brew').then((res) => res.data),
+    refetchOnWindowFocus: false, // Disable automatic refetch on window focus
+  })
+
+  useEffect(() => {
+    if (brewsData) setBrews(brewsData)
+  }, [brewsData])
+
+  if (error) return <div>An error occurred: {error.message}</div>
 
   // Filter brews based on selected coffee
   const filteredBrewsByCoffee = brews.filter((brew) => {
@@ -43,7 +63,10 @@ const BrewsPage = () => {
       )
 
       if (!existingBrew) {
-        uniqueMethods.push({ value: brew.method._id, label: t(brew.method.name) })
+        uniqueMethods.push({
+          value: brew.method._id,
+          label: t(brew.method.name),
+        })
       }
 
       return uniqueMethods
@@ -64,21 +87,6 @@ const BrewsPage = () => {
     return uniqueCoffees
   }, [])
 
-  // Fetch all brews
-  useEffect(() => {
-    const fetchBrews = async () => {
-      try {
-        const response = await axios.get('/api/brew')
-        setBrews(response.data)
-        console.log(response.data) // TODO: remove
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    fetchBrews()
-  }, [])
-
   // Check if both select fields are empty
   const areSelectFieldsEmpty = !coffeeSelectValue && !methodSelectValue
 
@@ -95,10 +103,16 @@ const BrewsPage = () => {
   return (
     <PageTransitionWrapper>
       <Container
-        size='100vw'
         m={{ base: 10, xs: 20, sm: 40, lg: 50, xl: 60 }}
         p={0}
+        pos='relative' // FIXME: why when I use this I cant make the container take 100% height
+        fluid
       >
+        <LoadingOverlay
+          visible={isLoading}
+          loaderProps={{ children: <LoaderLogo /> }}
+          overlayProps={{ radius: 'sm', blur: 2 }}
+        />
         <Group wrap='nowrap'>
           <Select
             placeholder={t('brewsPage.allCoffees')}

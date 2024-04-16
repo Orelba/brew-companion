@@ -6,21 +6,13 @@ Fix header burger menu on mobile
 Check how the global font size changes and if it affects the header 3.5rem height (note the height I set in the layout AppShell)
 
 // Inventory //
-merge the coffees and roasteries page? maybe make the coffees roasteries tab an archive (Coffees, Archive)
-Make filter for coffees
+merge the coffees and roasteries page?
+maybe make the coffees roasteries tab an archive (Coffees, Archive)
 
 // Brews //
-Make the dose yield change, depending on brew method.
-  dose - water
-  coffee - water
-  Maybe a universal in - out
-
 Save only last 15 brews from a certain coffee in a certain brewing method
   Burundi bujumbura - Espresso
   when there are 15 start deleting the first ones by date
-
-// SASS //
-Migrate regular css to scss structure
 
 
 // Ideas //
