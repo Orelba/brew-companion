@@ -6,7 +6,7 @@ i18next
   .use(initReactI18next)
   .use(LanguageDetector)
   .init({
-    debug: import.meta.env.MODE === 'development', // Set debug to true only in development
+    // debug: import.meta.env.MODE === 'development', // Set debug to true only in development
     // lng: 'he', // OVERRIDE LANGUAGE DETECTION TODO: remove this in production
     fallbackLng: 'en',
     interpolation: {

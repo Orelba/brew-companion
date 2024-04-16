@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { usePageTitle } from '../../hooks/usePageTitle'
 import PageTransitionWrapper from '../../components/PageTransitionWrapper/PageTransitionWrapper'
@@ -19,7 +19,6 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
 const BrewsPage = () => {
-  const [brews, setBrews] = useState([]) // TODO: IS THIS NEEDED WITH REACT-QUERY?
   const [coffeeSelectValue, setCoffeeSelectValue] = useState(null)
   const [methodSelectValue, setMethodSelectValue] = useState(null)
 
@@ -30,7 +29,7 @@ const BrewsPage = () => {
 
   // Fetch all brews
   const {
-    data: brewsData,
+    data: brews,
     error,
     isLoading,
   } = useQuery({
@@ -39,21 +38,17 @@ const BrewsPage = () => {
     refetchOnWindowFocus: false, // Disable automatic refetch on window focus
   })
 
-  useEffect(() => {
-    if (brewsData) setBrews(brewsData)
-  }, [brewsData])
-
   if (error) return <div>An error occurred: {error.message}</div>
 
   // Filter brews based on selected coffee
-  const filteredBrewsByCoffee = brews.filter((brew) => {
-    return !coffeeSelectValue || brew.coffee._id === coffeeSelectValue
-  })
+  const filteredBrewsByCoffee = (brews || []).filter(
+    (brew) => !coffeeSelectValue || brew.coffee._id === coffeeSelectValue
+  )
 
   // Filter brews based on selected brewing method
-  const filteredBrewsByMethod = brews.filter((brew) => {
-    return !methodSelectValue || brew.method._id === methodSelectValue
-  })
+  const filteredBrewsByMethod = (brews || []).filter(
+    (brew) => !methodSelectValue || brew.method._id === methodSelectValue
+  )
 
   // Get all brewing methods and remove duplicates based on selected coffee
   const brewingMethodsOptions = filteredBrewsByCoffee.reduce(
@@ -87,7 +82,7 @@ const BrewsPage = () => {
     return uniqueCoffees
   }, [])
 
-  // Check if both select fields are empty
+  // Check if both select fields are empty for the reset button
   const areSelectFieldsEmpty = !coffeeSelectValue && !methodSelectValue
 
   // Reset select fields
@@ -96,9 +91,22 @@ const BrewsPage = () => {
     setMethodSelectValue(null)
   }
 
-  const items = brews.map((brew) => (
-    <AccordionItemWithMenu key={brew._id} item={brew} variant='brew' />
-  ))
+  const items = (brews || [])
+    .filter((brew) => {
+      // If a coffee is selected, only include brews that use the selected coffee
+      if (coffeeSelectValue && brew.coffee._id !== coffeeSelectValue)
+        return false
+
+      // If a method is selected, only include brews that use the selected method
+      if (methodSelectValue && brew.method._id !== methodSelectValue)
+        return false
+
+      // If neither coffee nor method is selected, or if the brew matches both selections, include the brew
+      return true
+    })
+    .map((brew) => (
+      <AccordionItemWithMenu key={brew._id} item={brew} variant='brew' />
+    ))
 
   return (
     <PageTransitionWrapper>
