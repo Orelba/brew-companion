@@ -27,9 +27,9 @@ const BrewsPage = () => {
   // Set the page title
   usePageTitle('Brews')
 
-  // Fetch all brews
+  // Fetch all brews if it exists, otherwise default to an empty array
   const {
-    data: brews,
+    data: brews = [],
     error,
     isLoading,
   } = useQuery({
@@ -41,12 +41,12 @@ const BrewsPage = () => {
   if (error) return <div>An error occurred: {error.message}</div>
 
   // Filter brews based on selected coffee
-  const filteredBrewsByCoffee = (brews || []).filter(
+  const filteredBrewsByCoffee = brews.filter(
     (brew) => !coffeeSelectValue || brew.coffee._id === coffeeSelectValue
   )
 
   // Filter brews based on selected brewing method
-  const filteredBrewsByMethod = (brews || []).filter(
+  const filteredBrewsByMethod = brews.filter(
     (brew) => !methodSelectValue || brew.method._id === methodSelectValue
   )
 
@@ -91,7 +91,7 @@ const BrewsPage = () => {
     setMethodSelectValue(null)
   }
 
-  const items = (brews || [])
+  const items = brews
     .filter((brew) => {
       // If a coffee is selected, only include brews that use the selected coffee
       if (coffeeSelectValue && brew.coffee._id !== coffeeSelectValue)

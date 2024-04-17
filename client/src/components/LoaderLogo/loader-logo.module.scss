@@ -1,20 +1,20 @@
 @-webkit-keyframes animate-svg-fill-1 {
   0% {
-    fill: transparent;
+    fill: rgb(0, 0, 0);
   }
 
   100% {
-    fill: rgb(0, 0, 0);
+    fill: transparent;
   }
 }
 
 @keyframes animate-svg-fill-1 {
   0% {
-    fill: transparent;
+    fill: rgb(0, 0, 0);
   }
 
   100% {
-    fill: rgb(0, 0, 0);
+    fill: transparent;
   }
 }
 
@@ -27,21 +27,21 @@
 
 @-webkit-keyframes animate-svg-fill-2 {
   0% {
-    fill: transparent;
+    fill: rgb(186, 132, 96);
   }
 
   100% {
-    fill: rgb(186, 132, 96);
+    fill: transparent;
   }
 }
 
 @keyframes animate-svg-fill-2 {
   0% {
-    fill: transparent;
+    fill: rgb(186, 132, 96);
   }
 
   100% {
-    fill: rgb(186, 132, 96);
+    fill: transparent;
   }
 }
 

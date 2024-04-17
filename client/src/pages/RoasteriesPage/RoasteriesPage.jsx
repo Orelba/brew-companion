@@ -10,9 +10,13 @@ const RoasteriesPage = () => {
   // Set the page title
   usePageTitle('Roasteries')
 
-  const items = roasteries.map((item) => (
-    <AccordionItemWithMenu key={item._id} item={item} variant='roastery' />
-  ))
+  const items = roasteries
+    .filter((roastery) =>
+      roastery.name.toLowerCase().includes(searchValue.toLowerCase())
+    )
+    .map((item) => (
+      <AccordionItemWithMenu key={item._id} item={item} variant='roastery' />
+    ))
 
   return <Accordion chevronPosition='left'>{items}</Accordion>
 }
