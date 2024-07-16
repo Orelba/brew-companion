@@ -10,11 +10,6 @@ import http from 'http'
 
 const debug = debugLib('server:server')
 
-// TODO: Check if ES6 is needed
-// import app from '../app.js'
-// const debug = require('debug')('server:server')
-// import http from 'http'
-
 /**
  * Get port from environment and store in Express.
  */

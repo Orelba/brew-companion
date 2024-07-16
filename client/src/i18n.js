@@ -15,6 +15,12 @@ i18next
     resources: {
       en: {
         translation: {
+          pageTitles: {
+            brewsPage: 'Brews',
+            coffeesPage: 'Coffees',
+            roasteriesPage: 'Roasteries',
+            notFoundPage: 'Not Found',
+          },
           brewingMethods: {
             espresso: 'Espresso',
             pourOver: 'Pour Over',
@@ -24,7 +30,11 @@ i18next
             turkishCoffee: 'Turkish Coffee',
             coldBrew: 'Cold Brew',
           },
-          header: { home: 'Home', brews: 'Brews', inventory: 'Inventory' },
+          header: {
+            home: 'Home',
+            brews: 'Brews',
+            inventory: 'Coffees and Roasteries',
+          },
           homePage: {
             heroTitle: 'Brew. Consistently.',
             heroDescription:
@@ -39,23 +49,64 @@ i18next
             allMethods: 'All Brewing Methods',
             noCoffeesFound: 'No coffees found',
             resetFilters: 'Reset filters',
+            addBrew: 'Add Brew',
+          },
+          newBrewForm: {
+            stepOneTitle: 'What did you brew?',
+            stepOneDescription: 'Choose Brewing Method',
+            stepTwoTitle: 'Which coffee did you use?',
+            stepTwoDescription: 'Choose a coffee',
+            stepThreeTitle: 'How did it go?',
+            stepThreeDescription: 'Add your brew details',
+            inputs: {
+              grindSetting: {
+                label: 'Grind Setting',
+                error: 'Grind setting must be filled',
+              },
+              time: {
+                label: 'Time',
+                error: 'Time must be in a format of 00:00 or 00:00:00',
+              },
+              dose: {
+                label: 'Dose',
+                error: 'Dose must be bigger than 0 grams',
+              },
+              yield: {
+                label: 'Yield',
+                error: 'Yield must be bigger than 0 grams',
+              },
+              temperature: {
+                label: 'Temperature',
+                error: 'Temperature must be a number between 0 and 100',
+              },
+              notes: {
+                label: 'Notes',
+                error: '',
+              },
+            },
+            save: 'Save',
           },
           accordionItemWithMenu: {
             edit: 'Edit',
             archive: 'Archive',
             delete: 'Delete',
-            underExtracted: 'Under Extracted',
-            slightlyUnderExtracted: 'Slightly Under Extracted',
-            balanced: 'Balanced',
-            slightlyOverExtracted: 'Slightly Over Extracted',
-            overExtracted: 'Over Extracted',
-            extractionUnknown: 'Extraction Unknown',
             brewSettings: 'Brew Settings',
             notes: 'Notes',
             grindSetting: 'Grind Setting',
             doseYield: 'Dose - Yield',
             time: 'Time',
             temp: 'Temp',
+            gram: 'g',
+            unknown: 'Unknown',
+            savingBrew: 'Saving Brew...',
+          },
+          extractionRating: {
+            underExtracted: 'Under Extracted',
+            slightlyUnderExtracted: 'Slightly Under Extracted',
+            balanced: 'Balanced',
+            slightlyOverExtracted: 'Slightly Over Extracted',
+            overExtracted: 'Over Extracted',
+            callToRate: 'Rate the extraction',
           },
           inventoryLayout: {
             coffees: 'Coffees',
@@ -64,11 +115,22 @@ i18next
           },
           footer: {
             text: `© {{year}} {{appName}}. All rights reserved.`,
+            links: {
+              contact: 'Contact',
+              privacy: 'Privacy',
+              tos: 'Terms of Service',
+            },
           },
         },
       },
       he: {
         translation: {
+          pageTitles: {
+            brewsPage: 'לוג קפה',
+            coffeesPage: 'קליות',
+            roasteriesPage: 'בתי קלייה',
+            notFoundPage: 'העמוד לא נמצא',
+          },
           brewingMethods: {
             espresso: 'אספרסו',
             pourOver: 'פילטר',
@@ -96,23 +158,64 @@ i18next
             allMethods: 'כל שיטות ההכנה',
             noCoffeesFound: 'לא נמצאו קליות',
             resetFilters: 'אפס סינון',
+            addBrew: 'הוסף רשומה',
+          },
+          newBrewForm: {
+            stepOneTitle: 'מה הכנת?',
+            stepOneDescription: 'בחר שיטת הכנה',
+            stepTwoTitle: 'באיזה קפה השתמשת?',
+            stepTwoDescription: 'בחר קפה',
+            stepThreeTitle: 'איך היה?',
+            stepThreeDescription: 'הכנס את פרטי ההכנה',
+            inputs: {
+              grindSetting: {
+                label: 'דרגת טחינה',
+                error: 'חובה לציין את דרגת הטחינה',
+              },
+              time: {
+                label: 'זמן',
+                error: 'הזמן חייב להיות בפורמט 00:00 או 00:00:00',
+              },
+              dose: {
+                label: 'כמות קפה',
+                error: 'הכמות חייבת להיות גדולה מ-0 גרם',
+              },
+              yield: {
+                label: 'כמות מים / כמה יצא',
+                error: 'הכמות חייבת להיות גדולה מ-0 גרם',
+              },
+              temperature: {
+                label: 'טמפרטורה',
+                error: 'הטמפרטורה חייבת להיות בין מספר בין 0 ל-100',
+              },
+              notes: {
+                label: 'הערות',
+                error: '',
+              },
+            },
+            save: 'שמור',
           },
           accordionItemWithMenu: {
             edit: 'ערוך',
             archive: 'העבר לארכיון',
             delete: 'מחק',
+            brewSettings: 'פרטי ההכנה',
+            notes: 'הערות',
+            grindSetting: 'דרגת טחינה',
+            doseYield: 'כמות - תוצאה',
+            time: 'זמן',
+            temp: 'טמפרטורה',
+            gram: 'גרם',
+            unknown: 'לא ידוע',
+            savingBrew: 'שומר...',
+          },
+          extractionRating: {
             underExtracted: 'מיצוי חסר',
             slightlyUnderExtracted: 'מיצוי חסר קל',
             balanced: 'מאוזן',
             slightlyOverExtracted: 'מיצוי יתר קל',
             overExtracted: 'מיצוי יתר',
-            extractionUnknown: 'מיצוי לא ידוע',
-            brewSettings: 'פרטי ההכנה',
-            notes: 'הערות',
-            grindSetting: 'הגדרת טחינה',
-            doseYield: 'כמות - תוצאה',
-            time: 'זמן',
-            temp: 'טמפרטורה',
+            callToRate: 'דרג את המיצוי',
           },
           inventoryLayout: {
             coffees: 'קליות',
@@ -121,6 +224,11 @@ i18next
           },
           footer: {
             text: `© {{year}} {{appName}}. כל הזכויות שמורות.`,
+            links: {
+              contact: 'צור קשר',
+              privacy: 'פרטיות',
+              tos: 'תנאי שימוש',
+            },
           },
         },
       },

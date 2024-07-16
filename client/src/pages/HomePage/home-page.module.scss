@@ -21,9 +21,7 @@
     }
 
     .title {
-      color: var(--mantine-color-white);
       font-size: rem(60px);
-      font-weight: 900;
       line-height: 1.1;
 
       @media (max-width: $mantine-breakpoint-sm) {
@@ -38,7 +36,6 @@
     }
 
     .description {
-      color: var(--mantine-color-white);
       max-width: rem(600px);
 
       @media (max-width: $mantine-breakpoint-sm) {

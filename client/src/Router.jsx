@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import { InventoryProvider } from './contexts/InventoryContext'
-import Layout from './components/layouts/Layout'
+import Layout from './layouts/Layout'
 import HomePage from './pages/HomePage/HomePage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 import BrewsPage from './pages/BrewsPage/BrewsPage'
-import InventoryLayout from './components/layouts/InventoryLayout'
+import InventoryLayout from './layouts/InventoryLayout'
 import CoffeesPage from './pages/CoffeesPage/CoffeesPage'
 import RoasteriesPage from './pages/RoasteriesPage/RoasteriesPage'
 

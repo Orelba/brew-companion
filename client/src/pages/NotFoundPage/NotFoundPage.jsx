@@ -10,10 +10,14 @@ import {
   SimpleGrid,
 } from '@mantine/core'
 import styles from './not-found-page.module.scss'
+import { useTranslation } from 'react-i18next'
 
 const NotFoundPage = () => {
+  // Get the translations for the page
+  const { t } = useTranslation()
+
   // Set the page title
-  usePageTitle('Not Found')
+  usePageTitle(t('pageTitles.notFoundPage'))
 
   const NotFoundImageSrc = '/not-found-404.svg'
 

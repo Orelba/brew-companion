@@ -4,7 +4,7 @@ const router = Router()
 import {
   coffee_list,
   coffee_create_post,
-} from '../../controllers/coffeeController.js'
+} from '../../controllers/coffeesController.js'
 
 router.get('/', coffee_list)
 

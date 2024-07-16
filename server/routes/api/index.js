@@ -1,12 +1,14 @@
 import { Router } from 'express'
 const router = Router()
 
-import coffeeRoutes from './coffeeRoutes.js'
+import coffeesRoutes from './coffeesRoutes.js'
 import roasteriesRoutes from './roasteriesRoutes.js'
-import brewRoutes from './brewRoutes.js'
+import brewingMethodsRoutes from './brewingMethodsRoutes.js'
+import brewRoutes from './brewsRoutes.js'
 
-router.use('/coffee', coffeeRoutes)
+router.use('/coffees', coffeesRoutes)
 router.use('/roasteries', roasteriesRoutes)
-router.use('/brew', brewRoutes)
+router.use('/brewing-methods', brewingMethodsRoutes)
+router.use('/brews', brewRoutes)
 
 export default router

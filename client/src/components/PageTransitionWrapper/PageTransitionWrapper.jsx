@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import styles from './page-transition-wrapper.module.scss'
 
 const PageTransitionWrapper = ({ children }) => {
   const durationInSeconds = 0.17
@@ -11,6 +12,7 @@ const PageTransitionWrapper = ({ children }) => {
       transition={{
         duration: durationInSeconds,
       }}
+      className={styles['page-transition-wrapper']}
     >
       {children}
     </motion.div>

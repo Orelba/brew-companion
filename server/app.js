@@ -1,6 +1,4 @@
 import express from 'express'
-import path from 'path'
-import { fileURLToPath } from 'url'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import mongoose from 'mongoose'
@@ -28,7 +26,7 @@ app.use(
   cors()
   // {
   //   origin: [''], // TODO: Change to frontend address
-  //   methods: ['POST', 'GET'],
+  //   methods: ['POST', 'GET', 'PUT', 'DELETE'],
   //   credentials: true,
   // }
 )
@@ -51,11 +49,6 @@ app.use(
 // Compress response bodies for all requests
 app.use(compression())
 
-// TODO: No public dir, Check if needed
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-app.use(express.static(path.join(__dirname, 'public')))
-
 app.use('/api', indexRouter)
 
 // Catch 404 and forward to error handler
@@ -65,13 +58,23 @@ app.use((req, res, next) => {
 
 // Error handler
 app.use((err, req, res, next) => {
+  // Determine if in development mode
+  const isDevelopment = req.app.get('env') === 'development'
+
   // Set locals, only providing error in development
   res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
+  res.locals.error = isDevelopment ? err : {}
 
-  // render the error page
-  res.status(err.status || 500)
-  res.send(err)
+  // If the request is for an API endpoint, respond with JSON
+  if (req.originalUrl.startsWith('/api')) {
+    res.status(err.status || 500).json({
+      message: err.message,
+      error: isDevelopment ? err : {},
+    })
+  } else {
+    // Otherwise, render the error page or send a plain text response
+    res.status(err.status || 500).send(err.message || 'Internal Server Error')
+  }
 })
 
 export default app

@@ -1,41 +1,50 @@
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { usePageTitle } from '../../hooks/usePageTitle'
-import PageTransitionWrapper from '../../components/PageTransitionWrapper/PageTransitionWrapper'
 import {
-  LoadingOverlay,
+  Accordion,
+  ActionIcon,
+  Button,
   Container,
   Group,
-  Space,
+  LoadingOverlay,
   Select,
+  Space,
   Tooltip,
-  ActionIcon,
-  Accordion,
 } from '@mantine/core'
-import LoaderLogo from '../../components/LoaderLogo/LoaderLogo'
+import { useDisclosure } from '@mantine/hooks'
 import { IconRotate } from '@tabler/icons-react'
-import AccordionItemWithMenu from '../../components/AccordionItemWithMenu/AccordionItemWithMenu'
 import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import AccordionItemWithMenu from '../../components/AccordionItemWithMenu/AccordionItemWithMenu'
+import BrewForm from '../../components/BrewForm/BrewForm'
+import LoaderLogo from '../../components/LoaderLogo/LoaderLogo'
+import PageTransitionWrapper from '../../components/PageTransitionWrapper/PageTransitionWrapper'
+import { usePageTitle } from '../../hooks/usePageTitle'
+import { fetchBrews } from '../../services/brewsService'
+import styles from './brews-page.module.scss'
 
 const BrewsPage = () => {
   const [coffeeSelectValue, setCoffeeSelectValue] = useState(null)
   const [methodSelectValue, setMethodSelectValue] = useState(null)
 
+  // Get the translations for the page
   const { t } = useTranslation()
 
   // Set the page title
-  usePageTitle('Brews')
+  usePageTitle(t('pageTitles.brewsPage'))
+
+  // Manage the state of the brew form modal
+  const [isBrewFormOpened, { open: openBrewForm, close: closeBrewForm }] =
+    useDisclosure()
 
   // Fetch all brews if it exists, otherwise default to an empty array
   const {
-    data: brews = [],
+    data: brews,
     error,
-    isLoading,
+    isPlaceholderData,
   } = useQuery({
     queryKey: ['brews'],
-    queryFn: () => axios.get('/api/brew').then((res) => res.data),
-    refetchOnWindowFocus: false, // Disable automatic refetch on window focus
+    queryFn: fetchBrews,
+    placeholderData: [], // Default data to an empty array
   })
 
   if (error) return <div>An error occurred: {error.message}</div>
@@ -47,20 +56,20 @@ const BrewsPage = () => {
 
   // Filter brews based on selected brewing method
   const filteredBrewsByMethod = brews.filter(
-    (brew) => !methodSelectValue || brew.method._id === methodSelectValue
+    (brew) => !methodSelectValue || brew.brewingMethod._id === methodSelectValue
   )
 
   // Get all brewing methods and remove duplicates based on selected coffee
   const brewingMethodsOptions = filteredBrewsByCoffee.reduce(
     (uniqueMethods, brew) => {
       const existingBrew = uniqueMethods.find(
-        (item) => item.value === brew.method._id
+        (item) => item.value === brew.brewingMethod._id
       )
 
       if (!existingBrew) {
         uniqueMethods.push({
-          value: brew.method._id,
-          label: t(brew.method.name),
+          value: brew.brewingMethod._id,
+          label: t(brew.brewingMethod.name),
         })
       }
 
@@ -98,63 +107,65 @@ const BrewsPage = () => {
         return false
 
       // If a method is selected, only include brews that use the selected method
-      if (methodSelectValue && brew.method._id !== methodSelectValue)
+      if (methodSelectValue && brew.brewingMethod._id !== methodSelectValue)
         return false
 
       // If neither coffee nor method is selected, or if the brew matches both selections, include the brew
       return true
     })
-    .map((brew) => (
-      <AccordionItemWithMenu key={brew._id} item={brew} variant='brew' />
-    ))
+    .map((brew) => <AccordionItemWithMenu key={brew._id} item={brew} />)
 
   return (
     <PageTransitionWrapper>
       <Container
         m={{ base: 10, xs: 20, sm: 40, lg: 50, xl: 60 }}
         p={0}
-        pos='relative' // FIXME: why when I use this I cant make the container take 100% height
+        pos='relative'
+        className={styles.container}
         fluid
       >
         <LoadingOverlay
-          visible={isLoading}
+          visible={isPlaceholderData}
           loaderProps={{ children: <LoaderLogo /> }}
           overlayProps={{ radius: 'sm', blur: 2 }}
         />
-        <Group wrap='nowrap'>
-          <Select
-            placeholder={t('brewsPage.allCoffees')}
-            data={coffeeOptions}
-            value={coffeeSelectValue}
-            onChange={setCoffeeSelectValue}
-            searchable
-            nothingFoundMessage={t('brewsPage.noCoffeesFound')}
-          />
-          <Select
-            placeholder={t('brewsPage.allMethods')}
-            data={brewingMethodsOptions}
-            value={methodSelectValue}
-            onChange={setMethodSelectValue}
-          />
-          <Tooltip
-            label={t('brewsPage.resetFilters')}
-            transitionProps={{ transition: 'pop' }}
-            withArrow
-            disabled={areSelectFieldsEmpty}
-            openDelay={500}
-          >
-            <ActionIcon
-              size='36'
-              variant='default'
-              onClick={resetSelections}
+        <Group justify='space-between' wrap='nowrap'>
+          <Group wrap='nowrap'>
+            <Select
+              placeholder={t('brewsPage.allCoffees')}
+              data={coffeeOptions}
+              value={coffeeSelectValue}
+              onChange={setCoffeeSelectValue}
+              searchable
+              nothingFoundMessage={t('brewsPage.noCoffeesFound')}
+            />
+            <Select
+              placeholder={t('brewsPage.allMethods')}
+              data={brewingMethodsOptions}
+              value={methodSelectValue}
+              onChange={setMethodSelectValue}
+            />
+            <Tooltip
+              label={t('brewsPage.resetFilters')}
+              transitionProps={{ transition: 'pop' }}
+              withArrow
               disabled={areSelectFieldsEmpty}
+              openDelay={500}
             >
-              <IconRotate
-                style={{ width: '70%', height: '70%' }}
-                stroke={1.5}
-              />
-            </ActionIcon>
-          </Tooltip>
+              <ActionIcon
+                size='36'
+                variant='default'
+                onClick={resetSelections}
+                disabled={areSelectFieldsEmpty}
+              >
+                <IconRotate stroke={1.5} />
+              </ActionIcon>
+            </Tooltip>
+          </Group>
+          <Button variant='outline' onClick={openBrewForm}>
+            {t('brewsPage.addBrew')}
+          </Button>
+          <BrewForm opened={isBrewFormOpened} onClose={closeBrewForm} />
         </Group>
         <Space h='lg' />
         <Accordion chevronPosition='left'>{items}</Accordion>

@@ -3,14 +3,18 @@ import { usePageTitle } from '../../hooks/usePageTitle'
 import { InventoryContext } from '../../contexts/InventoryContext'
 import { SimpleGrid } from '@mantine/core'
 import CoffeeCard from '../../components/CoffeeCard/CoffeeCard'
+import { useTranslation } from 'react-i18next'
 
 const CoffeesPage = () => {
   const { coffees, searchValue } = useContext(InventoryContext)
 
-  // Set the page title
-  usePageTitle('Coffees')
+  // Get the translations for the page
+  const { t } = useTranslation()
 
-  const items = coffees
+  // Set the page title
+  usePageTitle(t('pageTitles.coffeesPage'))
+
+  const items = (coffees.data || [])
     .filter((coffee) =>
       coffee.name.toLowerCase().includes(searchValue.toLowerCase())
     )

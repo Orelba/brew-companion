@@ -1,9 +1,24 @@
-// ADD //
-Cold Brew
+// BASIC FUNCTIONS //
+Add new coffee 
+delete coffee
+archive coffee
 
-// HEADER // 
-Fix header burger menu on mobile
-Check how the global font size changes and if it affects the header 3.5rem height (note the height I set in the layout AppShell)
+add new roastery
+delete roastery
+
+Make the BrewForm steps fit better
+
+Dark Mode
+
+// Archive //
+Only archive coffees
+When something is archived:
+It can't be seen in the BrewsPage nor in the filters.
+It can't be seen in the BrewForm
+It can't be seen in the Quickbrew
+
+// Assets //
+Make photos smaller to optimize performance
 
 // Inventory //
 merge the coffees and roasteries page?
@@ -14,8 +29,12 @@ Save only last 15 brews from a certain coffee in a certain brewing method
   Burundi bujumbura - Espresso
   when there are 15 start deleting the first ones by date
 
+// Footer // 
+Create routes for links
 
 // Ideas //
+Add Cold Brew
+
 Brew helper tool: 
   Let user choose brewing method and taste and offer ways to make brew better.
     Example: 

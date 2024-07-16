@@ -1,20 +1,42 @@
-import { AppShell } from '@mantine/core'
+import { AppShellFooter, Anchor, Container, Group, Text } from '@mantine/core'
 import { useTranslation } from 'react-i18next'
 import { APP_NAME } from '../../constants'
+import styles from './footer.module.scss'
 
-const Footer = () => {
+export function Footer() {
   const { t } = useTranslation()
 
-  return (
-    <AppShell.Footer
-      style={{
-        textAlign: 'center',
-        color:
-          'light-dark(var(--mantine-color-brown-9), var(--mantine-color-dark-0))',
-      }}
+  // TODO: Create routes
+  const links = [
+    { link: '#', label: t('footer.links.contact') },
+    { link: '#', label: t('footer.links.privacy') },
+    { link: '#', label: t('footer.links.tos') },
+  ]
+
+  const items = links.map((link) => (
+    <Anchor
+      c='dimmed'
+      key={link.label}
+      href={link.link}
+      onClick={(event) => event.preventDefault()}
+      size='sm'
     >
-      {t('footer.text', { year: new Date().getFullYear(), appName: APP_NAME })}
-    </AppShell.Footer>
+      {link.label}
+    </Anchor>
+  ))
+
+  return (
+    <AppShellFooter>
+      <Container className={styles.inner}>
+        <Text size='sm' c='dimmed'>
+          {t('footer.text', {
+            year: new Date().getFullYear(),
+            appName: APP_NAME,
+          })}
+        </Text>
+        <Group className={styles.links}>{items}</Group>
+      </Container>
+    </AppShellFooter>
   )
 }
 

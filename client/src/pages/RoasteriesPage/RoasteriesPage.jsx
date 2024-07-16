@@ -3,14 +3,18 @@ import { usePageTitle } from '../../hooks/usePageTitle'
 import { InventoryContext } from '../../contexts/InventoryContext'
 import { Accordion } from '@mantine/core'
 import AccordionItemWithMenu from '../../components/AccordionItemWithMenu/AccordionItemWithMenu'
+import { useTranslation } from 'react-i18next'
 
 const RoasteriesPage = () => {
   const { roasteries, searchValue } = useContext(InventoryContext)
 
-  // Set the page title
-  usePageTitle('Roasteries')
+  // Get the translations for the page
+  const { t } = useTranslation()
 
-  const items = roasteries
+  // Set the page title
+  usePageTitle(t('pageTitles.roasteriesPage'))
+
+  const items = (roasteries.data || [])
     .filter((roastery) =>
       roastery.name.toLowerCase().includes(searchValue.toLowerCase())
     )

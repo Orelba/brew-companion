@@ -1,18 +1,19 @@
-import { NavLink, useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 import {
-  // hooks
-  useMantineColorScheme,
   // components
   AppShellHeader,
-  Group,
   Burger,
+  Group,
   Image,
+  // hooks
+  useMantineColorScheme,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { LanguagePicker } from '../LanguagePicker/LanguagePicker'
-import styles from './header.module.scss'
 import cx from 'classnames'
+import { useTranslation } from 'react-i18next'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { LanguagePicker } from '../LanguagePicker/LanguagePicker'
+import SidebarNav from '../SidebarNav/SidebarNav'
+import styles from './header.module.scss'
 
 const Header = () => {
   const navigate = useNavigate()
@@ -20,8 +21,8 @@ const Header = () => {
   // Control language and direction
   const { t } = useTranslation()
 
-  // Control the burger menu
-  const [opened, { toggle }] = useDisclosure(false)
+  // Control the sidebar navigation menu
+  const [opened, { close, toggle }] = useDisclosure(false)
 
   const { colorScheme } = useMantineColorScheme()
 
@@ -61,6 +62,7 @@ const Header = () => {
             onClick={() => navigate('/')}
             className={styles.logo}
           />
+          <SidebarNav opened={opened} onClose={close} links={links} />
         </Group>
         <Group>
           <Group gap={5} visibleFrom='sm'>

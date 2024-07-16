@@ -1,39 +1,18 @@
-import { usePageTitle } from '../../hooks/usePageTitle'
+import '@mantine/carousel/styles.css'
+import { Button, Container, Overlay, Text, Title } from '@mantine/core'
+import '@mantine/core/styles.css'
 import { useTranslation } from 'react-i18next'
 import PageTransitionWrapper from '../../components/PageTransitionWrapper/PageTransitionWrapper'
-import {
-  Stack,
-  SimpleGrid,
-  Title,
-  Overlay,
-  Container,
-  Button,
-  Text,
-} from '@mantine/core'
-import CardButton from '../../components/CardButton/CardButton'
 import QuickBrewCarousel from '../../components/QuickBrewCarousel/QuickBrewCarousel'
-import '@mantine/core/styles.css'
-import '@mantine/carousel/styles.css'
+import { usePageTitle } from '../../hooks/usePageTitle'
 import styles from './home-page.module.scss'
 
 const HomePage = () => {
-  // Set the page title
-  usePageTitle('')
-
+  // Get the translations for the page
   const { t } = useTranslation()
 
-  const brewingMethods = [
-    { image: '/espresso.jpg', title: t('brewingMethods.espresso') },
-    { image: '/pour-over.jpg', title: t('brewingMethods.pourOver') },
-    { image: '/moka-pot.jpg', title: t('brewingMethods.mokaPot') },
-    { image: '/aeropress.jpg', title: t('brewingMethods.aeroPress') },
-    { image: '/french-press.jpg', title: t('brewingMethods.frenchPress') },
-    { image: '/turkish-cezve.jpg', title: t('brewingMethods.turkishCoffee') },
-  ]
-
-  const cards = brewingMethods.map((method, idx) => (
-    <CardButton key={idx} title={method.title} image={method.image} />
-  ))
+  // Set the page title
+  usePageTitle('')
 
   return (
     <PageTransitionWrapper>
@@ -44,8 +23,20 @@ const HomePage = () => {
           zIndex={0}
         />
         <Container className={styles.container} size='md'>
-          <Title className={styles.title}>{t('homePage.heroTitle')}</Title>
-          <Text className={styles.description} size='xl' mt='xl'>
+          <Title
+            className={styles.title}
+            c='var(--mantine-color-white)'
+            fw={900}
+          >
+            {t('homePage.heroTitle')}
+          </Title>
+          <Text
+            className={styles.description}
+            size='xl'
+            mt='xl'
+            c='var(--mantine-color-white)'
+            fw={100}
+          >
             {t('homePage.heroDescription')}
           </Text>
 
@@ -65,16 +56,6 @@ const HomePage = () => {
       </div>
 
       <QuickBrewCarousel />
-
-      {/* <Stack gap='md' justify='flex-start' align='center' m={50}>
-        <Stack gap='md' justify='flex-start' align='center'>
-          <Title order={2} style={{ alignSelf: 'flex-start' }}>
-            What are we brewing today?
-          </Title>
-
-          <SimpleGrid cols={{ base: 2, xs: 3 }}>{cards}</SimpleGrid>
-        </Stack>
-      </Stack> */}
     </PageTransitionWrapper>
   )
 }

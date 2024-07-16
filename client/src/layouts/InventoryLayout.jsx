@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
 import { useNavigate, useLocation, Outlet } from 'react-router-dom'
-import { InventoryContext } from '../../contexts/InventoryContext'
-import PageTransitionWrapper from '../PageTransitionWrapper/PageTransitionWrapper'
+import { InventoryContext } from '../contexts/InventoryContext'
+import PageTransitionWrapper from '../components/PageTransitionWrapper/PageTransitionWrapper'
 import { useTranslation } from 'react-i18next'
 import {
   Container,
@@ -25,9 +25,9 @@ const InventoryLayout = () => {
     useContext(InventoryContext)
 
   // Create an array of coffee or roastery names for the autocomplete
-  const autoCompleteData = (tab === 'coffees' ? coffees : roasteries).map(
-    (item) => item.name
-  )
+  const autoCompleteData = (
+    tab === 'coffees' ? coffees.data : roasteries.data
+  ).map((item) => item.name)
 
   const handleTabChange = (newTab) => {
     setTab(newTab)

@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 
 const BrewingMethodSchema = new Schema({
   name: { type: String, required: true },
+  image: { type: String },
 })
 
 const collectionName = 'brewing_methods'
