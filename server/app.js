@@ -6,6 +6,8 @@ import cors from 'cors'
 import compression from 'compression'
 import helmet from 'helmet'
 import createError from 'http-errors'
+import passport from 'passport'
+import passportConfig from './config/passport.js'
 
 // API Router
 import indexRouter from './routes/api/index.js'
@@ -48,6 +50,10 @@ app.use(
 
 // Compress response bodies for all requests
 app.use(compression())
+
+// Initialize Passport and configure it
+passportConfig(passport)
+app.use(passport.initialize())
 
 app.use('/api', indexRouter)
 
