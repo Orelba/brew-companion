@@ -1,9 +1,11 @@
 import '@mantine/carousel/styles.css'
 import { Button, Container, Overlay, Text, Title } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 import '@mantine/core/styles.css'
 import { useTranslation } from 'react-i18next'
 import PageTransitionWrapper from '../../components/PageTransitionWrapper/PageTransitionWrapper'
 import QuickBrewCarousel from '../../components/QuickBrewCarousel/QuickBrewCarousel'
+import AuthForm from '../../components/AuthForm/AuthForm'
 import { usePageTitle } from '../../hooks/usePageTitle'
 import styles from './home-page.module.scss'
 
@@ -13,6 +15,12 @@ const HomePage = () => {
 
   // Set the page title
   usePageTitle('')
+
+  // Manage the state of the AuthForm modal
+  const [
+    isAuthFormModalOpened,
+    { open: openAuthFormModal, close: closeAuthFormModal },
+  ] = useDisclosure()
 
   return (
     <PageTransitionWrapper>
@@ -40,6 +48,7 @@ const HomePage = () => {
             {t('homePage.heroDescription')}
           </Text>
 
+          {/* Auth form button and modal*/}
           <Button
             variant='gradient'
             gradient={{
@@ -49,9 +58,14 @@ const HomePage = () => {
             size='xl'
             radius='xl'
             className={styles.control}
+            onClick={openAuthFormModal}
           >
             {t('homePage.heroButtonText')}
           </Button>
+          <AuthForm
+            opened={isAuthFormModalOpened}
+            onClose={closeAuthFormModal}
+          />
         </Container>
       </div>
 
