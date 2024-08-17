@@ -3,7 +3,7 @@ import axios from 'axios'
 // Fetch all brews
 const fetchBrews = async () => {
   try {
-    const response = await axios.get('api/brews')
+    const response = await axios.get('/api/brews')
     return response.data
   } catch (error) {
     throw new Error('Failed to fetch brews')
@@ -13,7 +13,7 @@ const fetchBrews = async () => {
 // Fetch recent brews in a minimal format
 const fetchRecentBrews = async () => {
   try {
-    const response = await axios.get('api/brews/recent')
+    const response = await axios.get('/api/brews/recent')
     return response.data
   } catch (error) {
     throw new Error('Failed to fetch brews')
@@ -23,7 +23,7 @@ const fetchRecentBrews = async () => {
 // Create a new brew
 const createBrew = async (brew) => {
   try {
-    const response = await axios.post('api/brews/create', brew)
+    const response = await axios.post('/api/brews/create', brew)
     return response.data
   } catch (error) {
     throw new Error('Failed to create brew')
@@ -33,7 +33,7 @@ const createBrew = async (brew) => {
 // Fetch one brew for update (Unpopulated fields)
 const fetchBrewForUpdate = async (brewId) => {
   try {
-    const response = await axios.get(`api/brews/${brewId}/update`)
+    const response = await axios.get(`/api/brews/${brewId}/update`)
     return response.data
   } catch (error) {
     throw new Error('Failed to fetch brew')
@@ -43,7 +43,7 @@ const fetchBrewForUpdate = async (brewId) => {
 // Update an existing brew
 const updateBrew = async (brew) => {
   try {
-    const response = await axios.put(`api/brews/${brew._id}/update`, brew)
+    const response = await axios.put(`/api/brews/${brew._id}/update`, brew)
     return response.data
   } catch (error) {
     throw new Error('Failed to update brew')
@@ -53,7 +53,7 @@ const updateBrew = async (brew) => {
 // Delete a brew
 const deleteBrew = async (brew) => {
   try {
-    await axios.delete(`api/brews/${brew._id}/delete`)
+    await axios.delete(`/api/brews/${brew._id}/delete`)
   } catch (error) {
     throw new Error('Failed to delete brew')
   }
