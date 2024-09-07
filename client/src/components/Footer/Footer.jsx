@@ -26,7 +26,7 @@ export function Footer() {
   ))
 
   return (
-    <AppShellFooter>
+    <AppShellFooter className={styles.footer}>
       <Container className={styles.inner}>
         <Text size='sm' c='dimmed'>
           {t('footer.text', {

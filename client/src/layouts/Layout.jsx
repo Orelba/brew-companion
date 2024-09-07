@@ -6,7 +6,18 @@ import ScrollToTop from '../components/ScrollToTop/ScrollToTop'
 
 const Layout = () => {
   return (
-    <AppShell header={{ height: rem(56) }}>
+    <AppShell
+      styles={{
+        main: {
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: 1, // Ensure the main section grows to fill available space
+        },
+      }}
+      header={{ height: rem(56) }}
+      footer={{ height: rem(70) }}
+    >
       <Header />
 
       <AppShell.Main>
