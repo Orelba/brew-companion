@@ -1,25 +1,24 @@
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { usePageTitle } from '../../hooks/usePageTitle'
+import { useDisclosure } from '@mantine/hooks'
+import { useQuery } from '@tanstack/react-query'
+import { fetchBrews } from '../../services/brewsService'
 import {
   Accordion,
   ActionIcon,
   Button,
   Container,
   Group,
-  LoadingOverlay,
   Select,
   Space,
   Tooltip,
 } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
 import { IconRotate } from '@tabler/icons-react'
-import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import AccordionItemWithMenu from '../../components/AccordionItemWithMenu/AccordionItemWithMenu'
 import BrewForm from '../../components/BrewForm/BrewForm'
-import LoaderLogo from '../../components/LoaderLogo/LoaderLogo'
+import ContentLoader from '../../components/ContentLoader/ContentLoader'
 import PageTransitionWrapper from '../../components/PageTransitionWrapper/PageTransitionWrapper'
-import { usePageTitle } from '../../hooks/usePageTitle'
-import { fetchBrews } from '../../services/brewsService'
 import styles from './brews-page.module.scss'
 
 const BrewsPage = () => {
@@ -117,18 +116,13 @@ const BrewsPage = () => {
 
   return (
     <PageTransitionWrapper>
+      <ContentLoader visible={isPlaceholderData} />
       <Container
         m={{ base: 10, xs: 20, sm: 40, lg: 50, xl: 60 }}
         p={0}
-        pos='relative'
         className={styles.container}
         fluid
       >
-        <LoadingOverlay
-          visible={isPlaceholderData}
-          loaderProps={{ children: <LoaderLogo /> }}
-          overlayProps={{ radius: 'sm', blur: 2 }}
-        />
         <Group justify='space-between' wrap='nowrap'>
           <Group wrap='nowrap'>
             <Select
