@@ -17,7 +17,7 @@ import {
 import { IconRotate } from '@tabler/icons-react'
 import AccordionItemWithMenu from '../../components/AccordionItemWithMenu/AccordionItemWithMenu'
 import BrewForm from '../../components/BrewForm/BrewForm'
-import ContentLoader from '../../components/ContentLoader/ContentLoader'
+import useLoadingScreen from '../../hooks/useLoadingScreen'
 import PageTransitionWrapper from '../../components/PageTransitionWrapper/PageTransitionWrapper'
 import styles from './brews-page.module.scss'
 
@@ -45,6 +45,9 @@ const BrewsPage = () => {
     queryFn: fetchBrews,
     placeholderData: [], // Default data to an empty array
   })
+
+  // Set the global loading state based on the use of placeholder data
+  useLoadingScreen(isPlaceholderData, t('loading.brews'))
 
   if (error) return <div>An error occurred: {error.message}</div>
 
@@ -116,7 +119,6 @@ const BrewsPage = () => {
 
   return (
     <PageTransitionWrapper>
-      <ContentLoader visible={isPlaceholderData} />
       <Container
         m={{ base: 10, xs: 20, sm: 40, lg: 50, xl: 60 }}
         p={0}

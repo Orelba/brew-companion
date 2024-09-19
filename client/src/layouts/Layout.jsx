@@ -1,10 +1,15 @@
+import { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
 import { AppShell, rem } from '@mantine/core'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
 import ScrollToTop from '../components/ScrollToTop/ScrollToTop'
+import LoadingScreenContext from '../contexts/LoadingScreenContext'
+import ContentLoader from '../components/ContentLoader/ContentLoader'
 
 const Layout = () => {
+  const { isLoading, loadingText } = useContext(LoadingScreenContext)
+
   return (
     <AppShell
       styles={{
@@ -22,6 +27,7 @@ const Layout = () => {
 
       <AppShell.Main>
         <ScrollToTop />
+        <ContentLoader visible={isLoading} text={loadingText} />
         <Outlet />
       </AppShell.Main>
 

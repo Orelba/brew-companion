@@ -4,6 +4,7 @@ import { InventoryContext } from '../../contexts/InventoryContext'
 import { SimpleGrid } from '@mantine/core'
 import CoffeeCard from '../../components/CoffeeCard/CoffeeCard'
 import { useTranslation } from 'react-i18next'
+import useLoadingScreen from '../../hooks/useLoadingScreen'
 
 const CoffeesPage = () => {
   const { coffees, searchValue } = useContext(InventoryContext)
@@ -13,6 +14,11 @@ const CoffeesPage = () => {
 
   // Set the page title
   usePageTitle(t('pageTitles.coffeesPage'))
+
+  const { isPlaceholderData } = coffees
+
+  // Set the global loading state based on the use of placeholder data
+  useLoadingScreen(isPlaceholderData, t('loading.coffees'))
 
   const items = (coffees.data || [])
     .filter((coffee) =>
