@@ -1,4 +1,5 @@
 // BASIC FUNCTIONS //
+USE LIGHTER IMAGES ALL AROUND (maybe different one for each screen size)
 Add new coffee 
 delete coffee
 archive coffee

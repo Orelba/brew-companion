@@ -65,7 +65,7 @@ app.use((req, res, next) => {
 // Error handler
 app.use((err, req, res, next) => {
   // Determine if in development mode
-  const isDevelopment = req.app.get('env') === 'development'
+  const isDevelopment = process.env.NODE_ENV
 
   // Set locals, only providing error in development
   res.locals.message = err.message

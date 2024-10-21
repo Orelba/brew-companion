@@ -2,7 +2,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-
 import {
   ActionIcon,
   Button,
@@ -342,7 +341,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       onClose={closeAndReset}
       fullScreen={matchesSmallScreen}
       size='xl'
-      // mih={10}
+      // mih={10} // TODO: FIX OR DELETE
       onClick={(event) => event.stopPropagation()}
     >
       <Stepper active={active} onStepClick={setActive}>

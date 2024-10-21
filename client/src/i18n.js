@@ -15,6 +15,31 @@ i18next
     resources: {
       en: {
         translation: {
+          notifications: {
+            loginSuccessful: 'Login successful!',
+            loginFailed: 'Login failed',
+            logoutSuccessful: 'Logout successful',
+            logoutFailed: 'Logout failed. Please try again later.',
+            passwordResetEmailSent:
+              'If an account with that email exists, a reset link has been sent.',
+            noServerResponse: 'No server response',
+            missingEmailOrPassword: 'Missing email or password',
+            invalidEmailOrPassword: 'Invalid email or password',
+            termsAgreementError:
+              'You must read and agree to the terms and conditions',
+            registrationSuccessful: 'Registration successful!',
+            registrationFailed: 'Registration failed. Please try again later.',
+            usernameAlreadyExists:
+              'The username you selected is already taken. Please choose a different one.',
+            emailAlreadyExists:
+              'The email you chose is already registered. Please try logging in or resetting your password.',
+            unexpectedError: 'An error has occurred. Please try again later.',
+          },
+          loading: {
+            coffees: 'Loading Your Coffees...',
+            brews: 'Loading Your Brews...',
+            passwordReset: 'Validating...',
+          },
           pageTitles: {
             brewsPage: 'Brews',
             coffeesPage: 'Coffees',
@@ -41,14 +66,17 @@ i18next
               'Elevate your coffee experience - log and refine your brewing results. Unlock the art of coffee brewing, one cup at a time.',
             heroButtonText: 'Get Brewing',
           },
-          authForm: {
+          auth: {
             welcome: 'Welcome, {{formType}} with',
             login: 'login',
             register: 'register',
             resetPassword: 'reset password',
+            changePassword: 'Change your password',
             validation: {
+              usernameInvalid: 'Username should include at least 3 characters',
               emailInvalid: 'Invalid email',
               passwordInvalid: 'Password should include at least 8 characters',
+              passwordMismatch: 'Passwords must match',
             },
             inputs: {
               emailLabel: 'Email',
@@ -57,13 +85,24 @@ i18next
               usernamePlaceholder: 'Your username',
               passwordLabel: 'Password',
               passwordPlaceholder: 'Your password',
+              confirmPasswordLabel: 'Password Confirmation',
+              confirmPasswordPlaceholder: 'Confirm your new password',
               termsAndConditions:
                 'I have read and agree to the terms and conditions',
             },
             forgotYourPassword: 'Forgot your password?',
+            persistLogin: 'Keep me signed in',
             callToLogin: 'Already have an account? Login',
             callToRegister: "Don't have an account? Register",
             callToGoBack: 'Back to the login page',
+          },
+          passwordResetPage: {
+            title: 'Reset Your Password',
+            subtitle: 'Choose a new password to complete the process',
+            linkInvalid:
+              'It looks like this link is no longer valid. Please request a new password reset link.',
+            passwordResetSuccessful:
+              'Password reset successfully! You can now log in using your new password.',
           },
           quickBrewCarousel: {
             title: 'Quick Brew',
@@ -149,6 +188,29 @@ i18next
       },
       he: {
         translation: {
+          notifications: {
+            loginSuccessful: 'התחברת בהצלחה!',
+            loginFailed: 'ההתחברות נכשלה',
+            logoutSuccessful: 'התנתקת בהצלחה',
+            logoutFailed: 'ההתנתקות נכשלה. אנא נסה שנית מאוחר יותר.',
+            passwordResetEmailSent:
+              'לינק לשחזור סיסמה ישלח לכתובת המייל שציינת במידה והחשבון קיים במערכת.',
+            noServerResponse: 'אין תגובה מהשרת',
+            missingEmailOrPassword: 'אחר או יותר מהפרטים חסרים',
+            invalidEmailOrPassword: 'אחד או יותר מהפרטים שהזנת שגויים',
+            termsAgreementError: 'עליך לקרוא ולהסכים לתנאים ולהגבלות',
+            registrationSuccessful: 'נרשמת בהצלחה!',
+            registrationFailed: 'ההרשמה נכשלה. אנא נסה שנית מאוחר יותר.',
+            usernameAlreadyExists: 'שם המשתמש שבחרת כבר תפוס, אנא בחר אחד אחר',
+            emailAlreadyExists:
+              'האימייל שבחרת כבר רשום במערכת, אנא נסה להתחבר או לשחזר את הסיסמה.',
+            unexpectedError: 'אירעה שגיאה. אנא נסה שוב מאוחר יותר.',
+          },
+          loading: {
+            coffees: 'טוען את רשימת הקפה שלך...',
+            brews: 'טוען את הלוג...',
+            passwordReset: 'מאמת פרטים...',
+          },
           pageTitles: {
             brewsPage: 'לוג קפה',
             coffeesPage: 'קליות',
@@ -174,14 +236,16 @@ i18next
             heroDescription: 'שפר את חוויית הקפה שלך - כוס אחת בכל פעם.',
             heroButtonText: 'התחל עכשיו',
           },
-          authForm: {
+          auth: {
             welcome: 'ברוך הבא, {{formType}} עם',
             login: 'התחבר',
             register: 'הירשם',
-            resetPassword: 'שחזר סיסמה',
+            resetPassword: 'אפס סיסמה',
             validation: {
+              usernameInvalid: 'שם המשתמש חייב לכלול לפחות 3 תווים',
               emailInvalid: 'דואר אלקטרוני לא תקין',
               passwordInvalid: 'הסיסמה חייבת לכלול לפחות 8 תווים',
+              passwordMismatch: 'הסיסמאות חייבות להיות זהות',
             },
             inputs: {
               emailLabel: 'אימייל',
@@ -190,12 +254,21 @@ i18next
               usernamePlaceholder: 'שם המשתמש שלך',
               passwordLabel: 'סיסמה',
               passwordPlaceholder: 'הסיסמה שלך',
+              confirmPasswordLabel: 'אישור סיסמה',
+              confirmPasswordPlaceholder: 'אשר את הסיסמה החדשה שלך',
               termsAndConditions: 'קראתי ואני מסכים/ה לתנאים וההגבלות',
             },
             forgotYourPassword: 'שכחת סיסמה?',
+            persistLogin: 'השאר אותי מחובר',
             callToLogin: 'כבר יש לך משתמש? להתחברות לחץ כאן',
             callToRegister: 'אין לך משתמש? להרשמה לחץ כאן',
             callToGoBack: 'חזרה להתחברות',
+          },
+          passwordResetPage: {
+            title: 'אפס את הסיסמה שלך',
+            subtitle: 'בחר סיסמה חדשה כדי להשלים את התהליך',
+            linkInvalid:
+              'נראה שהקישור הזה פג תוקף. אנא בקש קישור חדש לאיפוס הסיסמה שלך.',
           },
           quickBrewCarousel: {
             title: 'הכנה מהירה',

@@ -1,11 +1,12 @@
-import '@mantine/carousel/styles.css'
 import { Button, Container, Overlay, Text, Title } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
 import '@mantine/core/styles.css'
+import { useDisclosure } from '@mantine/hooks'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate } from 'react-router-dom'
+import AuthForm from '../../components/AuthForm/AuthForm'
 import PageTransitionWrapper from '../../components/PageTransitionWrapper/PageTransitionWrapper'
 import QuickBrewCarousel from '../../components/QuickBrewCarousel/QuickBrewCarousel'
-import AuthForm from '../../components/AuthForm/AuthForm'
 import { usePageTitle } from '../../hooks/usePageTitle'
 import styles from './home-page.module.scss'
 
@@ -16,11 +17,27 @@ const HomePage = () => {
   // Set the page title
   usePageTitle('')
 
+  // Handle navigation and track the current URL for modal management
+  const navigate = useNavigate()
+  const location = useLocation()
+
   // Manage the state of the AuthForm modal
-  const [
-    isAuthFormModalOpened,
-    { open: openAuthFormModal, close: closeAuthFormModal },
-  ] = useDisclosure()
+  const [isAuthFormModalOpened, { open, close }] = useDisclosure()
+
+  const openAuthFormModal = () => {
+    navigate('/auth')
+  }
+
+  const closeAuthFormModal = () => {
+    close()
+    navigate('/')
+  }
+
+  useEffect(() => {
+    if (location.pathname === '/auth') {
+      open()
+    }
+  }, [location.pathname, open])
 
   return (
     <PageTransitionWrapper>

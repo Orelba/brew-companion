@@ -1,17 +1,19 @@
+import { AuthProvider } from './contexts/AuthProvider'
 import {
   createTheme,
   DirectionProvider,
   Drawer,
   Modal,
   MantineProvider,
-  LoadingOverlay,
 } from '@mantine/core'
+import { LoadingScreenProvider } from './contexts/LoadingScreenContext'
+import { Notifications } from '@mantine/notifications'
 import { generateColors } from '@mantine/colors-generator'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Router from './Router'
 import 'non.geist' // Vercel Geist Sans Font
 import { useTranslation } from 'react-i18next'
-import LoaderLogo from './components/LoaderLogo/LoaderLogo'
+import ContentLoader from './components/ContentLoader/ContentLoader'
 
 const App = () => {
   // Initialize the query client for React Query
@@ -56,25 +58,25 @@ const App = () => {
   })
 
   return (
-    <DirectionProvider>
-      <MantineProvider
-        theme={theme}
-        // defaultColorScheme='dark' // TODO: add a dark mode toggle
-      >
-        {ready ? (
-          <QueryClientProvider client={queryClient}>
-            <Router />
-          </QueryClientProvider>
-        ) : (
-          <LoadingOverlay
-            visible
-            loaderProps={{ children: <LoaderLogo /> }}
-            overlayProps={{ radius: 'sm', blur: 2 }}
-            transitionProps={{ duration: 0 }}
-          />
-        )}
-      </MantineProvider>
-    </DirectionProvider>
+    <AuthProvider>
+      <DirectionProvider>
+        <MantineProvider
+          theme={theme}
+          // defaultColorScheme='dark' // TODO: add a dark mode toggle
+        >
+          <LoadingScreenProvider>
+            <Notifications />
+            {ready ? (
+              <QueryClientProvider client={queryClient}>
+                <Router />
+              </QueryClientProvider>
+            ) : (
+              <ContentLoader visible transitionProps={{ duration: 0 }} />
+            )}
+          </LoadingScreenProvider>
+        </MantineProvider>
+      </DirectionProvider>
+    </AuthProvider>
   )
 }
 

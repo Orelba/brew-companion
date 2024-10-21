@@ -10,12 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@eslint/config-array": "^0.18.0",
     "@mantine/carousel": "^7.6.2",
     "@mantine/colors-generator": "^7.6.2",
     "@mantine/core": "^7.6.2",
     "@mantine/dates": "^7.6.2",
     "@mantine/form": "^7.6.2",
     "@mantine/hooks": "^7.6.2",
+    "@mantine/notifications": "^7.12.0",
     "@tabler/icons-react": "^3.1.0",
     "@tanstack/react-query": "^5.29.2",
     "axios": "^1.6.2",
@@ -27,14 +29,14 @@
     "non.geist": "^1.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-i18next": "^14.1.0",
+    "react-i18next": "^15.0.0",
     "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react-swc": "^3.5.0",
-    "eslint": "8.57.0",
+    "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",

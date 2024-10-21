@@ -1,4 +1,6 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import PersistLogin from './components/PersistLogin/PersistLogin'
+import RequireAuth from './components/RequireAuth/RequireAuth'
 import { InventoryProvider } from './contexts/InventoryContext'
 import Layout from './layouts/Layout'
 import HomePage from './pages/HomePage/HomePage'
@@ -7,7 +9,10 @@ import BrewsPage from './pages/BrewsPage/BrewsPage'
 import InventoryLayout from './layouts/InventoryLayout'
 import CoffeesPage from './pages/CoffeesPage/CoffeesPage'
 import RoasteriesPage from './pages/RoasteriesPage/RoasteriesPage'
+import AuthForm from './components/AuthForm/AuthForm'
+import PasswordResetPage from './pages/PasswordResetPage/PasswordResetPage'
 
+// TODO: Consider: Make the Authform get a state of type and go to /auth/login /auth/register /auth/reset-password
 const Router = () => {
   // Initialize a browser router
   const router = createBrowserRouter([
@@ -19,22 +24,42 @@ const Router = () => {
         {
           path: '/',
           element: <HomePage />,
+          children: [
+            {
+              path: '/auth',
+              element: <AuthForm />,
+            },
+          ],
+        },
+        {
+          path: '/reset-password/:token',
+          element: <PasswordResetPage />,
         },
         {
           path: '/brews',
-          element: <BrewsPage />,
+          element: (
+            <PersistLogin>
+              <RequireAuth>
+                <BrewsPage />
+              </RequireAuth>
+            </PersistLogin>
+          ),
         },
         {
           path: '/inventory',
           element: (
-            <InventoryProvider>
-              <InventoryLayout />
-            </InventoryProvider>
+            <PersistLogin>
+              <RequireAuth>
+                <InventoryProvider>
+                  <InventoryLayout />
+                </InventoryProvider>
+              </RequireAuth>
+            </PersistLogin>
           ),
           children: [
             {
               index: true,
-              element: <Navigate to="coffees" replace />,
+              element: <Navigate to='coffees' replace />,
             },
             {
               path: 'coffees',

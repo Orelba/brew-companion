@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react'
 import {
   // components
   AppShellHeader,
   Burger,
+  Button,
   Group,
   Image,
   // hooks
@@ -9,6 +11,8 @@ import {
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import cx from 'classnames'
+import useAuth from '../../hooks/useAuth'
+import useLogout from '../../hooks/useLogout'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { LanguagePicker } from '../LanguagePicker/LanguagePicker'
@@ -17,6 +21,9 @@ import styles from './header.module.scss'
 
 const Header = () => {
   const navigate = useNavigate()
+
+  const { auth } = useAuth()
+  const logout = useLogout()
 
   // Control language and direction
   const { t } = useTranslation()
@@ -50,6 +57,11 @@ const Header = () => {
     </NavLink>
   ))
 
+  const handleLogout = async () => {
+    await logout()
+    navigate('/')
+  }
+
   return (
     <AppShellHeader className={styles.header}>
       <div className={styles.inner}>
@@ -68,6 +80,9 @@ const Header = () => {
           <Group gap={5} visibleFrom='sm'>
             {items}
             <LanguagePicker />
+            {!!auth?.accessToken && (
+              <Button onClick={handleLogout}>Log out</Button>
+            )}
           </Group>
         </Group>
       </div>
