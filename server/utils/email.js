@@ -16,7 +16,7 @@ const sendEmail = async (options) => {
   })
 
   const emailOptions = {
-    from: '"BrewCompanion Support" <BrewCompanion@trial-0r83ql3d070gzw1j.mlsender.net>',
+    from: `"BrewCompanion Support" <${process.env.SMTP_USER}>`,
     to: options.email,
     subject: options.subject,
     text: options.message,
