@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router'
 import PersistLogin from './components/PersistLogin/PersistLogin'
 import RequireAuth from './components/RequireAuth/RequireAuth'
 import { InventoryProvider } from './contexts/InventoryContext'
@@ -23,7 +23,12 @@ const Router = () => {
       children: [
         {
           path: '/',
-          element: <HomePage />,
+          element: (
+            // TODO: Is this the correct way?
+            <PersistLogin>
+              <HomePage />
+            </PersistLogin>
+          ),
           children: [
             {
               path: '/auth',

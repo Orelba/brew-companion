@@ -2,7 +2,7 @@ import { Drawer } from '@mantine/core'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router'
 import { LanguagePicker } from '../LanguagePicker/LanguagePicker'
 import styles from './sidebar-nav.module.scss'
 

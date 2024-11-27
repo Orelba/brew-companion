@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
 import { login, register, forgotPassword } from '../../services/AuthService'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import {
   Anchor,

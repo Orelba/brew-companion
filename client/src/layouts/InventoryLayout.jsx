@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
-import { useNavigate, useLocation, Outlet } from 'react-router-dom'
+import { useNavigate, useLocation, Outlet } from 'react-router'
 import { InventoryContext } from '../contexts/InventoryContext'
 import PageTransitionWrapper from '../components/PageTransitionWrapper/PageTransitionWrapper'
 import { useTranslation } from 'react-i18next'

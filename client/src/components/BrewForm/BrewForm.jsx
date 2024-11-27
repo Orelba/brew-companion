@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import {
   ActionIcon,
   Button,
@@ -306,7 +306,6 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       )
     },
     onSettled: (updatedBrew, err, variables, context) => {
-      console.log('settle', context.updatedBrew._id)
       queryClient.invalidateQueries({ queryKey: ['brews'] })
       queryClient.invalidateQueries({ queryKey: ['latestBrews'] })
       queryClient.invalidateQueries({

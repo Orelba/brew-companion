@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { useForm } from '@mantine/form'
 import {
@@ -95,8 +95,7 @@ const PasswordResetPage = () => {
   }, [isError, navigate, t])
 
   if (isLoading) {
-    // TODO: DELETE
-    return <h1>LOADING</h1>
+    return null
   }
 
   return (

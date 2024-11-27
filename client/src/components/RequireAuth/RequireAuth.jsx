@@ -1,4 +1,4 @@
-import { useLocation, Navigate } from 'react-router-dom'
+import { useLocation, Navigate } from 'react-router'
 import useAuth from '../../hooks/useAuth'
 
 const RequireAuth = ({ children }) => {
