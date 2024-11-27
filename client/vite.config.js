@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import path from 'node:path'
-import process from 'node:process'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,10 +13,16 @@ export default defineConfig({
       },
     },
   },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "./src/styles/mantine" as mantine;`,
+        api: 'modern-compiler',
+        additionalData: `@use "@/styles/_mantine" as mantine;`,
       },
     },
   },
