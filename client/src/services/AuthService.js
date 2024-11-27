@@ -3,11 +3,13 @@ import { axiosPrivate } from './axiosInstance'
 
 const AUTH_URL = '/api/auth'
 
-// TODO: DELETE?
-const getCurrentUser = async () => {
+const getCurrentUser = async (accessToken) => {
   try {
-    const response = await axiosInstance.get(`${AUTH_URL}/me`, {
+    const response = await axiosPrivate.get(`${AUTH_URL}/me`, {
       withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     })
     return response.data
   } catch (error) {

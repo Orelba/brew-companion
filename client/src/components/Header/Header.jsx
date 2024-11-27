@@ -1,29 +1,27 @@
-import { useState, useEffect } from 'react'
 import {
   // components
   AppShellHeader,
   Burger,
-  Button,
   Group,
   Image,
   // hooks
-  useMantineColorScheme,
+  useComputedColorScheme,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import cx from 'classnames'
 import useAuth from '../../hooks/useAuth'
-import useLogout from '../../hooks/useLogout'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { LanguagePicker } from '../LanguagePicker/LanguagePicker'
+import UserDropdownMenu from '../UserDropdownMenu/UserDropdownMenu'
 import SidebarNav from '../SidebarNav/SidebarNav'
 import styles from './header.module.scss'
+import ColorSchemeSwitch from '../ColorSchemeSwitch/ColorSchemeSwitch'
 
 const Header = () => {
   const navigate = useNavigate()
 
   const { auth } = useAuth()
-  const logout = useLogout()
 
   // Control language and direction
   const { t } = useTranslation()
@@ -31,11 +29,11 @@ const Header = () => {
   // Control the sidebar navigation menu
   const [opened, { close, toggle }] = useDisclosure(false)
 
-  const { colorScheme } = useMantineColorScheme()
+  const computedColorScheme = useComputedColorScheme()
 
   // Change logo based on color scheme
   const logo =
-    colorScheme === 'dark'
+    computedColorScheme === 'dark'
       ? '/brew-companion-logo-light.svg'
       : '/brew-companion-logo-dark.svg'
 
@@ -57,11 +55,6 @@ const Header = () => {
     </NavLink>
   ))
 
-  const handleLogout = async () => {
-    await logout()
-    navigate('/')
-  }
-
   return (
     <AppShellHeader className={styles.header}>
       <div className={styles.inner}>
@@ -80,9 +73,8 @@ const Header = () => {
           <Group gap={5} visibleFrom='sm'>
             {items}
             <LanguagePicker />
-            {!!auth?.accessToken && (
-              <Button onClick={handleLogout}>Log out</Button>
-            )}
+            <ColorSchemeSwitch />
+            {!!auth?.accessToken && <UserDropdownMenu auth={auth} />}
           </Group>
         </Group>
       </div>

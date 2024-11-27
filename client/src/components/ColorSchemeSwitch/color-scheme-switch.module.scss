@@ -1,0 +1,24 @@
+.icon {
+  width: 22px;
+  height: 22px;
+}
+
+.dark {
+  @include mantine.dark {
+    display: none;
+  }
+
+  @include mantine.light {
+    display: block;
+  }
+}
+
+.light {
+  @include mantine.light {
+    display: none;
+  }
+
+  @include mantine.dark {
+    display: block;
+  }
+}

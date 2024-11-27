@@ -1,12 +1,12 @@
 // LanguagePicker Component
 .control {
-  width: rem(130px);
+  width: mantine.rem(130px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: rem(8px) rem(10px) !important;
+  padding: mantine.rem(8px) mantine.rem(10px) !important;
   border-radius: var(--mantine-radius-sm);
-  border: rem(1px) solid
+  border: mantine.rem(1px) solid
     light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-6)) !important;
   transition: background-color 150ms ease;
   background-color: light-dark(

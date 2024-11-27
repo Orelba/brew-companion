@@ -60,10 +60,7 @@ const App = () => {
   return (
     <AuthProvider>
       <DirectionProvider>
-        <MantineProvider
-          theme={theme}
-          // defaultColorScheme='dark' // TODO: add a dark mode toggle
-        >
+        <MantineProvider theme={theme}>
           <LoadingScreenProvider>
             <Notifications />
             {ready ? (

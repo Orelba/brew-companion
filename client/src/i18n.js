@@ -34,6 +34,8 @@ i18next
             emailAlreadyExists:
               'The email you chose is already registered. Please try logging in or resetting your password.',
             unexpectedError: 'An error has occurred. Please try again later.',
+            userInfoFetchError:
+              'Something went wrong. User info cannot be accessed at the moment.',
           },
           loading: {
             coffees: 'Loading Your Coffees...',
@@ -95,6 +97,10 @@ i18next
             callToLogin: 'Already have an account? Login',
             callToRegister: "Don't have an account? Register",
             callToGoBack: 'Back to the login page',
+          },
+          userDropdownMenu: {
+            accountSettings: 'Account settings',
+            logout: 'Logout',
           },
           passwordResetPage: {
             title: 'Reset Your Password',
@@ -205,6 +211,8 @@ i18next
             emailAlreadyExists:
               'האימייל שבחרת כבר רשום במערכת, אנא נסה להתחבר או לשחזר את הסיסמה.',
             unexpectedError: 'אירעה שגיאה. אנא נסה שוב מאוחר יותר.',
+            userInfoFetchError:
+              'אירעה שגיאה. אין אפשרות לגשת לפרטי המשתמש כרגע.',
           },
           loading: {
             coffees: 'טוען את רשימת הקפה שלך...',
@@ -263,6 +271,10 @@ i18next
             callToLogin: 'כבר יש לך משתמש? להתחברות לחץ כאן',
             callToRegister: 'אין לך משתמש? להרשמה לחץ כאן',
             callToGoBack: 'חזרה להתחברות',
+          },
+          userDropdownMenu: {
+            accountSettings: 'הגדרות',
+            logout: 'התנתק',
           },
           passwordResetPage: {
             title: 'אפס את הסיסמה שלך',

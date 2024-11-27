@@ -322,14 +322,21 @@ const refresh = async (req, res, next) => {
   }
 }
 
-// TODO: DO I NEED THESE?
 const getCurrentUser = asyncHandler((req, res, next) => {
   if (!req.user) {
     return res.status(404).json({ message: 'User not found' })
   }
-  res.json(req.user)
+
+  const user = {
+    id: req.user.id,
+    username: req.user.username,
+    email: req.user.email,
+  }
+
+  res.json(user)
 })
 
+// TODO: DO I NEED THIS?
 const users = asyncHandler(async (req, res, next) => {
   const users = await User.find().select('username email')
 
