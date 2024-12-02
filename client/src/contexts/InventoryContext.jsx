@@ -7,6 +7,7 @@ export const InventoryContext = createContext()
 
 export const InventoryProvider = ({ children }) => {
   const [searchValue, setSearchValue] = useState('')
+  const [isArchive, setIsArchive] = useState(false)
 
   // Extract the data from the queries if it exists, otherwise default to an empty array
   const coffees = useQuery({
@@ -23,7 +24,14 @@ export const InventoryProvider = ({ children }) => {
 
   return (
     <InventoryContext.Provider
-      value={{ coffees, roasteries, searchValue, setSearchValue }}
+      value={{
+        coffees,
+        roasteries,
+        searchValue,
+        setSearchValue,
+        isArchive,
+        setIsArchive,
+      }}
     >
       {children}
     </InventoryContext.Provider>

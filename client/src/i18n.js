@@ -180,6 +180,7 @@ i18next
           inventoryLayout: {
             coffees: 'Coffees',
             roasteries: 'Roasteries',
+            archive: 'Archive',
             search: 'Search',
           },
           footer: {
@@ -352,6 +353,7 @@ i18next
           inventoryLayout: {
             coffees: 'קליות',
             roasteries: 'בתי קלייה',
+            archive: 'ארכיון',
             search: 'חיפוש',
           },
           footer: {

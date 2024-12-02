@@ -10,6 +10,7 @@ import {
   Autocomplete,
   Space,
   rem,
+  Button,
 } from '@mantine/core'
 import { IconSearch } from '@tabler/icons-react'
 
@@ -21,18 +22,31 @@ const InventoryLayout = () => {
   const { t } = useTranslation()
 
   // Use the Inventory Context
-  const { coffees, roasteries, searchValue, setSearchValue } =
-    useContext(InventoryContext)
+  const {
+    coffees,
+    roasteries,
+    searchValue,
+    setSearchValue,
+    isArchive,
+    setIsArchive,
+  } = useContext(InventoryContext)
 
   // Create an array of coffee or roastery names for the autocomplete
-  const autoCompleteData = (
-    tab === 'coffees' ? coffees.data : roasteries.data
-  ).map((item) => item.name)
+  const autoCompleteData = (tab === 'coffees' ? coffees.data : roasteries.data)
+    // Match names to the archive state
+    .filter((item) => item.archived === isArchive)
+    .map((item) => item.name)
 
   const handleTabChange = (newTab) => {
     setTab(newTab)
     navigate(newTab)
+    setIsArchive(false)
     setSearchValue('')
+  }
+
+  const toggleArchive = () => {
+    setSearchValue('')
+    setIsArchive((prevState) => !prevState)
   }
 
   // Update the tab state when the location changes
@@ -59,7 +73,13 @@ const InventoryLayout = () => {
             ]}
           />
           <Group>
-            {/* <Button variant='outline'>Filter</Button> */}
+            <Button
+              variant={isArchive ? 'filled' : 'outline'}
+              onClick={toggleArchive}
+              color='yellow'
+            >
+              {t('inventoryLayout.archive')}
+            </Button>
             <Autocomplete
               placeholder={t('inventoryLayout.search')}
               value={searchValue}

@@ -1,25 +1,17 @@
 import {
-  Accordion,
-  ActionIcon,
-  Divider,
-  Group,
-  Menu,
-  rem,
-  Text,
+  Accordion, Divider,
+  Group, Text
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import {
-  IconArchive,
-  IconArrowNarrowRight,
-  IconDots,
-  IconPencil,
-  IconTrash,
+  IconArrowNarrowRight
 } from '@tabler/icons-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { deleteBrew } from '../../services/brewsService'
 import BrewForm from '../BrewForm/BrewForm'
 import ExtractionRating from '../ExtractionRating/ExtractionRating'
+import ItemDropdown from '../ItemDropdown/ItemDropdown'
 
 const AccordionItemWithMenu = ({ item }) => {
   const { t, i18n } = useTranslation()
@@ -81,7 +73,6 @@ const AccordionItemWithMenu = ({ item }) => {
 
             {/* Dropdown Menu */}
             <ItemDropdown
-              variant={'brew'} // TODO: IMPLEMENT
               onMenuEdit={openBrewForm}
               onMenuDelete={handleDeleteBrew}
               disabled={isOptimisticUpdatePlaceholder}
@@ -170,74 +161,6 @@ const BrewRatio = ({ brewDose, brewYield }) => {
     : brewRatio.toFixed(1)
 
   return ` (1:${formattedBrewRatio})`
-}
-
-// TODO: REUSE FOR COFFEE AND ROASTERY
-const ItemDropdown = ({
-  isVariantCoffee,
-  onMenuEdit,
-  onMenuArchive,
-  onMenuDelete,
-  disabled,
-}) => {
-  const { t } = useTranslation()
-
-  return (
-    <Menu
-      transitionProps={{ transition: 'pop' }}
-      withArrow
-      position='bottom-end'
-      disabled={disabled}
-    >
-      <Menu.Target>
-        <ActionIcon
-          variant='subtle'
-          color='gray'
-          onClick={(event) => event.stopPropagation()}
-        >
-          <IconDots style={{ width: rem(16), height: rem(16) }} stroke='1.5' />
-        </ActionIcon>
-      </Menu.Target>
-      <Menu.Dropdown onClick={(event) => event.stopPropagation()}>
-        <Menu.Item
-          onClick={onMenuEdit}
-          leftSection={
-            <IconPencil
-              style={{ width: rem(16), height: rem(16) }}
-              stroke={1.5}
-            />
-          }
-        >
-          {t('accordionItemWithMenu.edit')}
-        </Menu.Item>
-        {isVariantCoffee && (
-          <Menu.Item
-            onClick={onMenuArchive}
-            leftSection={
-              <IconArchive
-                style={{ width: rem(16), height: rem(16) }}
-                stroke={1.5}
-              />
-            }
-          >
-            {t('accordionItemWithMenu.archive')}
-          </Menu.Item>
-        )}
-        <Menu.Item
-          onClick={onMenuDelete}
-          leftSection={
-            <IconTrash
-              style={{ width: rem(16), height: rem(16) }}
-              stroke={1.5}
-            />
-          }
-          color='red'
-        >
-          {t('accordionItemWithMenu.delete')}
-        </Menu.Item>
-      </Menu.Dropdown>
-    </Menu>
-  )
 }
 
 export default AccordionItemWithMenu

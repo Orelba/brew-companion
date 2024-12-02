@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import useLoadingScreen from '../../hooks/useLoadingScreen'
 
 const CoffeesPage = () => {
-  const { coffees, searchValue } = useContext(InventoryContext)
+  const { coffees, searchValue, isArchive } = useContext(InventoryContext)
 
   // Get the translations for the page
   const { t } = useTranslation()
@@ -21,8 +21,11 @@ const CoffeesPage = () => {
   useLoadingScreen(isPlaceholderData, t('loading.coffees'))
 
   const items = (coffees.data || [])
-    .filter((coffee) =>
-      coffee.name.toLowerCase().includes(searchValue.toLowerCase())
+    .filter(
+      (coffee) =>
+        // Match search query and archive state
+        coffee.name.toLowerCase().includes(searchValue.toLowerCase()) &&
+        coffee.archived === isArchive
     )
     .map((coffee) => <CoffeeCard key={coffee._id} data={coffee} />)
 
