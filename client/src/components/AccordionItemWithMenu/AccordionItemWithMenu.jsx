@@ -1,14 +1,10 @@
-import {
-  Accordion, Divider,
-  Group, Text
-} from '@mantine/core'
+import { Accordion, Divider, Group, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import {
-  IconArrowNarrowRight
-} from '@tabler/icons-react'
+import { IconArrowNarrowRight } from '@tabler/icons-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { deleteBrew } from '../../services/brewsService'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import BrewForm from '../BrewForm/BrewForm'
 import ExtractionRating from '../ExtractionRating/ExtractionRating'
 import ItemDropdown from '../ItemDropdown/ItemDropdown'
@@ -22,9 +18,11 @@ const AccordionItemWithMenu = ({ item }) => {
 
   const queryClient = useQueryClient()
 
+  const axiosPrivate = useAxiosPrivate()
+
   // Create a mutation to send a new brew to the log
   const deleteMutation = useMutation({
-    mutationFn: deleteBrew,
+    mutationFn: (brewToDelete) => deleteBrew(brewToDelete, axiosPrivate),
     // Optimistic update before mutation
     onMutate: async (brewToDelete) => {
       // Cancel any outgoing refetches for the 'brews' query to prevent race conditions

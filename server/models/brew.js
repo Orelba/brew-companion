@@ -17,6 +17,7 @@ const BrewSchema = new Schema({
   rating: { type: Number, min: 0, max: 5 },
   notes: { type: String },
   date: { type: Date, default: Date.now },
+  userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 })
 
 export default mongoose.model('Brew', BrewSchema)

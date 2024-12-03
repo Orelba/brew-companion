@@ -27,6 +27,7 @@ import {
   fetchBrewForUpdate,
   updateBrew,
 } from '../../services/brewsService'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import { fetchCoffees } from '../../services/coffeesService'
 
 import ButtonCard from '../ButtonCard/ButtonCard'
@@ -41,6 +42,9 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
 
   // Access the global queryClient instance
   const queryClient = useQueryClient()
+
+  // Retrieve the Axios instance configured with authentication and interceptors
+  const axiosPrivate = useAxiosPrivate()
 
   // Get the translations for the page
   const { t, i18n } = useTranslation()
@@ -120,7 +124,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
   // Get the details of the brew to update (In case of an update form)
   const { data: brewToUpdate, isFetching } = useQuery({
     queryKey: ['brews', brewIdToUpdate],
-    queryFn: () => fetchBrewForUpdate(brewIdToUpdate),
+    queryFn: () => fetchBrewForUpdate(brewIdToUpdate, axiosPrivate),
     // This query is enabled only when the form is opened and it is an update form
     enabled: isUpdateMode,
     gcTime: 0,
@@ -254,7 +258,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
 
   // Create a mutation to send a new brew to the log
   const createMutation = useMutation({
-    mutationFn: createBrew,
+    mutationFn: (newBrew) => createBrew(newBrew, axiosPrivate),
     onMutate: async (newBrew) => {
       await queryClient.cancelQueries({ queryKey: ['brews'] })
 
@@ -277,7 +281,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
   })
 
   const updateMutation = useMutation({
-    mutationFn: updateBrew,
+    mutationFn: (updatedBrew) => updateBrew(updatedBrew, axiosPrivate),
     onMutate: async (updatedBrew) => {
       await queryClient.cancelQueries({ queryKey: ['brews'] })
 

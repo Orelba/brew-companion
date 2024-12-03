@@ -6,7 +6,7 @@ import validateBrewData from '../middleware/validateBrewData.js'
 import validateMongoDBObjectId from '../middleware/validateMongoDBObjectId.js'
 
 const brew_list = asyncHandler(async (req, res, next) => {
-  const allBrews = await Brew.find({})
+  const allBrews = await Brew.find({ userId: req.user.id })
     .sort({ date: -1 })
     .populate([{ path: 'coffee', populate: 'roastery' }, 'brewingMethod'])
     .exec()
@@ -16,7 +16,7 @@ const brew_list = asyncHandler(async (req, res, next) => {
 
 // TODO: if a brew appears twice get only the most recent one
 const brew_list_recent = asyncHandler(async (req, res, next) => {
-  const recentBrews = await Brew.find({})
+  const recentBrews = await Brew.find({ userId: req.user.id })
     .sort({ date: -1 })
     .limit(10)
     .populate({
@@ -53,6 +53,7 @@ const brew_create_post = [
       temperature: req.body.temperature,
       rating: req.body.rating,
       notes: req.body.notes,
+      userId: req.user.id,
     })
 
     if (!errors.isEmpty()) {
@@ -78,6 +79,11 @@ const brew_update_get = [
       return res.status(404).json({ message: 'Brew Not Found' })
     }
 
+    // Check if the brew belongs to the authenticated user
+    if (brew.userId.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Access Denied: Not your brew' })
+    }
+
     return res.json(brew)
   }),
 ]
@@ -88,7 +94,29 @@ const brew_update_put = [
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req)
 
-    const brew = new Brew({
+    // Find the brew by its ID to check ownership before updating
+    const brewToUpdate = await Brew.findById(req.params.id)
+
+    if (!brewToUpdate) {
+      return res.status(404).json({ message: 'Brew not found' })
+    }
+
+    // Check if the brew belongs to the authenticated user
+    if (brewToUpdate.userId.toString() !== req.user.id) {
+      return res.status(403).json({
+        message: 'Access Denied: This brew belongs to another user.',
+      })
+    }
+
+    // If there are validation errors, return them
+    if (!errors.isEmpty()) {
+      return res
+        .status(422)
+        .json({ message: 'There are validation errors in the form', ...errors })
+    }
+
+    // If no errors, proceed with the update
+    const updatedBrew = await Brew.findByIdAndUpdate(req.params.id, {
       coffee: req.body.coffee,
       brewingMethod: req.body.brewingMethod,
       grindSetting: req.body.grindSetting,
@@ -99,38 +127,37 @@ const brew_update_put = [
       rating: req.body.rating,
       notes: req.body.notes,
       date: req.body.date,
-      _id: req.params.id, // Use the same id to edit the brew
+      userId: req.user.id, // Retaining the userId for ownership verification
+      _id: req.params.id, // Ensure the same ID is used to edit the brew
     })
 
-    if (!errors.isEmpty()) {
-      // There are errors
-      return res
-        .status(422)
-        .json({ message: 'There are validation errors in the form', ...errors })
+    if (!updatedBrew) {
+      return res.status(400).json({ message: 'Brew update failed' })
     }
 
-    // Form data is valid, try to find the brew
-    const brewToUpdate = await Brew.findByIdAndUpdate(req.params.id, brew)
-
-    if (brewToUpdate) {
-      // Success
-      res.json({ message: 'Brew has been updated' })
-    } else {
-      // Brew doesn't exist
-      res.status(404).json({ message: 'Brew not found' })
-    }
+    // Success
+    res.json({ message: 'Brew has been updated' })
   }),
 ]
 
 const brew_delete_post = asyncHandler(async (req, res, next) => {
-  console.log(req.params)
-  const deletedBrew = await Brew.findByIdAndDelete(req.params.id)
+  // Find the brew to check ownership before deleting
+  const brewToDelete = await Brew.findById(req.params.id)
 
-  if (deletedBrew) {
-    res.json({ message: 'Brew deleted successfuly' })
-  } else {
-    res.status(404).json({ message: 'Brew not found' })
+  // If brew is not found, send the "Brew not found" message
+  if (!brewToDelete) {
+    return res.status(404).json({ message: 'Brew not found' })
   }
+
+  // Check if the brew belongs to the authenticated user
+  if (brewToDelete.userId.toString() !== req.user.id) {
+    return res.status(403).json({ message: 'Access Denied: Not your brew' })
+  }
+
+  // Proceed to delete the brew if ownership check passes
+  await Brew.findByIdAndDelete(req.params.id)
+
+  res.json({ message: 'Brew deleted successfully' })
 })
 
 export {

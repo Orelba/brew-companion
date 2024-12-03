@@ -12,6 +12,7 @@ import {
 import { useMediaQuery, useDisclosure } from '@mantine/hooks'
 import { useTranslation } from 'react-i18next'
 import { fetchRecentBrews } from '../../services/brewsService'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import ButtonCard from '../ButtonCard/ButtonCard'
 import LoaderLogo from '../LoaderLogo/LoaderLogo'
 import BrewForm from '../BrewForm/BrewForm'
@@ -26,13 +27,15 @@ const QuickBrewCarousel = () => {
 
   const [initialValues, setInitialValues] = useState()
 
+  const axiosPrivate = useAxiosPrivate()
+
   const {
     data: recentBrews,
     error,
     isPlaceholderData,
   } = useQuery({
     queryKey: ['latestBrews'],
-    queryFn: fetchRecentBrews,
+    queryFn: () => fetchRecentBrews(axiosPrivate),
     placeholderData: [], // Default data to an empty array
   })
 

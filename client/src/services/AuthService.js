@@ -3,14 +3,9 @@ import { axiosPrivate } from './axiosInstance'
 
 const AUTH_URL = '/api/auth'
 
-const getCurrentUser = async (accessToken) => {
+const getCurrentUser = async (axiosInstance) => {
   try {
-    const response = await axiosPrivate.get(`${AUTH_URL}/me`, {
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
+    const response = await axiosInstance.get(`${AUTH_URL}/me`)
     return response.data
   } catch (error) {
     const errorMessage =

@@ -74,7 +74,7 @@ const Header = () => {
             {items}
             <LanguagePicker />
             <ColorSchemeSwitch />
-            {!!auth?.accessToken && <UserDropdownMenu auth={auth} />}
+            {!!auth?.accessToken && <UserDropdownMenu />}
           </Group>
         </Group>
       </div>

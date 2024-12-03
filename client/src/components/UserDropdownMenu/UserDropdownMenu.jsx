@@ -4,13 +4,14 @@ import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import useLogout from '../../hooks/useLogout'
 import { getCurrentUser } from '../../services/AuthService'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import { Avatar, Menu, Group, rem, UnstyledButton } from '@mantine/core'
 import { IconLogout, IconSettings } from '@tabler/icons-react'
 import { notifications } from '@mantine/notifications'
 import cx from 'classnames'
 import styles from './user-dropdown-menu.module.scss'
 
-const UserDropdownMenu = ({ auth }) => {
+const UserDropdownMenu = () => {
   const navigate = useNavigate()
 
   const { t } = useTranslation()
@@ -18,10 +19,13 @@ const UserDropdownMenu = ({ auth }) => {
   const [opened, setOpened] = useState(false)
 
   const logout = useLogout()
+
+  const axiosPrivate = useAxiosPrivate()
+
   // TODO: Handle errors (maybe with notification of something went wrong)
   const { data, isLoading, isError } = useQuery({
     queryKey: ['me'],
-    queryFn: () => getCurrentUser(auth?.accessToken),
+    queryFn: () => getCurrentUser(axiosPrivate),
   })
 
   const handleOpen = () => {

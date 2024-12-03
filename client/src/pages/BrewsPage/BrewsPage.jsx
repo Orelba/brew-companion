@@ -4,6 +4,7 @@ import { usePageTitle } from '../../hooks/usePageTitle'
 import { useDisclosure } from '@mantine/hooks'
 import { useQuery } from '@tanstack/react-query'
 import { fetchBrews } from '../../services/brewsService'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import {
   Accordion,
   ActionIcon,
@@ -35,6 +36,8 @@ const BrewsPage = () => {
   const [isBrewFormOpened, { open: openBrewForm, close: closeBrewForm }] =
     useDisclosure()
 
+  const axiosPrivate = useAxiosPrivate()
+
   // Fetch all brews if it exists, otherwise default to an empty array
   const {
     data: brews,
@@ -42,7 +45,7 @@ const BrewsPage = () => {
     isPlaceholderData,
   } = useQuery({
     queryKey: ['brews'],
-    queryFn: fetchBrews,
+    queryFn: () => fetchBrews(axiosPrivate),
     placeholderData: [], // Default data to an empty array
   })
 
