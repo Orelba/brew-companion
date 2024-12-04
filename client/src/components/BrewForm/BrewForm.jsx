@@ -176,16 +176,18 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
     placeholderData: [],
   })
 
-  const coffeeCards = coffees.map((coffee) => (
-    <ButtonCard
-      key={coffee._id}
-      h={rem(170)}
-      text={coffee.name}
-      textLineClamp={4}
-      onClick={() => handleCardSelection('coffee', coffee._id)}
-      image='coffee-beans.jpg'
-    />
-  ))
+  const coffeeCards = coffees
+    .filter((coffee) => !coffee.archived) // Filter out archived coffees
+    .map((coffee) => (
+      <ButtonCard
+        key={coffee._id}
+        h={rem(170)}
+        text={coffee.name}
+        textLineClamp={4}
+        onClick={() => handleCardSelection('coffee', coffee._id)}
+        image='coffee-beans.jpg'
+      />
+    ))
 
   // Get the name of a document by its object id (coffee / brewing method)
   const getTruncatedDocumentNameByObjectId = (id, data) => {

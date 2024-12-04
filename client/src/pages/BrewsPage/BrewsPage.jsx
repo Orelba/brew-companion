@@ -54,13 +54,16 @@ const BrewsPage = () => {
 
   if (error) return <div>An error occurred: {error.message}</div>
 
+  // Filter the brews to exclude brews that use archived coffees
+  const nonArchivedBrews = brews.filter((brew) => !brew.coffee.archived)
+
   // Filter brews based on selected coffee
-  const filteredBrewsByCoffee = brews.filter(
+  const filteredBrewsByCoffee = nonArchivedBrews.filter(
     (brew) => !coffeeSelectValue || brew.coffee._id === coffeeSelectValue
   )
 
   // Filter brews based on selected brewing method
-  const filteredBrewsByMethod = brews.filter(
+  const filteredBrewsByMethod = nonArchivedBrews.filter(
     (brew) => !methodSelectValue || brew.brewingMethod._id === methodSelectValue
   )
 
@@ -105,7 +108,7 @@ const BrewsPage = () => {
     setMethodSelectValue(null)
   }
 
-  const items = brews
+  const items = nonArchivedBrews
     .filter((brew) => {
       // If a coffee is selected, only include brews that use the selected coffee
       if (coffeeSelectValue && brew.coffee._id !== coffeeSelectValue)
