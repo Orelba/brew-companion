@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 // Fetch all brews
 const fetchBrews = async (axiosInstance) => {
   try {

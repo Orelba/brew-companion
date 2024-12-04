@@ -1,13 +1,11 @@
-import axios from 'axios'
-
 // Fetch all coffees
-const fetchCoffees = async () => {
+const fetchCoffees = async (axiosInstance) => {
   try {
-    const response = await axios.get('/api/coffees')
+    const response = await axiosInstance.get('/api/coffees')
     return response.data
   } catch (error) {
     throw new Error('Failed to fetch coffees')
   }
 }
 
-export { fetchCoffees } 
+export { fetchCoffees }

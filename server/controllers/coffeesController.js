@@ -5,7 +5,11 @@ import asyncHandler from 'express-async-handler'
 import { body, validationResult } from 'express-validator'
 
 const coffee_list = asyncHandler(async (req, res, next) => {
-  const allCoffees = await Coffee.find({}).populate('roastery').exec()
+  console.log(req.user.id)
+  const allCoffees = await Coffee.find({ userId: req.user.id })
+    .populate('roastery')
+    .exec()
+  console.log(allCoffees)
   res.json(allCoffees)
 })
 

@@ -172,7 +172,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
   // Get all coffees
   const { data: coffees } = useQuery({
     queryKey: ['coffees'],
-    queryFn: fetchCoffees,
+    queryFn: () => fetchCoffees(axiosPrivate),
     placeholderData: [],
   })
 
