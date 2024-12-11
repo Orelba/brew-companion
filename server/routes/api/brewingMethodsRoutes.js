@@ -1,8 +1,8 @@
 import { Router } from 'express'
 const router = Router()
 
-import { brewing_methods_list } from '../../controllers/brewingMethodsController.js'
+import { brewingMethodsList } from '../../controllers/brewingMethodsController.js'
 
-router.get('/', brewing_methods_list)
+router.get('/', brewingMethodsList)
 
 export default router

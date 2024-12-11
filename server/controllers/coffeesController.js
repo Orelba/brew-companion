@@ -4,7 +4,7 @@ import Roastery from '../models/roastery.js'
 import asyncHandler from 'express-async-handler'
 import { body, validationResult } from 'express-validator'
 
-const coffee_list = asyncHandler(async (req, res, next) => {
+const coffeeList = asyncHandler(async (req, res, next) => {
   const allCoffees = await Coffee.find({ userId: req.user.id })
     .populate('roastery')
     .exec()
@@ -12,6 +12,6 @@ const coffee_list = asyncHandler(async (req, res, next) => {
   res.json(allCoffees)
 })
 
-const coffee_create_post = asyncHandler(async (req, res, next) => {})
+const coffeeCreatePost = asyncHandler(async (req, res, next) => {})
 
-export { coffee_list, coffee_create_post }
+export { coffeeList, coffeeCreatePost }

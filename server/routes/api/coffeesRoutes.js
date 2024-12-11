@@ -4,12 +4,12 @@ const router = Router()
 import authenticate from '../../middleware/authenticate.js'
 
 import {
-  coffee_list,
-  coffee_create_post,
+  coffeeList,
+  coffeeCreatePost,
 } from '../../controllers/coffeesController.js'
 
-router.get('/', authenticate, coffee_list)
+router.get('/', authenticate, coffeeList)
 
-router.post('/create', authenticate, coffee_create_post)
+router.post('/create', authenticate, coffeeCreatePost)
 
 export default router

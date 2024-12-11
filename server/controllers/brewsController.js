@@ -5,7 +5,7 @@ import { validationResult } from 'express-validator'
 import validateBrewData from '../middleware/validateBrewData.js'
 import validateMongoDBObjectId from '../middleware/validateMongoDBObjectId.js'
 
-const brew_list = asyncHandler(async (req, res, next) => {
+const brewList = asyncHandler(async (req, res, next) => {
   const allBrews = await Brew.find({ userId: req.user.id })
     .sort({ date: -1 })
     .populate([{ path: 'coffee', populate: 'roastery' }, 'brewingMethod'])
@@ -15,7 +15,7 @@ const brew_list = asyncHandler(async (req, res, next) => {
 })
 
 // TODO: if a brew appears twice get only the most recent one
-const brew_list_recent = asyncHandler(async (req, res, next) => {
+const brewListRecent = asyncHandler(async (req, res, next) => {
   const recentBrews = await Brew.find({ userId: req.user.id })
     .sort({ date: -1 })
     .limit(10)
@@ -33,7 +33,7 @@ const brew_list_recent = asyncHandler(async (req, res, next) => {
   res.json(recentBrews)
 })
 
-const brew_create_post = [
+const brewCreatePost = [
   // Validate Data
   validateBrewData,
 
@@ -69,7 +69,7 @@ const brew_create_post = [
   }),
 ]
 
-const brew_update_get = [
+const brewUpdateGet = [
   validateMongoDBObjectId,
   asyncHandler(async (req, res, next) => {
     const brew = await Brew.findById(req.params.id)
@@ -88,7 +88,7 @@ const brew_update_get = [
   }),
 ]
 
-const brew_update_put = [
+const brewUpdatePut = [
   validateMongoDBObjectId,
   validateBrewData,
   asyncHandler(async (req, res, next) => {
@@ -140,7 +140,7 @@ const brew_update_put = [
   }),
 ]
 
-const brew_delete_post = asyncHandler(async (req, res, next) => {
+const brewDeletePost = asyncHandler(async (req, res, next) => {
   // Find the brew to check ownership before deleting
   const brewToDelete = await Brew.findById(req.params.id)
 
@@ -161,10 +161,10 @@ const brew_delete_post = asyncHandler(async (req, res, next) => {
 })
 
 export {
-  brew_list,
-  brew_list_recent,
-  brew_create_post,
-  brew_update_get,
-  brew_update_put,
-  brew_delete_post,
+  brewList,
+  brewListRecent,
+  brewCreatePost,
+  brewUpdateGet,
+  brewUpdatePut,
+  brewDeletePost,
 }

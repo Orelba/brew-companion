@@ -4,30 +4,30 @@ const router = Router()
 import authenticate from '../../middleware/authenticate.js'
 
 import {
-  brew_list,
-  brew_list_recent,
-  brew_create_post,
-  brew_update_get,
-  brew_update_put,
-  brew_delete_post,
+  brewList,
+  brewListRecent,
+  brewCreatePost,
+  brewUpdateGet,
+  brewUpdatePut,
+  brewDeletePost,
 } from '../../controllers/brewsController.js'
 
 // GET all brews
-router.get('/', authenticate, brew_list)
+router.get('/', authenticate, brewList)
 
 // GET recent brews in a minimal format
-router.get('/recent', authenticate, brew_list_recent)
+router.get('/recent', authenticate, brewListRecent)
 
 // POST request to create brew
-router.post('/create', authenticate, brew_create_post)
+router.post('/create', authenticate, brewCreatePost)
 
 // GET one brew details for update (Unpopulated)
-router.get('/:id/update', authenticate, brew_update_get)
+router.get('/:id/update', authenticate, brewUpdateGet)
 
 // PUT request to update existing brew
-router.put('/:id/update', authenticate, brew_update_put)
+router.put('/:id/update', authenticate, brewUpdatePut)
 
 // DELETE existing brew
-router.delete('/:id/delete', authenticate, brew_delete_post)
+router.delete('/:id/delete', authenticate, brewDeletePost)
 
 export default router
