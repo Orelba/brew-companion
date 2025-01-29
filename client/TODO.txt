@@ -9,13 +9,9 @@ delete roastery
 
 Make the BrewForm steps fit better
 
-Dark Mode
-
 // Archive //
 Only archive coffees
 When something is archived:
-It can't be seen in the BrewsPage nor in the filters.
-It can't be seen in the BrewForm
 It can't be seen in the Quickbrew
 
 // Assets //
