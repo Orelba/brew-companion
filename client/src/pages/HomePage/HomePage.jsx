@@ -85,8 +85,8 @@ const HomePage = () => {
           />
         </Container>
       </div>
-
-      <QuickBrewCarousel />
+      {/* TODO: Uncomment */}
+      {/* <QuickBrewCarousel /> */}
     </PageTransitionWrapper>
   )
 }

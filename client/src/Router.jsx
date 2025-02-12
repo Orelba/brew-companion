@@ -18,17 +18,16 @@ const Router = () => {
   const router = createBrowserRouter([
     {
       // Parent route component that wraps all the routes
-      element: <Layout />,
+      element: (
+        <PersistLogin>
+          <Layout />
+        </PersistLogin>
+      ),
       errorElement: <NotFoundPage />,
       children: [
         {
           path: '/',
-          element: (
-            // TODO: Is this the correct way?
-            <PersistLogin>
-              <HomePage />
-            </PersistLogin>
-          ),
+          element: <HomePage />,
           children: [
             {
               path: '/auth',
@@ -43,23 +42,19 @@ const Router = () => {
         {
           path: '/brews',
           element: (
-            <PersistLogin>
-              <RequireAuth>
-                <BrewsPage />
-              </RequireAuth>
-            </PersistLogin>
+            <RequireAuth>
+              <BrewsPage />
+            </RequireAuth>
           ),
         },
         {
           path: '/inventory',
           element: (
-            <PersistLogin>
-              <RequireAuth>
-                <InventoryProvider>
-                  <InventoryLayout />
-                </InventoryProvider>
-              </RequireAuth>
-            </PersistLogin>
+            <RequireAuth>
+              <InventoryProvider>
+                <InventoryLayout />
+              </InventoryProvider>
+            </RequireAuth>
           ),
           children: [
             {
@@ -77,11 +72,11 @@ const Router = () => {
           ],
         },
         // Error page for 404 status code (Not Found)
-        {
-          path: '*',
-          element: <NotFoundPage />,
-        },
       ],
+    },
+    {
+      path: '*',
+      element: <NotFoundPage />,
     },
   ])
 
