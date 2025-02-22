@@ -1,5 +1,6 @@
 import Brew from '../models/brew.js'
 
+import mongoose from 'mongoose'
 import asyncHandler from 'express-async-handler'
 import { validationResult } from 'express-validator'
 import validateBrewData from '../middleware/validateBrewData.js'
@@ -14,21 +15,72 @@ const brewList = asyncHandler(async (req, res, next) => {
   res.json(allBrews)
 })
 
-// TODO: if a brew appears twice get only the most recent one
 const brewListRecent = asyncHandler(async (req, res, next) => {
-  const recentBrews = await Brew.find({ userId: req.user.id })
-    .sort({ date: -1 })
-    .limit(10)
-    .populate({
-      path: 'coffee',
-      select: '_id name',
-    })
-    .populate({
-      path: 'brewingMethod',
-      select: '_id name image',
-    })
-    .select('_id coffee brewingMethod')
-    .exec()
+  const recentBrews = await Brew.aggregate([
+    // Step 1: Match user by userId
+    {
+      $match: {
+        userId: mongoose.Types.ObjectId.createFromHexString(req.user.id),
+      },
+    },
+
+    // Step 2: Sort by date in descending order (most recent first)
+    {
+      $sort: {
+        date: -1,
+      },
+    },
+
+    // Step 3: Group by coffee and brewing method, keeping only the latest brew for each
+    {
+      $group: {
+        _id: { coffee: '$coffee', brewingMethod: '$brewingMethod' }, // Unique pair of coffee and brewing method
+        brewId: { $first: '$_id' }, // Keep the latest brewId
+        coffee: { $first: '$coffee' }, // Keep the coffee reference
+        brewingMethod: { $first: '$brewingMethod' }, // Keep the brewing method reference
+      },
+    },
+
+    // Step 4: Lookup the coffee details (populate coffee and brewing method)
+    {
+      $lookup: {
+        from: 'coffees', // The collection where coffee data is stored
+        localField: 'coffee',
+        foreignField: '_id',
+        as: 'coffeeDetails',
+      },
+    },
+
+    // Step 5: Lookup the brewing method details
+    {
+      $lookup: {
+        from: 'brewing_methods', // The collection where brewing method data is stored
+        localField: 'brewingMethod',
+        foreignField: '_id',
+        as: 'brewingMethodDetails',
+      },
+    },
+
+    // Step 6: Project to format the output (custom format)
+    {
+      $project: {
+        _id: '$brewId', // Use the _id from the grouped brew (latest brew)
+        coffee: {
+          _id: { $arrayElemAt: ['$coffeeDetails._id', 0] }, // Get coffee ID
+          name: { $arrayElemAt: ['$coffeeDetails.name', 0] }, // Get coffee name
+        },
+        brewingMethod: {
+          _id: { $arrayElemAt: ['$brewingMethodDetails._id', 0] }, // Get brewing method ID
+          name: { $arrayElemAt: ['$brewingMethodDetails.name', 0] }, // Get brewing method name
+          image: { $arrayElemAt: ['$brewingMethodDetails.image', 0] }, // Get brewing method image
+        },
+      },
+    },
+    // Step 7: Limit to the latest 10 unique combinations
+    {
+      $limit: 10,
+    },
+  ])
 
   res.json(recentBrews)
 })
