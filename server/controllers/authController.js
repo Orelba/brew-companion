@@ -278,7 +278,7 @@ const resetPassword = [
   }),
 ]
 
-const refresh = async (req, res, next) => {
+const refresh = asyncHandler(async (req, res, next) => {
   // Retrieve the refresh token from cookies
   const cookies = req.cookies
 
@@ -288,39 +288,31 @@ const refresh = async (req, res, next) => {
 
   const refreshToken = cookies.refreshToken
 
-  try {
-    // Find the user by refresh token in the database
-    const user = await User.findOne({ refreshToken }).exec()
-    if (!user) {
-      // Refresh token not associated with any user
+  // Find the user by refresh token in the database
+  const user = await User.findOne({ refreshToken }).exec()
+  if (!user) {
+    // Refresh token not associated with any user
+    return res.status(403).json({ message: 'Invalid refresh token' })
+  }
+
+  // Verify the refresh token using the secret
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+    if (err || user.username !== decoded.username) {
       return res.status(403).json({ message: 'Invalid refresh token' })
     }
 
-    // Verify the refresh token using the secret
-    jwt.verify(
-      refreshToken,
-      process.env.REFRESH_TOKEN_SECRET,
-      (err, decoded) => {
-        if (err || user.username !== decoded.username) {
-          return res.status(403).json({ message: 'Invalid refresh token' })
-        }
+    // Create a payload for the new tokens based on the decoded data
+    const payload = {
+      id: decoded.id,
+      username: decoded.username,
+      email: decoded.email,
+    }
 
-        // Create a payload for the new tokens based on the decoded data
-        const payload = {
-          id: decoded.id,
-          username: decoded.username,
-          email: decoded.email,
-        }
+    const newAccessToken = generateAccessToken(payload)
 
-        const newAccessToken = generateAccessToken(payload)
-
-        res.json({ accessToken: newAccessToken })
-      }
-    )
-  } catch (error) {
-    res.status(403).json({ message: 'Invalid refresh token' })
-  }
-}
+    res.json({ accessToken: newAccessToken })
+  })
+})
 
 const getCurrentUser = asyncHandler((req, res, next) => {
   if (!req.user) {
