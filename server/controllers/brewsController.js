@@ -23,14 +23,12 @@ const brewListRecent = asyncHandler(async (req, res, next) => {
         userId: mongoose.Types.ObjectId.createFromHexString(req.user.id),
       },
     },
-
     // Step 2: Sort by date in descending order (most recent first)
     {
       $sort: {
         date: -1,
       },
     },
-
     // Step 3: Group by coffee and brewing method, keeping only the latest brew for each
     {
       $group: {
@@ -38,9 +36,9 @@ const brewListRecent = asyncHandler(async (req, res, next) => {
         brewId: { $first: '$_id' }, // Keep the latest brewId
         coffee: { $first: '$coffee' }, // Keep the coffee reference
         brewingMethod: { $first: '$brewingMethod' }, // Keep the brewing method reference
+        date: { $first: '$date' }, // Retain the date for sorting later
       },
     },
-
     // Step 4: Lookup the coffee details (populate coffee and brewing method)
     {
       $lookup: {
@@ -50,7 +48,6 @@ const brewListRecent = asyncHandler(async (req, res, next) => {
         as: 'coffeeDetails',
       },
     },
-
     // Step 5: Lookup the brewing method details
     {
       $lookup: {
@@ -60,7 +57,6 @@ const brewListRecent = asyncHandler(async (req, res, next) => {
         as: 'brewingMethodDetails',
       },
     },
-
     // Step 6: Project to format the output (custom format)
     {
       $project: {
@@ -74,9 +70,16 @@ const brewListRecent = asyncHandler(async (req, res, next) => {
           name: { $arrayElemAt: ['$brewingMethodDetails.name', 0] }, // Get brewing method name
           image: { $arrayElemAt: ['$brewingMethodDetails.image', 0] }, // Get brewing method image
         },
+        date: 1, // Include date for final sorting
       },
     },
-    // Step 7: Limit to the latest 10 unique combinations
+    // Step 7: Sort again after grouping to ensure the latest brews come first
+    {
+      $sort: {
+        date: -1,
+      },
+    },
+    // Step 8: Limit to the latest 10 unique combinations
     {
       $limit: 10,
     },

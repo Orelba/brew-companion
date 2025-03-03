@@ -3,17 +3,27 @@ import { refreshAccessToken } from '../services/AuthService'
 
 const useRefreshToken = () => {
   const { setAuth } = useAuth()
+  let refreshPromise = null // Store the refresh request promise
 
   const refresh = async () => {
-    try {
-      const data = await refreshAccessToken()
-      setAuth((prevState) => {
-        return { ...prevState, accessToken: data.accessToken }
-      })
-      return data.accessToken
-    } catch (error) {
-      console.error('Error refreshing token:', error.message)
+    if (!refreshPromise) {
+      refreshPromise = (async () => {
+        try {
+          const data = await refreshAccessToken()
+          setAuth((prevState) => ({
+            ...prevState,
+            accessToken: data.accessToken,
+          }))
+          return data.accessToken
+        } catch (error) {
+          console.error('Error refreshing token:', error.message)
+          throw error
+        } finally {
+          refreshPromise = null // Reset after completion
+        }
+      })()
     }
+    return refreshPromise // Return the ongoing request
   }
 
   return refresh
