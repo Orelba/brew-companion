@@ -4,7 +4,7 @@ import { fetchCoffees } from '../services/coffeesService'
 import { fetchRoasteries } from '../services/roasteriesService'
 import useAxiosPrivate from '../hooks/useAxiosPrivate'
 
-export const InventoryContext = createContext()
+const InventoryContext = createContext()
 
 export const InventoryProvider = ({ children }) => {
   const [searchValue, setSearchValue] = useState('')
@@ -40,3 +40,5 @@ export const InventoryProvider = ({ children }) => {
     </InventoryContext.Provider>
   )
 }
+
+export default InventoryContext

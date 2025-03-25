@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { usePageTitle } from '../../hooks/usePageTitle'
-import { InventoryContext } from '../../contexts/InventoryContext'
+import InventoryContext from '../../contexts/InventoryContext'
 import { SimpleGrid } from '@mantine/core'
 import CoffeeCard from '../../components/CoffeeCard/CoffeeCard'
 import { useTranslation } from 'react-i18next'

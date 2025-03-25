@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { usePageTitle } from '../../hooks/usePageTitle'
-import { InventoryContext } from '../../contexts/InventoryContext'
+import InventoryContext from '../../contexts/InventoryContext'
 import { Accordion } from '@mantine/core'
 import AccordionItemWithMenu from '../../components/AccordionItemWithMenu/AccordionItemWithMenu'
 import { useTranslation } from 'react-i18next'
