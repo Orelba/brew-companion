@@ -1,9 +1,9 @@
 .user {
   border-radius: 50%;
-  transition: outline 0.5s;
+  transition: box-shadow 0.3s;
 
   &:hover:not(.active) {
-    outline: 4px solid
+    box-shadow: 0 0 0 4px
       light-dark(var(--mantine-color-gray-2), var(--mantine-color-gray-8));
   }
 }
@@ -17,12 +17,12 @@
 }
 
 .active {
-  outline: 4px solid
+  box-shadow: 0 0 0 4px
     light-dark(var(--mantine-color-gray-4), var(--mantine-color-gray-7));
 }
 
 .username {
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 500;
 }
 
