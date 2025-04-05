@@ -3,7 +3,7 @@ import PersistLogin from './components/PersistLogin/PersistLogin'
 import RequireAuth from './components/RequireAuth/RequireAuth'
 import { InventoryProvider } from './contexts/InventoryContext'
 import Layout from './layouts/Layout'
-import HomePage from './pages/HomePage/HomePage'
+import ProtectedHomePage from './pages/ProtectedHomePage/ProtectedHomePage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 import BrewsPage from './pages/BrewsPage/BrewsPage'
 import InventoryLayout from './layouts/InventoryLayout'
@@ -27,7 +27,7 @@ const Router = () => {
       children: [
         {
           path: '/',
-          element: <HomePage />,
+          element: <ProtectedHomePage />,
           children: [
             {
               path: '/auth',

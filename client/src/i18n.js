@@ -98,6 +98,12 @@ i18next
             callToRegister: "Don't have an account? Register",
             callToGoBack: 'Back to the login page',
           },
+          weight: {
+            kg: 'kg',
+            g: 'g',
+            lbs: 'lbs',
+            oz: 'oz',
+          },
           userDropdownMenu: {
             accountSettings: 'Account settings',
             logout: 'Logout',
@@ -109,6 +115,26 @@ i18next
               'It looks like this link is no longer valid. Please request a new password reset link.',
             passwordResetSuccessful:
               'Password reset successfully! You can now log in using your new password.',
+          },
+          statsGrid: {
+            title: 'My Statistics',
+          },
+          statsCard: {
+            favoriteBrewMethod: 'Favorite Brew Method',
+            totalCoffeesTried: 'Total Coffees Tried',
+            totalCoffeeConsumed: 'Total Coffee Consumed',
+            totalBrewedThisMonth: 'Total Brewed This Month',
+            comparedToPreviousMonth: 'Compared to previous month',
+          },
+          roasteryStatsCard: {
+            titleSingleRoastery: 'Favorite Roastery',
+            titleMultipleRoasteries: 'Favorite Roasteries',
+            cups: 'Cups',
+          },
+          monthlyConsumedCoffeeStatsCard: {
+            titleSingleMonth: 'Coffee Consumed This Month',
+            titleMultipleMonths: 'Coffee Consumed Monthly',
+            consumption: 'Consumption',
           },
           quickBrewCarousel: {
             title: 'Quick Brew',
@@ -273,6 +299,12 @@ i18next
             callToRegister: 'אין לך משתמש? להרשמה לחץ כאן',
             callToGoBack: 'חזרה להתחברות',
           },
+          weight: {
+            kg: 'ק"ג',
+            g: 'גרם',
+            lbs: 'פאונד',
+            oz: 'אונקיה',
+          },
           userDropdownMenu: {
             accountSettings: 'הגדרות',
             logout: 'התנתק',
@@ -282,6 +314,26 @@ i18next
             subtitle: 'בחר סיסמה חדשה כדי להשלים את התהליך',
             linkInvalid:
               'נראה שהקישור הזה פג תוקף. אנא בקש קישור חדש לאיפוס הסיסמה שלך.',
+          },
+          statsGrid: {
+            title: 'הסטטיסטיקות שלי',
+          },
+          statsCard: {
+            favoriteBrewMethod: 'שיטת הכנה מועדפת',
+            totalCoffeesTried: 'כלל הקליות שנוסו',
+            totalCoffeeConsumed: 'כלל הקפה שנצרך',
+            totalBrewedThisMonth: 'כלל הכוסות שהוכנו החודש',
+            comparedToPreviousMonth: 'בהשוואה לחודש הקודם',
+          },
+          roasteryStatsCard: {
+            titleSingleRoastery: 'בית קלייה מועדף',
+            titleMultipleRoasteries: 'בתי קלייה מועדפים',
+            cups: 'כוסות',
+          },
+          monthlyConsumedCoffeeStatsCard: {
+            titleSingleMonth: 'צריכת קפה החודש',
+            titleMultipleMonths: 'צריכת קפה חודשית',
+            consumption: 'צריכה',
           },
           quickBrewCarousel: {
             title: 'הכנה מהירה',
