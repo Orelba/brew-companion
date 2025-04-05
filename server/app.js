@@ -72,17 +72,19 @@ app.use((req, res, next) => {
 // Error handler
 app.use((err, req, res, next) => {
   // Determine if in development mode
-  const isDevelopment = process.env.NODE_ENV
+  const isDevelopment = process.env.NODE_ENV === 'development'
 
   // Set locals, only providing error in development
   res.locals.message = err.message
-  res.locals.error = isDevelopment ? err : {}
+  res.locals.error = isDevelopment
+    ? { message: err.message, stack: err.stack }
+    : {}
 
   // If the request is for an API endpoint, respond with JSON
   if (req.originalUrl.startsWith('/api')) {
     res.status(err.status || 500).json({
       message: err.message,
-      error: isDevelopment ? err : {},
+      error: isDevelopment ? { message: err.message, stack: err.stack } : {},
     })
   } else {
     // Otherwise, render the error page or send a plain text response
