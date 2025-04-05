@@ -55,6 +55,13 @@ app.use(compression())
 passportConfig(passport)
 app.use(passport.initialize())
 
+// Warn if not in production (cookies are not secure in dev mode)
+if (process.env.NODE_ENV !== 'production') {
+  console.warn(
+    '⚠️  Warning: Running in development mode. Cookies are not marked secure.'
+  )
+}
+
 app.use('/api', indexRouter)
 
 // Catch 404 and forward to error handler
