@@ -1,6 +1,6 @@
 import { Drawer } from '@mantine/core'
 import cx from 'classnames'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router'
 import { LanguagePicker } from '../LanguagePicker/LanguagePicker'

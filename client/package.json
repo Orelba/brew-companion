@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@eslint/config-array": "^0.19.0",
+    "@eslint/config-array": "^0.20.0",
     "@mantine/carousel": "^7.6.2",
     "@mantine/charts": "^7.17.1",
     "@mantine/colors-generator": "^7.6.2",
@@ -25,9 +25,9 @@
     "axios": "^1.6.2",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.10",
-    "framer-motion": "^11.1.7",
     "i18next": "^24.0.2",
     "i18next-browser-languagedetector": "^8.0.0",
+    "motion": "^12.6.3",
     "non.geist": "^1.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
