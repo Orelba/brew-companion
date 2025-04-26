@@ -42,7 +42,7 @@ const MonthlyConsumedCoffeeStatsCard = ({ data }) => {
         <LineChart
           className={isRTL ? styles.rtl : undefined}
           mih={100}
-          data={isRTL ? [...formattedData].reverse() : formattedData}
+          data={isRTL ? formattedData : [...formattedData].reverse()}
           dataKey='month'
           series={[
             {

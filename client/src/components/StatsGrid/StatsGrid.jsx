@@ -36,11 +36,11 @@ const StatsGrid = ({ data }) => {
       </Title>
       <Grid grow columns={4} gutter={{ base: 'xs', sm: 'sm', md: 'md' }}>
         {stats}
-        <Grid.Col span={{ base: 4, xs: 2 }}>
-          <RoasteryStatsCard data={data.favoriteRoasteries} />
-        </Grid.Col>
         <Grid.Col span={2}>
           <MonthlyConsumedCoffeeStatsCard data={data.monthlyBrews} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 4, xs: 2 }}>
+          <RoasteryStatsCard data={data.favoriteRoasteries} />
         </Grid.Col>
       </Grid>
     </Stack>
