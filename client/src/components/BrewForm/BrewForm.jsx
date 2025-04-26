@@ -33,6 +33,10 @@ import { fetchCoffees } from '../../services/coffeesService'
 import ButtonCard from '../ButtonCard/ButtonCard'
 import ExtractionRating from '../ExtractionRating/ExtractionRating'
 
+// FIXME: WHEN GIVING A yield of 36.5 (float) it cannot save the brew
+// /api/brews/create 422 (Unprocessable Entity)
+// Maybe just restrict the inputs to integers?
+
 const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
   const navigate = useNavigate()
   const theme = useMantineTheme()
@@ -279,6 +283,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['brews'] })
       queryClient.invalidateQueries({ queryKey: ['latestBrews'] })
+      queryClient.invalidateQueries({ queryKey: ['stats'] })
     },
   })
 
@@ -317,6 +322,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       queryClient.invalidateQueries({
         queryKey: ['brews', context.updatedBrew._id],
       })
+      queryClient.invalidateQueries({ queryKey: ['stats'] })
     },
   })
 
@@ -346,7 +352,6 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       onClose={closeAndReset}
       fullScreen={matchesSmallScreen}
       size='xl'
-      // mih={10} // TODO: FIX OR DELETE
       onClick={(event) => event.stopPropagation()}
     >
       <Stepper active={active} onStepClick={setActive}>

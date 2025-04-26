@@ -47,6 +47,7 @@ const AccordionItemWithMenu = ({ item }) => {
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['brews'] })
       queryClient.invalidateQueries({ queryKey: ['latestBrews'] })
+      queryClient.invalidateQueries({ queryKey: ['stats'] })
     },
   })
 

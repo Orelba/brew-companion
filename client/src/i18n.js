@@ -36,6 +36,8 @@ i18next
             unexpectedError: 'An error has occurred. Please try again later.',
             userInfoFetchError:
               'Something went wrong. User info cannot be accessed at the moment.',
+            statsFetchError:
+              'Something went wrong. Stats cannot be accessed at the moment.',
           },
           loading: {
             coffees: 'Loading Your Coffees...',
@@ -240,6 +242,7 @@ i18next
             unexpectedError: 'אירעה שגיאה. אנא נסה שוב מאוחר יותר.',
             userInfoFetchError:
               'אירעה שגיאה. אין אפשרות לגשת לפרטי המשתמש כרגע.',
+            statsFetchError: 'אירעה שגיאה. אין אפשרות לגשת לסטטיסטיקות כרגע.',
           },
           loading: {
             coffees: 'טוען את רשימת הקפה שלך...',
@@ -320,7 +323,7 @@ i18next
           },
           statsCard: {
             favoriteBrewMethod: 'שיטת הכנה מועדפת',
-            totalCoffeesTried: 'כלל הקליות שנוסו',
+            totalCoffeesTried: 'כלל סוגי הקפה שנוסו',
             totalCoffeeConsumed: 'כלל הקפה שנצרך',
             totalBrewedThisMonth: 'כלל הכוסות שהוכנו החודש',
             comparedToPreviousMonth: 'בהשוואה לחודש הקודם',

@@ -1,37 +1,57 @@
+import { useQuery } from '@tanstack/react-query'
+import { fetchStats } from '../../services/statsService'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import StatsGrid from '../../components/StatsGrid/StatsGrid'
 import QuickBrewCarousel from '../../components/QuickBrewCarousel/QuickBrewCarousel'
 
-// TODO: DELETE: This is a temporary data structure to test the stats grid and roastery chart
-const statsData = {
-  stats: [
-    { titleId: 'favoriteBrewMethod', value: 'brewingMethods.pourOver' },
-    { titleId: 'totalCoffeesTried', value: 10 },
-    { titleId: 'totalCoffeeConsumed', value: 1054, formatValue: 'weight' },
-    { titleId: 'totalBrewedThisMonth', value: '23', diff: -2 },
-  ],
-  favoriteRoasteries: [
-    { roastery: 'Tsuk Cafe', brews: 78 },
-    { roastery: 'Jera', brews: 62 },
-    { roastery: 'Negro', brews: 34 },
-  ],
-  monthlyBrews: [
-    { month: 11, consumption: 820 },
-    { month: 12, consumption: 812 },
-    { month: 1, consumption: 232 },
-    { month: 2, consumption: 405 },
-    { month: 3, consumption: 182 },
-    { month: 4, consumption: 723 },
-  ],
-  sufficientData: true,
-}
-
 const DashboardPage = () => {
+  const axiosPrivate = useAxiosPrivate()
+
+  const {
+    data: stats,
+    isError: isStatsError,
+    isPlaceholderData: isStatsPlaceholderData,
+  } = useQuery({
+    queryKey: ['stats'],
+    queryFn: () => fetchStats(axiosPrivate),
+    placeholderData: initialStats,
+  })
+
   return (
     <>
       <QuickBrewCarousel />
-      <StatsGrid data={statsData} />
+      <StatsGrid
+        data={stats}
+        isLoading={isStatsPlaceholderData}
+        isError={isStatsError}
+      />
     </>
   )
+}
+
+const initialStats = {
+  stats: [
+    {
+      titleId: 'favoriteBrewMethod',
+      value: '',
+    },
+    {
+      titleId: 'totalCoffeesTried',
+      value: 0,
+    },
+    {
+      titleId: 'totalCoffeeConsumed',
+      value: 0,
+      formatValue: 'weight',
+    },
+    {
+      titleId: 'totalBrewedThisMonth',
+      value: 0,
+      diff: 0,
+    },
+  ],
+  favoriteRoasteries: [],
+  monthlyBrews: [],
 }
 
 export default DashboardPage
