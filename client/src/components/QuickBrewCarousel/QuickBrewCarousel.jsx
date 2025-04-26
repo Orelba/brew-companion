@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useState, useEffect } from 'react'
+import { notifications } from '@mantine/notifications'
 import { Carousel } from '@mantine/carousel'
 import {
   Skeleton,
@@ -11,15 +11,15 @@ import {
 } from '@mantine/core'
 import { useMediaQuery, useDisclosure } from '@mantine/hooks'
 import { useTranslation } from 'react-i18next'
-import { fetchRecentBrews } from '../../services/brewsService'
-import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import ButtonCard from '../ButtonCard/ButtonCard'
 import LoaderLogo from '../LoaderLogo/LoaderLogo'
 import BrewForm from '../BrewForm/BrewForm'
+import styles from './quick-brew-carousel.module.scss'
 
-const QuickBrewCarousel = () => {
+const QuickBrewCarousel = ({ data = [], isLoading, isError }) => {
   const theme = useMantineTheme()
-  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`)
+  const isTablet = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
 
   const { t } = useTranslation()
 
@@ -27,49 +27,48 @@ const QuickBrewCarousel = () => {
 
   const [initialValues, setInitialValues] = useState()
 
-  const axiosPrivate = useAxiosPrivate()
+  useEffect(() => {
+    if (isError) {
+      notifications.show({
+        title: t('notifications.quickBrewCarouselFetchError'),
+        color: 'red',
+      })
+    }
+  }, [isError, t])
 
-  const {
-    data: recentBrews,
-    error,
-    isPlaceholderData,
-  } = useQuery({
-    queryKey: ['latestBrews'],
-    queryFn: () => fetchRecentBrews(axiosPrivate),
-    placeholderData: [], // Default data to an empty array
-  })
-
-  if (error) return null
+  if (isError) return null
 
   const setInitialValuesAndOpenForm = (brew) => {
     setInitialValues(brew)
     open()
   }
 
-  const getInitialValues = () => initialValues
-
-  const slides = recentBrews.map((brew) => (
+  const slides = data.map((brew) => (
     <Carousel.Slide
       key={brew._id}
       onClick={() => setInitialValuesAndOpenForm(brew)}
     >
       <ButtonCard
-        key={brew._id}
         title={t(brew.brewingMethod.name)}
         image={brew.brewingMethod.image}
         text={brew.coffee.name}
+        h={isMobile && rem(160)}
       />
     </Carousel.Slide>
   ))
 
-  // FIXME: CHECK AND FIX THE PROBLEM WITH THE SCROLL IN THE WRONG DIRECTION AFTER REFRESH (MAYBE THERE IS SOME WAY TO PASS THE DIR TO EMBLA ON EVERY RENDER)
   return (
     <>
       <Stack gap='md' h='100%' m={{ base: 10, xs: 20, sm: 40, lg: 50, xl: 60 }}>
-        <Title order={1} style={{ alignSelf: 'flex-start' }}>
+        <Title
+          order={1}
+          fz={{ base: 26, xs: 34 }}
+          style={{ alignSelf: 'flex-start' }}
+        >
           {t('quickBrewCarousel.title')}
         </Title>
         <Carousel
+          height={isMobile ? rem(120) : rem(200)}
           slideSize={{
             base: '85%', // Not 100% so the user knows there are more slides
             xs: '43%',
@@ -79,21 +78,20 @@ const QuickBrewCarousel = () => {
           }}
           slideGap={{ base: 'xs', sm: 'sm', md: 'md' }}
           align='start'
-          slidesToScroll={mobile ? 1 : 3}
+          slidesToScroll={{ base: 1, md: 3 }}
           containScroll='trimSnaps'
-          withControls={false}
+          dragFree={isMobile}
+          classNames={styles}
+          withControls={!isTablet}
+          controlsOffset='xs'
         >
           {slides}
           {/* Skeleton is used to give the overlay height */}
-          <Skeleton h={rem(200)} visible={isPlaceholderData || error} />
+          <Skeleton h={rem(200)} visible={isLoading} />
           <LoadingOverlay
-            visible={isPlaceholderData || error}
+            visible={isLoading}
             loaderProps={{
-              children: error ? (
-                <h4>Could not get recent brews</h4>
-              ) : (
-                <LoaderLogo />
-              ),
+              children: <LoaderLogo />,
             }}
             overlayProps={{ radius: 'sm', blur: 2 }}
           />
@@ -102,7 +100,7 @@ const QuickBrewCarousel = () => {
       <BrewForm
         opened={opened}
         onClose={close}
-        getInitialValues={getInitialValues}
+        getInitialValues={() => initialValues}
       />
     </>
   )

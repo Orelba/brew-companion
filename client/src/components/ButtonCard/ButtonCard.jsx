@@ -1,28 +1,35 @@
-import { Paper, Text, Title, rem } from '@mantine/core'
+import { Paper, Text, Title } from '@mantine/core'
 import styles from './button-card.module.scss'
 
-const ButtonCard = ({ image, title, text, textLineClamp, h, onClick }) => {
+const ButtonCard = ({ image, title, text, textLineClamp, onClick }) => {
   return (
     <Paper
       p='lg'
       radius='md'
-      h={h || rem(200)}
+      h='100%'
       style={{ backgroundImage: `url(${image})` }}
       className={styles.card}
       onClick={onClick}
     >
       <div>
         {title && (
-          <Title order={3} className={styles.title}>
+          <Title
+            order={3}
+            lh={{ base: 1, xs: 1.2 }}
+            fz={{ base: 22, xs: 31 }}
+            fw={700}
+            mt='xs'
+          >
             {title}
           </Title>
         )}
         {text && (
           <Text
-            size='xl'
             mt={title && 'xs'}
             lineClamp={textLineClamp || 2}
             fw={100}
+            lh={{ base: 'sm', xs: 'xl' }}
+            fz={{ base: 16, xs: 20 }}
           >
             {text}
           </Text>

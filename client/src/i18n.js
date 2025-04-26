@@ -36,6 +36,8 @@ i18next
             unexpectedError: 'An error has occurred. Please try again later.',
             userInfoFetchError:
               'Something went wrong. User info cannot be accessed at the moment.',
+            quickBrewCarouselFetchError:
+              'Something went wrong. Recent brews cannot be accessed at the moment.',
             statsFetchError:
               'Something went wrong. Stats cannot be accessed at the moment.',
           },
@@ -242,6 +244,8 @@ i18next
             unexpectedError: 'אירעה שגיאה. אנא נסה שוב מאוחר יותר.',
             userInfoFetchError:
               'אירעה שגיאה. אין אפשרות לגשת לפרטי המשתמש כרגע.',
+            quickBrewCarouselFetchError:
+              'אירעה שגיאה. אין אפשרות לגשת לרשימת ההכנות האחרונות כרגע.',
             statsFetchError: 'אירעה שגיאה. אין אפשרות לגשת לסטטיסטיקות כרגע.',
           },
           loading: {

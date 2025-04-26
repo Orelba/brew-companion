@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { fetchRecentBrews } from '../../services/brewsService'
 import { fetchStats } from '../../services/statsService'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import StatsGrid from '../../components/StatsGrid/StatsGrid'
@@ -6,6 +7,16 @@ import QuickBrewCarousel from '../../components/QuickBrewCarousel/QuickBrewCarou
 
 const DashboardPage = () => {
   const axiosPrivate = useAxiosPrivate()
+
+  const {
+    data: recentBrews,
+    isError: isRecentBrewsError,
+    isPlaceholderData: isRecentBrewsPlaceholderData,
+  } = useQuery({
+    queryKey: ['latestBrews'],
+    queryFn: () => fetchRecentBrews(axiosPrivate),
+    placeholderData: [], // Default data to an empty array
+  })
 
   const {
     data: stats,
@@ -19,7 +30,11 @@ const DashboardPage = () => {
 
   return (
     <>
-      <QuickBrewCarousel />
+      <QuickBrewCarousel
+        data={recentBrews}
+        isLoading={isRecentBrewsPlaceholderData}
+        isError={isRecentBrewsError}
+      />
       <StatsGrid
         data={stats}
         isLoading={isStatsPlaceholderData}
