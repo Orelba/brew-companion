@@ -52,7 +52,6 @@ const QuickBrewCarousel = ({ data = [], isLoading, isError }) => {
         title={t(brew.brewingMethod.name)}
         image={brew.brewingMethod.image}
         text={brew.coffee.name}
-        h={isMobile && rem(160)}
       />
     </Carousel.Slide>
   ))
