@@ -25,9 +25,7 @@ const AuthForm = ({ opened, onClose }) => {
   const { t } = useTranslation()
 
   const theme = useMantineTheme()
-  const matchesSmallScreen = useMediaQuery(
-    `(max-width: ${theme.breakpoints.xs})`
-  )
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`)
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -164,8 +162,8 @@ const AuthForm = ({ opened, onClose }) => {
     <Modal
       opened={opened}
       onClose={closeAndReset}
-      fullScreen={matchesSmallScreen}
-      withCloseButton={false}
+      fullScreen={isMobile}
+      withCloseButton={isMobile ? true : false}
     >
       <Paper radius='md' p='lg'>
         <Text size='lg' fw={500} mb='sm'>

@@ -40,9 +40,7 @@ import ExtractionRating from '../ExtractionRating/ExtractionRating'
 const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
   const navigate = useNavigate()
   const theme = useMantineTheme()
-  const matchesSmallScreen = useMediaQuery(
-    `(max-width: ${theme.breakpoints.xs})`
-  )
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`)
 
   // Access the global queryClient instance
   const queryClient = useQueryClient()
@@ -350,7 +348,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
     <Modal
       opened={opened}
       onClose={closeAndReset}
-      fullScreen={matchesSmallScreen}
+      fullScreen={isMobile}
       size='xl'
       onClick={(event) => event.stopPropagation()}
     >
