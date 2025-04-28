@@ -33,10 +33,6 @@ import { fetchCoffees } from '../../services/coffeesService'
 import ButtonCard from '../ButtonCard/ButtonCard'
 import ExtractionRating from '../ExtractionRating/ExtractionRating'
 
-// FIXME: WHEN GIVING A yield of 36.5 (float) it cannot save the brew
-// /api/brews/create 422 (Unprocessable Entity)
-// Maybe just restrict the inputs to integers?
-
 const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
   const navigate = useNavigate()
   const theme = useMantineTheme()
@@ -409,7 +405,6 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
             <Group grow='1' align='flex-start'>
               <TimeInput
                 label={t('newBrewForm.inputs.time.label')}
-                // withSeconds
                 key={form.key('time')}
                 {...form.getInputProps('time')}
               />
@@ -419,6 +414,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
                 allowNegative={false}
                 min={0}
                 max={100}
+                decimalScale={1}
                 key={form.key('temperature')}
                 {...form.getInputProps('temperature')}
               />
@@ -428,6 +424,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
                 label={t('newBrewForm.inputs.dose.label')}
                 allowNegative={false}
                 min={1}
+                decimalScale={1}
                 key={form.key('dose')}
                 {...form.getInputProps('dose')}
               />
@@ -435,6 +432,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
                 label={t('newBrewForm.inputs.yield.label')}
                 allowNegative={false}
                 min={1}
+                decimalScale={1}
                 key={form.key('yield')}
                 {...form.getInputProps('yield')}
               />

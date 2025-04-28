@@ -54,7 +54,7 @@ const aggregateBrews = (brews, coffeeMap) => {
     if (brew.dose && !Number.isFinite(brew.dose)) continue
 
     const dose = Number(brew.dose) || 0
-    totalConsumed += dose
+    totalConsumed += Math.round(dose)
 
     const date = new Date(brew.date)
     const month = date.getMonth()
@@ -64,10 +64,10 @@ const aggregateBrews = (brews, coffeeMap) => {
       (m) => m.month === month && m.year === year
     )
     if (monthObj) {
-      monthObj.consumption += dose
+      monthObj.consumption += Math.round(dose)
       monthObj.brews += 1
     } else {
-      monthlyBrews.push({ month, year, consumption: dose, brews: 1 })
+      monthlyBrews.push({ month, year, consumption: Math.round(dose), brews: 1 })
     }
 
     coffeeSet.add(brew.coffee.toString())
