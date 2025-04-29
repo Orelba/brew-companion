@@ -11,6 +11,7 @@ const UserSchema = new Schema({
   passwordResetToken: { type: String },
   passwordResetTokenExpires: { type: Date },
   passwordChangedAt: { type: Date },
+  createdAt: { type: Date, default: Date.now },
 })
 
 UserSchema.methods.createResetPasswordToken = function () {
