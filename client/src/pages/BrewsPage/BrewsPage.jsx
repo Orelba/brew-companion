@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { usePageTitle } from '../../hooks/usePageTitle'
-import { useDisclosure } from '@mantine/hooks'
+import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { useQuery } from '@tanstack/react-query'
 import { fetchBrews } from '../../services/brewsService'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
@@ -14,6 +14,7 @@ import {
   Select,
   Space,
   Tooltip,
+  useMantineTheme,
 } from '@mantine/core'
 import { IconRotate } from '@tabler/icons-react'
 import AccordionItemWithMenu from '../../components/AccordionItemWithMenu/AccordionItemWithMenu'
@@ -28,6 +29,10 @@ const BrewsPage = () => {
 
   // Get the translations for the page
   const { t } = useTranslation()
+
+  // Check if the screen size is tablet or smaller
+  const theme = useMantineTheme()
+  const isTablet = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
 
   // Set the page title
   usePageTitle(t('pageTitles.brewsPage'))
@@ -164,12 +169,26 @@ const BrewsPage = () => {
               </ActionIcon>
             </Tooltip>
           </Group>
-          <Button variant='outline' onClick={openBrewForm}>
-            {t('brewsPage.addBrew')}
-          </Button>
+          {!isTablet && (
+            <Button variant='light' onClick={openBrewForm}>
+              {t('brewsPage.addBrew')}
+            </Button>
+          )}
           <BrewForm opened={isBrewFormOpened} onClose={closeBrewForm} />
         </Group>
-        <Space h='lg' />
+        <Space h={{ base: 'md', sm: 'lg' }} />
+        {isTablet && (
+          <Button
+            w='100%'
+            h={52}
+            mb='md'
+            variant='light'
+            styles={{ root: { borderRadius: 0 } }}
+            onClick={openBrewForm}
+          >
+            {t('brewsPage.addBrew')}
+          </Button>
+        )}
         <Accordion chevronPosition='left'>{items}</Accordion>
       </Container>
     </PageTransitionWrapper>
