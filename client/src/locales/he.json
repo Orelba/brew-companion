@@ -1,0 +1,182 @@
+{
+  "notifications": {
+    "loginSuccessful": "התחברת בהצלחה!",
+    "loginFailed": "ההתחברות נכשלה",
+    "logoutSuccessful": "התנתקת בהצלחה",
+    "logoutFailed": "ההתנתקות נכשלה. אנא נסה שנית מאוחר יותר.",
+    "passwordResetEmailSent": "לינק לשחזור סיסמה ישלח לכתובת המייל שציינת במידה והחשבון קיים במערכת.",
+    "noServerResponse": "אין תגובה מהשרת",
+    "missingEmailOrPassword": "אחר או יותר מהפרטים חסרים",
+    "invalidEmailOrPassword": "אחד או יותר מהפרטים שהזנת שגויים",
+    "termsAgreementError": "עליך לקרוא ולהסכים לתנאים ולהגבלות",
+    "registrationSuccessful": "נרשמת בהצלחה!",
+    "registrationFailed": "ההרשמה נכשלה. אנא נסה שנית מאוחר יותר.",
+    "usernameAlreadyExists": "שם המשתמש שבחרת כבר תפוס, אנא בחר אחד אחר",
+    "emailAlreadyExists": "האימייל שבחרת כבר רשום במערכת, אנא נסה להתחבר או לשחזר את הסיסמה.",
+    "unexpectedError": "אירעה שגיאה. אנא נסה שוב מאוחר יותר.",
+    "userInfoFetchError": "אירעה שגיאה. אין אפשרות לגשת לפרטי המשתמש כרגע.",
+    "quickBrewCarouselFetchError": "אירעה שגיאה. אין אפשרות לגשת לרשימת ההכנות האחרונות כרגע.",
+    "statsFetchError": "אירעה שגיאה. אין אפשרות לגשת לסטטיסטיקות כרגע.",
+    "brewCreationSuccess": "הרשומה נשמרה בהצלחה!",
+    "brewCreationError": "אירעה שגיאה. הרשומה לא נשמרה."
+  },
+  "loading": {
+    "coffees": "טוען את רשימת הקפה שלך...",
+    "brews": "טוען את הלוג...",
+    "passwordReset": "מאמת פרטים..."
+  },
+  "pageTitles": {
+    "brewsPage": "לוג קפה",
+    "coffeesPage": "קליות",
+    "roasteriesPage": "בתי קלייה",
+    "notFoundPage": "העמוד לא נמצא"
+  },
+  "brewingMethods": {
+    "espresso": "אספרסו",
+    "pourOver": "פילטר",
+    "mokaPot": "מקינטה",
+    "frenchPress": "פרנץ' פרס",
+    "aeroPress": "אירופרס",
+    "turkishCoffee": "קפה שחור",
+    "coldBrew": "חליטה קרה"
+  },
+  "header": {
+    "home": "בית",
+    "brews": "לוג קפה",
+    "inventory": "קליות ובתי קלייה"
+  },
+  "homePage": {
+    "heroTitle": "החליטה המושלמת ",
+    "heroDescription": "שפר את חוויית הקפה שלך - כוס אחת בכל פעם.",
+    "heroButtonText": "התחל עכשיו"
+  },
+  "auth": {
+    "welcome": "ברוך הבא, {{formType}} עם",
+    "login": "התחבר",
+    "register": "הירשם",
+    "resetPassword": "אפס סיסמה",
+    "validation": {
+      "usernameInvalid": "שם המשתמש חייב לכלול לפחות 3 תווים",
+      "emailInvalid": "דואר אלקטרוני לא תקין",
+      "passwordInvalid": "הסיסמה חייבת לכלול לפחות 8 תווים",
+      "passwordMismatch": "הסיסמאות חייבות להיות זהות"
+    },
+    "inputs": {
+      "emailLabel": "אימייל",
+      "emailPlaceholder": "כתובת האימייל שלך",
+      "usernameLabel": "שם משתמש",
+      "usernamePlaceholder": "שם המשתמש שלך",
+      "passwordLabel": "סיסמה",
+      "passwordPlaceholder": "הסיסמה שלך",
+      "confirmPasswordLabel": "אישור סיסמה",
+      "confirmPasswordPlaceholder": "אשר את הסיסמה החדשה שלך",
+      "termsAndConditions": "קראתי ואני מסכים/ה לתנאים וההגבלות"
+    },
+    "forgotYourPassword": "שכחת סיסמה?",
+    "persistLogin": "השאר אותי מחובר",
+    "callToLogin": "כבר יש לך משתמש? להתחברות לחץ כאן",
+    "callToRegister": "אין לך משתמש? להרשמה לחץ כאן",
+    "callToGoBack": "חזרה להתחברות"
+  },
+  "weight": { "kg": "ק\"ג", "g": "גרם", "lbs": "פאונד", "oz": "אונקיה" },
+  "userDropdownMenu": { "accountSettings": "הגדרות", "logout": "התנתק" },
+  "passwordResetPage": {
+    "title": "אפס את הסיסמה שלך",
+    "subtitle": "בחר סיסמה חדשה כדי להשלים את התהליך",
+    "linkInvalid": "נראה שהקישור הזה פג תוקף. אנא בקש קישור חדש לאיפוס הסיסמה שלך."
+  },
+  "statsGrid": { "title": "הסטטיסטיקות שלי" },
+  "statsCard": {
+    "favoriteBrewMethod": "שיטת הכנה מועדפת",
+    "totalCoffeesTried": "כלל סוגי הקפה שנוסו",
+    "totalCoffeeConsumed": "כלל הקפה שנצרך",
+    "totalBrewedThisMonth": "כלל הכוסות שהוכנו החודש",
+    "comparedToPreviousMonth": "בהשוואה לחודש הקודם"
+  },
+  "roasteryStatsCard": {
+    "titleSingleRoastery": "בית קלייה מועדף",
+    "titleMultipleRoasteries": "בתי קלייה מועדפים",
+    "cups": "כוסות"
+  },
+  "monthlyConsumedCoffeeStatsCard": {
+    "titleSingleMonth": "צריכת קפה החודש",
+    "titleMultipleMonths": "צריכת קפה חודשית",
+    "consumption": "צריכה"
+  },
+  "quickBrewCarousel": { "title": "הכנה מהירה" },
+  "brewsPage": {
+    "allCoffees": "כל הקליות",
+    "allMethods": "כל שיטות ההכנה",
+    "noCoffeesFound": "לא נמצאו קליות",
+    "resetFilters": "אפס סינון",
+    "addBrew": "הוסף רשומה"
+  },
+  "newBrewForm": {
+    "stepOneTitle": "מה הכנת?",
+    "stepOneDescription": "בחר שיטת הכנה",
+    "stepTwoTitle": "באיזה קפה השתמשת?",
+    "stepTwoDescription": "בחר קפה",
+    "stepThreeTitle": "איך היה?",
+    "stepThreeDescription": "הכנס את פרטי ההכנה",
+    "inputs": {
+      "grindSetting": {
+        "label": "דרגת טחינה",
+        "error": "חובה לציין את דרגת הטחינה"
+      },
+      "time": {
+        "label": "זמן",
+        "error": "הזמן חייב להיות בפורמט 00:00 או 00:00:00"
+      },
+      "dose": {
+        "label": "כמות קפה",
+        "error": "הכמות חייבת להיות גדולה מ-0 גרם"
+      },
+      "yield": {
+        "label": "כמות מים / כמה יצא",
+        "error": "הכמות חייבת להיות גדולה מ-0 גרם"
+      },
+      "temperature": {
+        "label": "טמפרטורה",
+        "error": "הטמפרטורה חייבת להיות בין מספר בין 0 ל-100"
+      },
+      "notes": { "label": "הערות", "error": "" }
+    },
+    "save": "שמור"
+  },
+  "accordionItemWithMenu": {
+    "edit": "ערוך",
+    "archive": "העבר לארכיון",
+    "delete": "מחק",
+    "brewSettings": "פרטי ההכנה",
+    "notes": "הערות",
+    "grindSetting": "דרגת טחינה",
+    "doseYield": "כמות - תוצאה",
+    "time": "זמן",
+    "temp": "טמפרטורה",
+    "gram": "גרם",
+    "unknown": "לא ידוע",
+    "savingBrew": "שומר..."
+  },
+  "extractionRating": {
+    "underExtracted": "מיצוי חסר",
+    "slightlyUnderExtracted": "מיצוי חסר קל",
+    "balanced": "מאוזן",
+    "slightlyOverExtracted": "מיצוי יתר קל",
+    "overExtracted": "מיצוי יתר",
+    "callToRate": "דרג את המיצוי"
+  },
+  "inventoryLayout": {
+    "coffees": "קליות",
+    "roasteries": "בתי קלייה",
+    "archive": "ארכיון",
+    "search": "חיפוש"
+  },
+  "footer": {
+    "text": "© {{year}} {{appName}}. כל הזכויות שמורות.",
+    "links": {
+      "contact": "צור קשר",
+      "privacy": "פרטיות",
+      "tos": "תנאי שימוש"
+    }
+  }
+}
