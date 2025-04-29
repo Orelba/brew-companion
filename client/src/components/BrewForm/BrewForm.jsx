@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router'
+import { v4 as uuidv4 } from 'uuid'
 import {
   ActionIcon,
   Button,
@@ -20,6 +20,7 @@ import { TimeInput } from '@mantine/dates'
 import { useForm } from '@mantine/form'
 import { useDebouncedCallback, useMediaQuery } from '@mantine/hooks'
 import { IconArrowNarrowLeft } from '@tabler/icons-react'
+import { notifications } from '@mantine/notifications'
 
 import { fetchBrewingMethods } from '../../services/brewingMethodsService'
 import {
@@ -34,7 +35,6 @@ import ButtonCard from '../ButtonCard/ButtonCard'
 import ExtractionRating from '../ExtractionRating/ExtractionRating'
 
 const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
-  const navigate = useNavigate()
   const theme = useMantineTheme()
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`)
 
@@ -250,7 +250,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       yield: formValues.yield,
       __v: 0,
       // the id is checked in the AccordionItemWithMenu so the menu is disabled if it's an optimistic update placeholder
-      _id: 'optimistic',
+      _id: `optimistic-${uuidv4()}`,
     }
 
     return OptimisticBrewObject
@@ -271,8 +271,18 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
 
       return { previousBrews }
     },
+    onSuccess: () => {
+      notifications.show({
+        title: t('notifications.brewSaveSuccess'),
+        color: 'green',
+      })
+    },
     onError: (err, variables, context) => {
       queryClient.setQueryData(['brews'], context.previousBrews)
+      notifications.show({
+        title: t('notifications.brewSaveError'),
+        color: 'red',
+      })
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['brews'] })
@@ -304,11 +314,21 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
 
       return { previousBrew, updatedBrew }
     },
+    onSuccess: () => {
+      notifications.show({
+        title: t('notifications.brewSaveSuccess'),
+        color: 'green',
+      })
+    },
     onError: (err, variables, context) => {
       queryClient.setQueryData(
         ['brews', context.updatedBrew._id],
         context.previousBrew
       )
+      notifications.show({
+        title: t('notifications.brewSaveError'),
+        color: 'red',
+      })
     },
     onSettled: (updatedBrew, err, variables, context) => {
       queryClient.invalidateQueries({ queryKey: ['brews'] })
@@ -335,8 +355,6 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       }
 
       closeAndReset()
-
-      if (getInitialValues) navigate('/brews')
     }
   }
 

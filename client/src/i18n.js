@@ -40,6 +40,9 @@ i18next
               'Something went wrong. Recent brews cannot be accessed at the moment.',
             statsFetchError:
               'Something went wrong. Stats cannot be accessed at the moment.',
+            brewSaveSuccess: 'Brew saved successfully!',
+            brewSaveError:
+              'Something went wrong. Brew was not saved. Please try again later.',
           },
           loading: {
             coffees: 'Loading Your Coffees...',
@@ -247,6 +250,8 @@ i18next
             quickBrewCarouselFetchError:
               'אירעה שגיאה. אין אפשרות לגשת לרשימת ההכנות האחרונות כרגע.',
             statsFetchError: 'אירעה שגיאה. אין אפשרות לגשת לסטטיסטיקות כרגע.',
+            brewCreationSuccess: 'הרשומה נשמרה בהצלחה!',
+            brewCreationError: 'אירעה שגיאה. הרשומה לא נשמרה.',
           },
           loading: {
             coffees: 'טוען את רשימת הקפה שלך...',
