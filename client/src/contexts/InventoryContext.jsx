@@ -21,7 +21,7 @@ export const InventoryProvider = ({ children }) => {
 
   const roasteries = useQuery({
     queryKey: ['roasteries'],
-    queryFn: fetchRoasteries,
+    queryFn: () => fetchRoasteries(axiosPrivate),
     placeholderData: [], // Default data to an empty array
   })
 

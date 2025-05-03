@@ -1,8 +1,10 @@
 import { Router } from 'express'
 const router = Router()
 
-import { roasteries_list } from '../../controllers/roasteriesController.js'
+import authenticate from '../../middleware/authenticate.js'
 
-router.get('/', roasteries_list)
+import { roasteriesList } from '../../controllers/roasteriesController.js'
+
+router.get('/', authenticate, roasteriesList)
 
 export default router
