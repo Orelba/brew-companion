@@ -18,7 +18,7 @@ import {
 } from '@mantine/core'
 import { TimeInput } from '@mantine/dates'
 import { useForm } from '@mantine/form'
-import { useDebouncedCallback, useMediaQuery } from '@mantine/hooks'
+import { useMediaQuery } from '@mantine/hooks'
 import { IconArrowNarrowLeft } from '@tabler/icons-react'
 import { notifications } from '@mantine/notifications'
 
@@ -57,6 +57,9 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
 
   // Check if it's an update form
   const isUpdateMode = opened && !!brewIdToUpdate
+
+  // check if the form is already submitted to prevent multiple submissions
+  const isSubmittingRef = useRef(false)
 
   // Form mangement and validation
   const form = useForm({
@@ -203,16 +206,11 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
     return truncatedName
   }
 
-  // Reset the stepper after closing the modal
-  const debouncedReset = useDebouncedCallback(() => {
-    setActive(getInitialValues || brewIdToUpdate ? 2 : 0)
-    form.reset()
-  }, 200) // 200ms is the transition duration of the modal
-
   // Close the modal and reset the stepper
   const closeAndReset = () => {
     onClose()
-    debouncedReset()
+    setActive(getInitialValues || brewIdToUpdate ? 2 : 0)
+    form.reset()
   }
 
   const generateOptimisticBrewFromFormValues = (formValues) => {
@@ -285,6 +283,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       })
     },
     onSettled: () => {
+      isSubmittingRef.current = false // Reset the submission flag
       queryClient.invalidateQueries({ queryKey: ['brews'] })
       queryClient.invalidateQueries({ queryKey: ['latestBrews'] })
       queryClient.invalidateQueries({ queryKey: ['stats'] })
@@ -331,6 +330,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       })
     },
     onSettled: (updatedBrew, err, variables, context) => {
+      isSubmittingRef.current = false // Reset the submission flag
       queryClient.invalidateQueries({ queryKey: ['brews'] })
       queryClient.invalidateQueries({ queryKey: ['latestBrews'] })
       queryClient.invalidateQueries({
@@ -341,6 +341,11 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
   })
 
   const handleSaveBrew = () => {
+    // Prevent multiple submissions
+    if (isSubmittingRef.current) return
+    // Set the flag to indicate submission in progress
+    isSubmittingRef.current = true
+
     // Validate and show errors if found
     form.validate()
 
@@ -353,15 +358,15 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
         // Save a new brew
         createMutation.mutate(form.getValues())
       }
-
-      closeAndReset()
+      onClose()
     }
   }
 
   return (
     <Modal
       opened={opened}
-      onClose={closeAndReset}
+      onClose={onClose}
+      onExitTransitionEnd={closeAndReset}
       fullScreen={isMobile}
       size='xl'
       onClick={(event) => event.stopPropagation()}
@@ -480,7 +485,11 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
           />
         </ActionIcon>
         {active === 2 && (
-          <Button variant='outline' onClick={handleSaveBrew}>
+          <Button
+            variant='outline'
+            onClick={handleSaveBrew}
+            disabled={isSubmittingRef.current}
+          >
             {t('newBrewForm.save')}
           </Button>
         )}
