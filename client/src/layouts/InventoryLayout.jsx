@@ -35,7 +35,7 @@ const InventoryLayout = () => {
   const autoCompleteData = (tab === 'coffees' ? coffees.data : roasteries.data)
     // Match names to the archive state
     .filter((item) => item.archived === isArchive)
-    .map((item) => item.name)
+    .map((item) => ({ value: item._id, label: item.name }))
 
   const handleTabChange = (newTab) => {
     setTab(newTab)
