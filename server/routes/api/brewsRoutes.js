@@ -9,7 +9,7 @@ import {
   brewCreatePost,
   brewUpdateGet,
   brewUpdatePut,
-  brewDeletePost,
+  brewDelete,
 } from '../../controllers/brewsController.js'
 
 // GET all brews
@@ -28,6 +28,6 @@ router.get('/:id/update', authenticate, brewUpdateGet)
 router.put('/:id/update', authenticate, brewUpdatePut)
 
 // DELETE existing brew
-router.delete('/:id/delete', authenticate, brewDeletePost)
+router.delete('/:id/delete', authenticate, brewDelete)
 
 export default router

@@ -195,7 +195,7 @@ const brewUpdatePut = [
   }),
 ]
 
-const brewDeletePost = asyncHandler(async (req, res, next) => {
+const brewDelete = asyncHandler(async (req, res, next) => {
   // Find the brew to check ownership before deleting
   const brewToDelete = await Brew.findById(req.params.id)
 
@@ -221,5 +221,5 @@ export {
   brewCreatePost,
   brewUpdateGet,
   brewUpdatePut,
-  brewDeletePost,
+  brewDelete,
 }
