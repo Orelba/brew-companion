@@ -17,8 +17,10 @@
     "userInfoFetchError": "אירעה שגיאה. אין אפשרות לגשת לפרטי המשתמש כרגע.",
     "quickBrewCarouselFetchError": "אירעה שגיאה. אין אפשרות לגשת לרשימת ההכנות האחרונות כרגע.",
     "statsFetchError": "אירעה שגיאה. אין אפשרות לגשת לסטטיסטיקות כרגע.",
-    "brewCreationSuccess": "הרשומה נשמרה בהצלחה!",
-    "brewCreationError": "אירעה שגיאה. הרשומה לא נשמרה."
+    "brewSaveSuccess": "הרשומה נשמרה בהצלחה!",
+    "brewSaveError": "אירעה שגיאה. הרשומה לא נשמרה.",
+    "coffeeSaveSuccess": "הקפה נשמר בהצלחה!",
+    "coffeeSaveError": "אירעה שגיאה. הקפה לא נשמר."
   },
   "loading": {
     "coffees": "טוען את רשימת הקפה שלך...",
@@ -144,9 +146,6 @@
     "save": "שמור"
   },
   "accordionItemWithMenu": {
-    "edit": "ערוך",
-    "archive": "העבר לארכיון",
-    "delete": "מחק",
     "brewSettings": "פרטי ההכנה",
     "notes": "הערות",
     "grindSetting": "דרגת טחינה",
@@ -156,6 +155,12 @@
     "gram": "גרם",
     "unknown": "לא ידוע",
     "savingBrew": "שומר..."
+  },
+  "itemDropdown": {
+    "edit": "ערוך",
+    "archive": "העבר לארכיון",
+    "unarchive": "הוצא מהארכיון",
+    "delete": "מחק"
   },
   "extractionRating": {
     "underExtracted": "מיצוי חסר",
@@ -170,6 +175,27 @@
     "roasteries": "בתי קלייה",
     "archive": "ארכיון",
     "search": "חיפוש"
+  },
+  "coffeesPage": {
+    "addCoffee": "הוסף קפה"
+  },
+  "coffeeForm": {
+    "newCoffeeTitle": "הוסף קפה חדש",
+    "inputs": {
+      "name": {
+        "label": "שם",
+        "placeholder": "שם הקפה",
+        "error": "חובה למלא שם",
+        "tooLong": "שם הקפה לא יכול להיות ארוך מ-70 תווים"
+      },
+      "roastery": {
+        "label": "בית קלייה",
+        "placeholder": "בחר בית קלייה",
+        "error": "חובה לבחור בית קלייה"
+      }
+    },
+    "callToRate": "דרג את הקפה",
+    "save": "שמור"
   },
   "footer": {
     "text": "© {{year}} {{appName}}. כל הזכויות שמורות.",

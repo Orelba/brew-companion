@@ -7,9 +7,8 @@ import {
 } from '@tabler/icons-react'
 import { useTranslation } from 'react-i18next'
 
-// TODO: REUSE FOR COFFEE AND ROASTERY
 const ItemDropdown = ({
-  withArchiveButton,
+  isArchived,
   onMenuEdit,
   onMenuArchive,
   onMenuDelete,
@@ -43,9 +42,9 @@ const ItemDropdown = ({
             />
           }
         >
-          {t('accordionItemWithMenu.edit')}
+          {t('itemDropdown.edit')}
         </Menu.Item>
-        {withArchiveButton && (
+        {typeof isArchived === 'boolean' && (
           <Menu.Item
             onClick={onMenuArchive}
             leftSection={
@@ -56,7 +55,9 @@ const ItemDropdown = ({
             }
             color='yellow'
           >
-            {t('accordionItemWithMenu.archive')}
+            {isArchived
+              ? t('itemDropdown.unarchive')
+              : t('itemDropdown.archive')}
           </Menu.Item>
         )}
         <Menu.Item
@@ -69,7 +70,7 @@ const ItemDropdown = ({
           }
           color='red'
         >
-          {t('accordionItemWithMenu.delete')}
+          {t('itemDropdown.delete')}
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>

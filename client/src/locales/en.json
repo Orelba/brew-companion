@@ -18,7 +18,9 @@
     "quickBrewCarouselFetchError": "Something went wrong. Recent brews cannot be accessed at the moment.",
     "statsFetchError": "Something went wrong. Stats cannot be accessed at the moment.",
     "brewSaveSuccess": "Brew saved successfully!",
-    "brewSaveError": "Something went wrong. Brew was not saved. Please try again later."
+    "brewSaveError": "Something went wrong. Brew was not saved. Please try again later.",
+    "coffeeSaveSuccess": "Coffee saved successfully!",
+    "coffeeSaveError": "Something went wrong. Coffee was not saved. Please try again later."
   },
   "loading": {
     "coffees": "Loading Your Coffees...",
@@ -149,9 +151,6 @@
     "save": "Save"
   },
   "accordionItemWithMenu": {
-    "edit": "Edit",
-    "archive": "Archive",
-    "delete": "Delete",
     "brewSettings": "Brew Settings",
     "notes": "Notes",
     "grindSetting": "Grind Setting",
@@ -161,6 +160,12 @@
     "gram": "g",
     "unknown": "Unknown",
     "savingBrew": "Saving Brew..."
+  },
+  "itemDropdown": {
+    "edit": "Edit",
+    "archive": "Archive",
+    "unarchive": "Unarchive",
+    "delete": "Delete"
   },
   "extractionRating": {
     "underExtracted": "Under Extracted",
@@ -175,6 +180,27 @@
     "roasteries": "Roasteries",
     "archive": "Archive",
     "search": "Search"
+  },
+  "coffeesPage": {
+    "addCoffee": "Add Coffee"
+  },
+  "coffeeForm": {
+    "newCoffeeTitle": "Add New Coffee",
+    "inputs": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Coffee Name",
+        "error": "Name must be filled",
+        "tooLong": "Coffee name can't be longer than 70 characters"
+      },
+      "roastery": {
+        "label": "Roastery",
+        "placeholder": "Pick Roastery",
+        "error": "Roastery must be filled"
+      }
+    },
+    "callToRate": "Rate the coffee",
+    "save": "Save"
   },
   "footer": {
     "text": "© {{year}} {{appName}}. All rights reserved.",
