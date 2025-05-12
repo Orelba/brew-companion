@@ -76,10 +76,12 @@ const QuickBrewCarousel = ({ data = [], isLoading, isError }) => {
             lg: '20%',
           }}
           slideGap={{ base: 'xs', sm: 'sm', md: 'md' }}
-          align='start'
-          slidesToScroll={{ base: 1, md: 3 }}
-          containScroll='trimSnaps'
-          dragFree={isMobile}
+          emblaOptions={{
+            align: 'start',
+            slidesToScroll: 'auto',
+            containScroll: 'trimSnaps',
+            dragFree: isMobile,
+          }}
           classNames={styles}
           withControls={!isTablet}
           controlsOffset='xs'

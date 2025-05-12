@@ -58,7 +58,7 @@ const Header = () => {
   return (
     <AppShellHeader className={styles.header}>
       <div className={styles.inner}>
-        <Group>
+        <Group wrap='nowrap'>
           <Burger opened={opened} onClick={toggle} size='sm' hiddenFrom='sm' />
           <Image
             src={logo}

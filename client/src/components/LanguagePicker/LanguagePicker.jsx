@@ -55,7 +55,7 @@ export function LanguagePicker() {
           className={styles.control}
           data-expanded={opened || undefined}
         >
-          <Group gap='xs'>
+          <Group gap='xs' wrap='nowrap'>
             <Image src={selected.image} width={22} height={22} />
             <span className={styles.label}>{selected.label}</span>
           </Group>
