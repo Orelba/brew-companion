@@ -195,25 +195,28 @@ const brewUpdatePut = [
   }),
 ]
 
-const brewDelete = asyncHandler(async (req, res, next) => {
-  // Find the brew to check ownership before deleting
-  const brewToDelete = await Brew.findById(req.params.id)
+const brewDelete = [
+  validateMongoDBObjectId,
+  asyncHandler(async (req, res, next) => {
+    // Find the brew to check ownership before deleting
+    const brewToDelete = await Brew.findById(req.params.id)
 
-  // If brew is not found, send the "Brew not found" message
-  if (!brewToDelete) {
-    return res.status(404).json({ message: 'Brew not found' })
-  }
+    // If brew is not found, send the "Brew not found" message
+    if (!brewToDelete) {
+      return res.status(404).json({ message: 'Brew not found' })
+    }
 
-  // Check if the brew belongs to the authenticated user
-  if (brewToDelete.userId.toString() !== req.user.id) {
-    return res.status(403).json({ message: 'Access Denied: Not your brew' })
-  }
+    // Check if the brew belongs to the authenticated user
+    if (brewToDelete.userId.toString() !== req.user.id) {
+      return res.status(403).json({ message: 'Access Denied: Not your brew' })
+    }
 
-  // Proceed to delete the brew if ownership check passes
-  await Brew.findByIdAndDelete(req.params.id)
+    // Proceed to delete the brew if ownership check passes
+    await Brew.findByIdAndDelete(req.params.id)
 
-  res.json({ message: 'Brew deleted successfully' })
-})
+    res.json({ message: 'Brew deleted successfully' })
+  }),
+]
 
 export {
   brewList,
