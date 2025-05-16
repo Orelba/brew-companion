@@ -181,6 +181,7 @@
   },
   "coffeeForm": {
     "newCoffeeTitle": "הוסף קפה חדש",
+    "editCoffeeTitle": "ערוך קפה",
     "inputs": {
       "name": {
         "label": "שם",

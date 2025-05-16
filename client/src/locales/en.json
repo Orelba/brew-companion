@@ -186,6 +186,7 @@
   },
   "coffeeForm": {
     "newCoffeeTitle": "Add New Coffee",
+    "editCoffeeTitle": "Edit Coffee",
     "inputs": {
       "name": {
         "label": "Name",
