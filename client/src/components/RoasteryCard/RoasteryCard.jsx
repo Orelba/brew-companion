@@ -1,15 +1,18 @@
-import { Title, Flex, Badge, Rating, Tooltip } from '@mantine/core'
+import { Badge, Flex, Rating, Title, Tooltip } from '@mantine/core'
+import useCountryOptions from '../../hooks/useCountryOptions'
 import InventoryCardContainer from '../InventoryCardContainer/InventoryCardContainer'
 import ItemDropdown from '../ItemDropdown/ItemDropdown'
 
 const RoasteryCard = ({ data, onMenuEdit, onMenuDelete, menuDisabled }) => {
   const { name, country, rating } = data
 
+  const { getCountryName } = useCountryOptions()
+
   return (
     <InventoryCardContainer>
       <Flex justify='space-between' align='center'>
         <Badge size='sm' variant='light'>
-          {country}
+          {getCountryName(country)}
         </Badge>
         <ItemDropdown
           onMenuEdit={onMenuEdit}

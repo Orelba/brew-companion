@@ -18,7 +18,7 @@ const createCoffee = async (coffee, axiosInstance) => {
   }
 }
 
-// Fetch one coffee for update (Unpopulated fields)
+// Fetch one coffee for update
 const fetchCoffeeForUpdate = async (coffeeId, axiosInstance) => {
   try {
     const response = await axiosInstance.get(`/api/coffees/${coffeeId}/update`)
