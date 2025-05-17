@@ -18,7 +18,7 @@ router.get('/', authenticate, coffeeList)
 // POST request to create coffee
 router.post('/create', authenticate, coffeeCreatePost)
 
-// GET one coffee details for update (Unpopulated)
+// GET one coffee details for update
 router.get('/:id/update', authenticate, coffeeUpdateGet)
 
 // PUT request to update existing coffee
