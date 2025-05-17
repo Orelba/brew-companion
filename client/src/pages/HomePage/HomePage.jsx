@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
 import AuthForm from '../../components/AuthForm/AuthForm'
 import PageTransitionWrapper from '../../components/PageTransitionWrapper/PageTransitionWrapper'
-import QuickBrewCarousel from '../../components/QuickBrewCarousel/QuickBrewCarousel'
 import { usePageTitle } from '../../hooks/usePageTitle'
 import styles from './home-page.module.scss'
 
@@ -85,8 +84,6 @@ const HomePage = () => {
           />
         </Container>
       </div>
-      {/* TODO: Uncomment */}
-      {/* <QuickBrewCarousel /> */}
     </PageTransitionWrapper>
   )
 }
