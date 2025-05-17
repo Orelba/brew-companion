@@ -2,25 +2,17 @@ import { Title, Flex, Badge, Rating, Tooltip } from '@mantine/core'
 import InventoryCardContainer from '../InventoryCardContainer/InventoryCardContainer'
 import ItemDropdown from '../ItemDropdown/ItemDropdown'
 
-const CoffeeCard = ({
-  data,
-  onMenuEdit,
-  onMenuArchive,
-  onMenuDelete,
-  menuDisabled,
-}) => {
-  const { name, roastery, rating, archived } = data
+const RoasteryCard = ({ data, onMenuEdit, onMenuDelete, menuDisabled }) => {
+  const { name, country, rating } = data
 
   return (
     <InventoryCardContainer>
       <Flex justify='space-between' align='center'>
         <Badge size='sm' variant='light'>
-          {roastery.name}
+          {country}
         </Badge>
         <ItemDropdown
-          isArchived={archived}
           onMenuEdit={onMenuEdit}
-          onMenuArchive={onMenuArchive}
           onMenuDelete={onMenuDelete}
           disabled={menuDisabled}
         />
@@ -44,4 +36,4 @@ const CoffeeCard = ({
   )
 }
 
-export default CoffeeCard
+export default RoasteryCard

@@ -184,6 +184,9 @@
   "coffeesPage": {
     "addCoffee": "Add Coffee"
   },
+  "roasteriesPage": {
+    "addRoastery": "Add Roastery"
+  },
   "coffeeForm": {
     "newCoffeeTitle": "Add New Coffee",
     "editCoffeeTitle": "Edit Coffee",

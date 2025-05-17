@@ -73,13 +73,15 @@ const InventoryLayout = () => {
             ]}
           />
           <Group>
-            <Button
-              variant={isArchive ? 'filled' : 'outline'}
-              onClick={toggleArchive}
-              color='yellow'
-            >
-              {t('inventoryLayout.archive')}
-            </Button>
+            {tab === 'coffees' && (
+              <Button
+                variant={isArchive ? 'filled' : 'outline'}
+                onClick={toggleArchive}
+                color='yellow'
+              >
+                {t('inventoryLayout.archive')}
+              </Button>
+            )}
             <Autocomplete
               placeholder={t('inventoryLayout.search')}
               value={searchValue}

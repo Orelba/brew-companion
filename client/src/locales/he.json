@@ -179,6 +179,9 @@
   "coffeesPage": {
     "addCoffee": "הוסף קפה"
   },
+  "roasteriesPage": {
+    "addRoastery": "הוסף בית קלייה"
+  },
   "coffeeForm": {
     "newCoffeeTitle": "הוסף קפה חדש",
     "editCoffeeTitle": "ערוך קפה",
