@@ -23,7 +23,7 @@ const ItemDropdown = ({
       position='bottom-end'
       disabled={disabled}
     >
-      <Menu.Target>
+      <Menu.Target disabled={disabled}>
         <ActionIcon
           variant='subtle'
           color='gray'

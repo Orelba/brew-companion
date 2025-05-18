@@ -1,28 +1,28 @@
+import {
+  Button,
+  Group,
+  Modal,
+  Rating,
+  Select,
+  Stack,
+  Text,
+  TextInput,
+  useMantineTheme,
+} from '@mantine/core'
+import { useForm } from '@mantine/form'
+import { useMediaQuery } from '@mantine/hooks'
+import { notifications } from '@mantine/notifications'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
+import { v4 as uuidv4 } from 'uuid'
+import ContentLoader from '../../components/ContentLoader/ContentLoader'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import {
+  createCoffee,
   fetchCoffeeForUpdate,
   updateCoffee,
 } from '../../services/coffeesService'
-import { v4 as uuidv4 } from 'uuid'
-import { createCoffee } from '../../services/coffeesService'
-import { useMediaQuery } from '@mantine/hooks'
-import {
-  useMantineTheme,
-  Modal,
-  Stack,
-  TextInput,
-  Select,
-  Rating,
-  Text,
-  Group,
-  Button,
-} from '@mantine/core'
-import ContentLoader from '../../components/ContentLoader/ContentLoader'
-import { useForm } from '@mantine/form'
-import { useTranslation } from 'react-i18next'
-import { notifications } from '@mantine/notifications'
 
 const CoffeeForm = ({
   opened,
@@ -73,6 +73,7 @@ const CoffeeForm = ({
       queryClient.setQueryData(['coffees'], (old) => [
         {
           _id: `optimistic-${uuidv4()}`,
+          optimistic: true,
           ...newCoffee,
           archived: false,
           createdAt: new Date().toISOString(),
@@ -133,6 +134,7 @@ const CoffeeForm = ({
         // Construct an optimistic version of the coffee with nested roastery info
         const optimisticCoffee = {
           ...updatedCoffee,
+          optimistic: true,
           roastery: {
             _id: updatedCoffee.roastery,
             name: roastery?.name || '',

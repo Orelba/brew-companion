@@ -17,7 +17,7 @@ const useToggleArchiveCoffee = () => {
       queryClient.setQueryData(['coffees'], (oldData) =>
         oldData?.map((oldCoffee) =>
           oldCoffee._id === coffee._id
-            ? { ...oldCoffee, archived: isArchived }
+            ? { ...oldCoffee, archived: isArchived, optimistic: true }
             : oldCoffee
         )
       )

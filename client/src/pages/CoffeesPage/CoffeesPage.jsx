@@ -1,15 +1,14 @@
-import { useState } from 'react'
-import useToggleArchiveCoffee from '../../hooks/mutations/useToggleArchiveCoffee'
-import useDeleteCoffee from '../../hooks/mutations/useDeleteCoffee'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Button, SimpleGrid } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import CoffeeForm from '../../components/CoffeeForm/CoffeeForm'
-import { usePageTitle } from '../../hooks/usePageTitle'
-import InventoryContext from '../../contexts/InventoryContext'
-import { Button, SimpleGrid } from '@mantine/core'
 import CoffeeCard from '../../components/CoffeeCard/CoffeeCard'
-import { useTranslation } from 'react-i18next'
+import InventoryContext from '../../contexts/InventoryContext'
+import useDeleteCoffee from '../../hooks/mutations/useDeleteCoffee'
+import useToggleArchiveCoffee from '../../hooks/mutations/useToggleArchiveCoffee'
 import useLoadingScreen from '../../hooks/useLoadingScreen'
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 const CoffeesPage = () => {
   const { coffees, roasteries, searchValue, isArchive } =
@@ -28,10 +27,8 @@ const CoffeesPage = () => {
   // Set the page title
   usePageTitle(t('pageTitles.coffeesPage'))
 
-  const { isPlaceholderData } = coffees
-
   // Set the global loading state based on the use of placeholder data
-  useLoadingScreen(isPlaceholderData, t('loading.coffees'))
+  useLoadingScreen(coffees.isPlaceholderData, t('loading.coffees'))
 
   // Optimistic mutations for archiving and deleting coffees
   const toggleArchiveMutation = useToggleArchiveCoffee()
@@ -56,6 +53,7 @@ const CoffeesPage = () => {
           toggleArchiveMutation.mutate({ coffee, isArchived: !coffee.archived })
         }
         onMenuDelete={() => deleteMutation.mutate(coffee)}
+        menuDisabled={!!coffee?.optimistic}
       />
     ))
 
