@@ -6,6 +6,7 @@ import {
   Modal,
   MantineProvider,
 } from '@mantine/core'
+import { ModalsProvider } from '@mantine/modals'
 import { LoadingScreenProvider } from './contexts/LoadingScreenContext'
 import { Notifications } from '@mantine/notifications'
 import { generateColors } from '@mantine/colors-generator'
@@ -61,16 +62,18 @@ const App = () => {
     <AuthProvider>
       <DirectionProvider>
         <MantineProvider theme={theme}>
-          <LoadingScreenProvider>
-            <Notifications />
-            {ready ? (
-              <QueryClientProvider client={queryClient}>
-                <Router />
-              </QueryClientProvider>
-            ) : (
-              <ContentLoader visible transitionProps={{ duration: 0 }} />
-            )}
-          </LoadingScreenProvider>
+          <ModalsProvider>
+            <LoadingScreenProvider>
+              <Notifications />
+              {ready ? (
+                <QueryClientProvider client={queryClient}>
+                  <Router />
+                </QueryClientProvider>
+              ) : (
+                <ContentLoader visible transitionProps={{ duration: 0 }} />
+              )}
+            </LoadingScreenProvider>
+          </ModalsProvider>
         </MantineProvider>
       </DirectionProvider>
     </AuthProvider>

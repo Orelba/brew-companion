@@ -20,10 +20,15 @@
     "brewSaveSuccess": "הרשומה נשמרה בהצלחה!",
     "brewSaveError": "אירעה שגיאה. הרשומה לא נשמרה.",
     "coffeeSaveSuccess": "הקפה נשמר בהצלחה!",
-    "coffeeSaveError": "אירעה שגיאה. הקפה לא נשמר."
+    "coffeeSaveError": "אירעה שגיאה. הקפה לא נשמר.",
+    "roasterySaveSuccess": "בית הקלייה נשמר בהצלחה!",
+    "roasterySaveError": "אירעה שגיאה. בית הקלייה לא נשמר.",
+    "roasteryDeleteSuccess": "בית הקלייה נמחק בהצלחה!",
+    "roasteryDeleteError": "אירעה שגיאה. בית הקלייה לא נמחק."
   },
   "loading": {
     "coffees": "טוען את רשימת הקפה שלך...",
+    "roasteries": "טוען את רשימת בתי הקלייה שלך...",
     "brews": "טוען את הלוג...",
     "passwordReset": "מאמת פרטים..."
   },
@@ -180,7 +185,16 @@
     "addCoffee": "הוסף קפה"
   },
   "roasteriesPage": {
-    "addRoastery": "הוסף בית קלייה"
+    "addRoastery": "הוסף בית קלייה",
+    "deleteModal": {
+      "title": "אישור מחיקת בית קלייה",
+      "message": {
+        "title": "האם אתה בטוח שברצונך למחוק את בית הקלייה הזה?",
+        "description": "מחיקה זו תסיר גם את כל הקליות וההכנות הקשורות. שים לב - לא ניתן לשחזר את הנתונים לאחר המחיקה."
+      },
+      "confirm": "מחק",
+      "cancel": "בטל"
+    }
   },
   "coffeeForm": {
     "newCoffeeTitle": "הוסף קפה חדש",
@@ -199,6 +213,25 @@
       }
     },
     "callToRate": "דרג את הקפה",
+    "save": "שמור"
+  },
+  "roasteryForm": {
+    "newRoasteryTitle": "הוסף בית קלייה חדש",
+    "editRoasteryTitle": "ערוך בית קלייה",
+    "inputs": {
+      "name": {
+        "label": "שם",
+        "placeholder": "שם בית הקלייה",
+        "error": "חובה למלא שם",
+        "tooLong": "שם בית הקלייה לא יכול להיות ארוך מ-50 תווים"
+      },
+      "country": {
+        "label": "מדינה",
+        "placeholder": "בחר מדינה",
+        "error": "חובה לבחור מדינה"
+      }
+    },
+    "callToRate": "דרג את בית הקלייה",
     "save": "שמור"
   },
   "footer": {

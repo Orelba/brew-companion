@@ -20,10 +20,15 @@
     "brewSaveSuccess": "Brew saved successfully!",
     "brewSaveError": "Something went wrong. Brew was not saved. Please try again later.",
     "coffeeSaveSuccess": "Coffee saved successfully!",
-    "coffeeSaveError": "Something went wrong. Coffee was not saved. Please try again later."
+    "coffeeSaveError": "Something went wrong. Coffee was not saved. Please try again later.",
+    "roasterySaveSuccess": "Roastery saved successfully!",
+    "roasterySaveError": "Something went wrong. Roastery was not saved. Please try again later.",
+    "roasteryDeleteSuccess": "Roastery deleted successfully!",
+    "roasteryDeleteError": "Something went wrong. Roastery was not deleted. Please try again later."
   },
   "loading": {
     "coffees": "Loading Your Coffees...",
+    "roasteries": "Loading Your Roasteries...",
     "brews": "Loading Your Brews...",
     "passwordReset": "Validating..."
   },
@@ -185,7 +190,16 @@
     "addCoffee": "Add Coffee"
   },
   "roasteriesPage": {
-    "addRoastery": "Add Roastery"
+    "addRoastery": "Add Roastery",
+    "deleteModal": {
+      "title": "Confirm Roastery Deletion",
+      "message": {
+        "title": "Are you sure you want to delete this roastery?",
+        "description": "All related coffees and brews will also be removed. This action cannot be undone."
+      },
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    }
   },
   "coffeeForm": {
     "newCoffeeTitle": "Add New Coffee",
@@ -204,6 +218,25 @@
       }
     },
     "callToRate": "Rate the coffee",
+    "save": "Save"
+  },
+  "roasteryForm": {
+    "newRoasteryTitle": "Add New Roastery",
+    "editRoasteryTitle": "Edit Roastery",
+    "inputs": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Roastery Name",
+        "error": "Name must be filled",
+        "tooLong": "Roastery name can't be longer than 50 characters"
+      },
+      "country": {
+        "label": "Country",
+        "placeholder": "Pick Country",
+        "error": "Country must be filled"
+      }
+    },
+    "callToRate": "Rate the roastery",
     "save": "Save"
   },
   "footer": {

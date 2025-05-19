@@ -9,7 +9,9 @@ import validateRoasteryData from '../middleware/validateRoasteryData.js'
 import validateMongoDBObjectId from '../middleware/validateMongoDBObjectId.js'
 
 const roasteriesList = asyncHandler(async (req, res, next) => {
-  const allRoasteries = await Roastery.find({ userId: req.user.id }).exec()
+  const allRoasteries = await Roastery.find({ userId: req.user.id })
+    .sort({ createdAt: -1 })
+    .exec()
   res.json(allRoasteries)
 })
 
