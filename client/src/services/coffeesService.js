@@ -42,9 +42,13 @@ const updateCoffee = async (coffee, axiosInstance) => {
 }
 
 // Toggle the archived status of an existing coffee
-const toggleCoffeeArchiveStatus = async (coffee, isArchived, axiosInstance) => {
+const toggleCoffeeArchiveStatus = async (
+  coffeeId,
+  isArchived,
+  axiosInstance
+) => {
   try {
-    await axiosInstance.patch(`/api/coffees/${coffee._id}/archive`, {
+    await axiosInstance.patch(`/api/coffees/${coffeeId}/archive`, {
       archived: isArchived,
     })
   } catch (error) {
@@ -53,9 +57,9 @@ const toggleCoffeeArchiveStatus = async (coffee, isArchived, axiosInstance) => {
 }
 
 // Delete a coffee
-const deleteCoffee = async (coffee, axiosInstance) => {
+const deleteCoffee = async (coffeeId, axiosInstance) => {
   try {
-    await axiosInstance.delete(`/api/coffees/${coffee._id}/delete`)
+    await axiosInstance.delete(`/api/coffees/${coffeeId}/delete`)
   } catch (error) {
     throw new Error('Failed to delete coffee')
   }

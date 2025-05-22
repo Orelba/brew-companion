@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, SimpleGrid } from '@mantine/core'
+import { Text, Button, SimpleGrid } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
+import { modals } from '@mantine/modals'
 import CoffeeForm from '../../components/CoffeeForm/CoffeeForm'
 import CoffeeCard from '../../components/CoffeeCard/CoffeeCard'
 import InventoryContext from '../../contexts/InventoryContext'
@@ -34,6 +35,27 @@ const CoffeesPage = () => {
   const toggleArchiveMutation = useToggleArchiveCoffee()
   const deleteMutation = useDeleteCoffee()
 
+  const openDeleteConfirmationModal = (coffeeId) => {
+    return modals.openConfirmModal({
+      title: t('coffeesPage.deleteModal.title'),
+      children: (
+        <>
+          <Text size='sm' fw={600}>
+            {t('coffeesPage.deleteModal.message.title')}
+          </Text>
+          <Text size='sm' fw={300}>
+            {t('coffeesPage.deleteModal.message.description')}
+          </Text>
+        </>
+      ),
+      labels: {
+        confirm: t('coffeesPage.deleteModal.confirm'),
+        cancel: t('coffeesPage.deleteModal.cancel'),
+      },
+      onConfirm: () => deleteMutation.mutate(coffeeId),
+    })
+  }
+
   const items = (coffees.data || [])
     .filter(
       (coffee) =>
@@ -50,9 +72,12 @@ const CoffeesPage = () => {
           openCoffeeForm()
         }}
         onMenuArchive={() =>
-          toggleArchiveMutation.mutate({ coffee, isArchived: !coffee.archived })
+          toggleArchiveMutation.mutate({
+            coffeeId: coffee._id,
+            isArchived: !coffee.archived,
+          })
         }
-        onMenuDelete={() => deleteMutation.mutate(coffee)}
+        onMenuDelete={() => openDeleteConfirmationModal(coffee._id)}
         menuDisabled={!!coffee?.optimistic}
       />
     ))

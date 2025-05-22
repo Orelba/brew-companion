@@ -11,10 +11,10 @@ const useDeleteRoastery = () => {
   const { t } = useTranslation()
 
   return useMutation({
-    mutationFn: (roasteryToDelete) =>
-      deleteRoastery(roasteryToDelete, axiosPrivate),
+    mutationFn: (roasteryIdToDelete) =>
+      deleteRoastery(roasteryIdToDelete, axiosPrivate),
     // Optimistic update before mutation
-    onMutate: async (roasteryToDelete) => {
+    onMutate: async (roasteryIdToDelete) => {
       // Cancel any outgoing refetches for the 'roasteries' query to prevent race conditions
       await queryClient.cancelQueries({ queryKey: ['roasteries'] })
 
@@ -24,7 +24,7 @@ const useDeleteRoastery = () => {
       // Update UI assuming success
       queryClient.setQueryData(['roasteries'], (oldData) =>
         oldData
-          ? oldData.filter((roastery) => roastery._id !== roasteryToDelete._id)
+          ? oldData.filter((roastery) => roastery._id !== roasteryIdToDelete)
           : []
       )
 

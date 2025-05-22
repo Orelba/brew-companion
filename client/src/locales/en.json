@@ -193,7 +193,16 @@
     "search": "Search"
   },
   "coffeesPage": {
-    "addCoffee": "Add Coffee"
+    "addCoffee": "Add Coffee",
+    "deleteModal": {
+      "title": "Confirm Coffee Deletion",
+      "message": {
+        "title": "Are you sure you want to delete this coffee?",
+        "description": "All related brews and statistics will also be removed. This action cannot be undone."
+      },
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    }
   },
   "roasteriesPage": {
     "addRoastery": "Add Roastery",
@@ -201,7 +210,7 @@
       "title": "Confirm Roastery Deletion",
       "message": {
         "title": "Are you sure you want to delete this roastery?",
-        "description": "All related coffees and brews will also be removed. This action cannot be undone."
+        "description": "All related coffees, brews and statistics will also be removed. This action cannot be undone."
       },
       "confirm": "Delete",
       "cancel": "Cancel"

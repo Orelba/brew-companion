@@ -11,9 +11,10 @@ const useDeleteCoffee = () => {
   const { t } = useTranslation()
 
   return useMutation({
-    mutationFn: (coffeeToDelete) => deleteCoffee(coffeeToDelete, axiosPrivate),
+    mutationFn: (coffeeIdToDelete) =>
+      deleteCoffee(coffeeIdToDelete, axiosPrivate),
     // Optimistic update before mutation
-    onMutate: async (coffeeToDelete) => {
+    onMutate: async (coffeeIdToDelete) => {
       // Cancel any outgoing refetches for the 'coffees' query to prevent race conditions
       await queryClient.cancelQueries({ queryKey: ['coffees'] })
 
@@ -23,7 +24,7 @@ const useDeleteCoffee = () => {
       // Update UI assuming success
       queryClient.setQueryData(['coffees'], (oldData) =>
         oldData
-          ? oldData.filter((coffee) => coffee._id !== coffeeToDelete._id)
+          ? oldData.filter((coffee) => coffee._id !== coffeeIdToDelete)
           : []
       )
 

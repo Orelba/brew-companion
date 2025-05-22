@@ -11,16 +11,16 @@ const useToggleArchiveCoffee = () => {
   const { t } = useTranslation()
 
   return useMutation({
-    mutationFn: ({ coffee, isArchived }) =>
-      toggleCoffeeArchiveStatus(coffee, isArchived, axiosPrivate),
-    onMutate: async ({ coffee, isArchived }) => {
+    mutationFn: ({ coffeeId, isArchived }) =>
+      toggleCoffeeArchiveStatus(coffeeId, isArchived, axiosPrivate),
+    onMutate: async ({ coffeeId, isArchived }) => {
       await queryClient.cancelQueries({ queryKey: ['coffees'] })
 
       const previousCoffees = queryClient.getQueryData(['coffees'])
 
       queryClient.setQueryData(['coffees'], (oldData) =>
         oldData?.map((oldCoffee) =>
-          oldCoffee._id === coffee._id
+          oldCoffee._id === coffeeId
             ? { ...oldCoffee, archived: isArchived, optimistic: true }
             : oldCoffee
         )
