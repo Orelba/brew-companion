@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { AuthProvider } from './contexts/AuthProvider'
 import {
   createTheme,
@@ -16,22 +17,24 @@ import 'non.geist' // Vercel Geist Sans Font
 import { useTranslation } from 'react-i18next'
 import ContentLoader from './components/ContentLoader/ContentLoader'
 
-const App = () => {
-  // Initialize the query client for React Query
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        // Fetch data if 2.5 minutes have passed since the last fetch
-        staleTime: 2.5 * (1000 * 60),
-        retry: false,
-      },
+// Initialize the query client for React Query
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // Fetch data if 2.5 minutes have passed since the last fetch
+      staleTime: 2.5 * (1000 * 60),
+      retry: false,
     },
-  })
+  },
+})
 
+const App = () => {
   const { i18n, ready } = useTranslation()
 
   // Set the direction of the document based on the language
-  document.dir = i18n.dir()
+  useEffect(() => {
+    document.dir = i18n.dir()
+  }, [i18n.resolvedLanguage])
 
   // Set the font based on the language
   const fontForLanguage =
