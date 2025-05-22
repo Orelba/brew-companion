@@ -1,21 +1,6 @@
-import axiosInstance from './axiosInstance'
-import { axiosPrivate } from './axiosInstance'
+import axiosInstance, { axiosPrivate } from './axiosInstance'
 
 const AUTH_URL = '/api/auth'
-
-const getCurrentUser = async (axiosInstance) => {
-  try {
-    const response = await axiosInstance.get(`${AUTH_URL}/me`)
-    return response.data
-  } catch (error) {
-    const errorMessage =
-      error.response?.data?.message ||
-      error.message ||
-      'An unexpected error occurred'
-
-    throw new Error(`Failed to get current user: ${errorMessage}`)
-  }
-}
 
 const register = async (formValues) => {
   try {
@@ -152,7 +137,6 @@ const refreshAccessToken = async () => {
 }
 
 export {
-  getCurrentUser,
   register,
   login,
   logout,

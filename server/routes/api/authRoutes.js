@@ -8,7 +8,6 @@ import {
   validatePasswordResetToken,
   resetPassword,
   refresh,
-  getCurrentUser,
   users,
 } from '../../controllers/authController.js'
 
@@ -34,9 +33,6 @@ router.post('/reset-password/:token', resetPassword)
 
 // Refresh the access token
 router.post('/refresh', refresh)
-
-// Get the current authenticated user's information
-router.get('/me', authenticate, getCurrentUser)
 
 // TODO: CHECK IF NEEDED. Retrieve a list of users.
 router.get('/users', authenticate, users)
