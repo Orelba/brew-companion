@@ -1,5 +1,5 @@
 import useAuth from './useAuth'
-import { logout as logoutService } from '../services/AuthService'
+import { logout as logoutService } from '../services/authService'
 import { notifications } from '@mantine/notifications'
 import { useTranslation } from 'react-i18next'
 

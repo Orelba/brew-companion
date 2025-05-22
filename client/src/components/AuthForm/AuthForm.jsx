@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import useAuth from '../../hooks/useAuth'
-import { login, register, forgotPassword } from '../../services/AuthService'
+import { login, register, forgotPassword } from '../../services/authService'
 import { useNavigate, useLocation } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import {

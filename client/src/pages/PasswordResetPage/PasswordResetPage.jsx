@@ -15,7 +15,7 @@ import { useQuery, useMutation } from '@tanstack/react-query'
 import {
   validatePasswordResetToken,
   resetPassword,
-} from '../../services/AuthService'
+} from '../../services/authService'
 import { notifications } from '@mantine/notifications'
 import useLoadingScreen from '../../hooks/useLoadingScreen'
 
