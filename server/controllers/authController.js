@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { generateAccessToken, generateRefreshToken } from '../utils/token.js'
 import { refreshTokenCookieOptions } from '../utils/cookie.js'
+import { createSession } from '../utils/session.js'
 import { sendEmail } from '../utils/email.js'
 import { createHash } from 'node:crypto'
 
@@ -103,8 +104,15 @@ const login = [
     const accessToken = generateAccessToken(payload)
     const refreshToken = generateRefreshToken(payload)
 
-    // Assign the new refresh token to the user object and save the changes to the database
-    user.refreshToken = refreshToken
+    // Limit to max 5 sessions
+    if (user.sessions.length >= 5) {
+      user.sessions.sort((a, b) => a.createdAt - b.createdAt)
+      user.sessions.shift()
+    }
+
+    // Create a new session and add it to the user's sessions
+    // This function creates a session object with the refresh token and other details
+    user.sessions.push(createSession(req, refreshToken))
     await user.save()
 
     res.cookie('refreshToken', refreshToken, refreshTokenCookieOptions)
@@ -122,13 +130,16 @@ const logout = asyncHandler(async (req, res) => {
   const refreshToken = cookies.refreshToken
   const { maxAge, ...clearCookieOptions } = refreshTokenCookieOptions
 
-  const user = await User.findOne({ refreshToken }).exec()
+  const user = await User.findOne({ 'sessions.token': refreshToken }).exec()
   if (!user) {
     res.clearCookie('refreshToken', clearCookieOptions)
     return res.sendStatus(204)
   }
 
-  user.refreshToken = ''
+  // Remove the session with the matching token
+  user.sessions = user.sessions.filter(
+    (session) => session.token !== refreshToken
+  )
   await user.save()
 
   res.clearCookie('refreshToken', clearCookieOptions)
@@ -266,8 +277,8 @@ const resetPassword = [
     user.passwordResetTokenExpires = undefined
     user.passwordChangedAt = Date.now()
 
-    // Clear the user's refresh token to invalidate all active sessions
-    user.refreshToken = ''
+    // Clear and invalidate all sessions for the user
+    user.sessions = []
 
     user.save()
 
@@ -279,7 +290,6 @@ const resetPassword = [
 ]
 
 const refresh = asyncHandler(async (req, res, next) => {
-  // Retrieve the refresh token from cookies
   const cookies = req.cookies
 
   if (!cookies?.refreshToken) {
@@ -288,30 +298,51 @@ const refresh = asyncHandler(async (req, res, next) => {
 
   const refreshToken = cookies.refreshToken
 
-  // Find the user by refresh token in the database
-  const user = await User.findOne({ refreshToken }).exec()
+  // Find the user who has a session with this refresh token
+  const user = await User.findOne({ 'sessions.token': refreshToken }).exec()
   if (!user) {
     // Refresh token not associated with any user
     return res.status(403).json({ message: 'Invalid refresh token' })
   }
 
-  // Verify the refresh token using the secret
-  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-    if (err || user.username !== decoded.username) {
-      return res.status(403).json({ message: 'Invalid refresh token' })
+  // Find the exact session
+  const session = user.sessions.find((s) => s.token === refreshToken)
+
+  // Database-level expiration check & cleanup
+  // This checks if the session has expired in the database (separate from JWT expiration)
+  // Without this, expired sessions would live in the DB forever until manually cleaned up
+  if (session?.expiresAt && new Date(session.expiresAt) < new Date()) {
+    // Remove expired session
+    user.sessions = user.sessions.filter((s) => s.token !== refreshToken)
+    await user.save()
+    return res.status(403).json({ message: 'Refresh token expired' })
+  }
+
+  // Verify the refresh token signature and payload
+  jwt.verify(
+    refreshToken,
+    process.env.REFRESH_TOKEN_SECRET,
+    async (err, decoded) => {
+      if (err || String(user.id) !== String(decoded.id)) {
+        return res.status(403).json({ message: 'Invalid refresh token' })
+      }
+
+      // Update the session's last used timestamp
+      session.lastUsedAt = new Date()
+      await user.save()
+
+      // Create a payload for the new tokens based on the decoded data
+      const payload = {
+        id: decoded.id,
+        username: decoded.username,
+        email: decoded.email,
+      }
+
+      const newAccessToken = generateAccessToken(payload)
+
+      res.json({ accessToken: newAccessToken })
     }
-
-    // Create a payload for the new tokens based on the decoded data
-    const payload = {
-      id: decoded.id,
-      username: decoded.username,
-      email: decoded.email,
-    }
-
-    const newAccessToken = generateAccessToken(payload)
-
-    res.json({ accessToken: newAccessToken })
-  })
+  )
 })
 
 // TODO: DO I NEED THIS?

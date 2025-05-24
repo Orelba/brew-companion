@@ -3,11 +3,20 @@ import { randomBytes, createHash } from 'node:crypto'
 
 const Schema = mongoose.Schema
 
+const sessionSchema = new Schema({
+  token: { type: String, required: true }, // refresh token
+  createdAt: { type: Date, default: Date.now },
+  expiresAt: { type: Date, required: true },
+  lastUsedAt: { type: Date, default: Date.now },
+  userAgent: String,
+  ip: String,
+})
+
 const UserSchema = new Schema({
   username: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  refreshToken: { type: String },
+  sessions: [sessionSchema], // supports multiple sessions
   passwordResetToken: { type: String },
   passwordResetTokenExpires: { type: Date },
   passwordChangedAt: { type: Date },
