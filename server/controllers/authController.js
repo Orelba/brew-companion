@@ -296,40 +296,44 @@ const refresh = asyncHandler(async (req, res, next) => {
     return res.status(401).json({ message: 'Refresh token not found' })
   }
 
-  const refreshToken = cookies.refreshToken
+  const oldRefreshToken = cookies.refreshToken
 
   // Find the user who has a session with this refresh token
-  const user = await User.findOne({ 'sessions.token': refreshToken }).exec()
+  const user = await User.findOne({ 'sessions.token': oldRefreshToken }).exec()
   if (!user) {
     // Refresh token not associated with any user
     return res.status(403).json({ message: 'Invalid refresh token' })
   }
 
-  // Find the exact session
-  const session = user.sessions.find((s) => s.token === refreshToken)
+  // Find the index of the session with the old refresh token
+  const oldSessionIndex = user.sessions.findIndex(
+    (session) => session.token === oldRefreshToken
+  )
 
-  // Database-level expiration check & cleanup
-  // This checks if the session has expired in the database (separate from JWT expiration)
+  // If the session is not found, return an error
+  if (oldSessionIndex === -1) {
+    return res.status(403).json({ message: 'Session not found' })
+  }
+
+  // Get the session object from the user's sessions
+  const session = user.sessions[oldSessionIndex]
+
+  // Database-level session expiry check (for proactive cleanup)
   // Without this, expired sessions would live in the DB forever until manually cleaned up
-  if (session?.expiresAt && new Date(session.expiresAt) < new Date()) {
-    // Remove expired session
-    user.sessions = user.sessions.filter((s) => s.token !== refreshToken)
+  if (session.expiresAt && new Date(session.expiresAt) < new Date()) {
+    user.sessions.splice(oldSessionIndex, 1) // remove expired session
     await user.save()
-    return res.status(403).json({ message: 'Refresh token expired' })
+    return res.status(403).json({ message: 'Session expired' })
   }
 
   // Verify the refresh token signature and payload
   jwt.verify(
-    refreshToken,
+    oldRefreshToken,
     process.env.REFRESH_TOKEN_SECRET,
     async (err, decoded) => {
       if (err || String(user.id) !== String(decoded.id)) {
         return res.status(403).json({ message: 'Invalid refresh token' })
       }
-
-      // Update the session's last used timestamp
-      session.lastUsedAt = new Date()
-      await user.save()
 
       // Create a payload for the new tokens based on the decoded data
       const payload = {
@@ -339,6 +343,25 @@ const refresh = asyncHandler(async (req, res, next) => {
       }
 
       const newAccessToken = generateAccessToken(payload)
+      const newRefreshToken = generateRefreshToken(payload)
+
+      // Replace the old session with a new one
+      const previousCreatedAt = session.createdAt
+      user.sessions[oldSessionIndex] = {
+        ...createSession(req, newRefreshToken),
+        createdAt: previousCreatedAt, // Keep the original session creation time
+      }
+
+      // Save the user with the updated session
+      try {
+        await user.save()
+      } catch (error) {
+        console.error('Failed to save user session:', error)
+        return res.status(500).json({ message: 'Failed to update session' })
+      }
+
+      // Send new refresh token in cookie
+      res.cookie('refreshToken', newRefreshToken, refreshTokenCookieOptions)
 
       res.json({ accessToken: newAccessToken })
     }
