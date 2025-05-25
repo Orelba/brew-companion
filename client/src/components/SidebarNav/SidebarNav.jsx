@@ -6,7 +6,7 @@ import { NavLink } from 'react-router'
 import { LanguagePicker } from '../LanguagePicker/LanguagePicker'
 import styles from './sidebar-nav.module.scss'
 
-const SidebarNav = ({ opened, onClose, links }) => {
+const SidebarNav = ({ opened, onClose, links, handleNavClick }) => {
   const { i18n } = useTranslation()
 
   // 200ms (0.2s) is the time that takes for the drawer to open (So that the animation starts right after)
@@ -25,7 +25,12 @@ const SidebarNav = ({ opened, onClose, links }) => {
     >
       <NavLink
         to={link.link}
-        onClick={onClose}
+        onClick={(e) => {
+          const shouldNavigate = !handleNavClick(e, link.link)
+          if (shouldNavigate) {
+            onClose()
+          }
+        }}
         className={({ isActive }) =>
           cx(styles.link, { [styles.active]: isActive })
         }
