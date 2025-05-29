@@ -9,16 +9,19 @@ import { createHash } from 'node:crypto'
 
 import asyncHandler from 'express-async-handler'
 import { body, validationResult } from 'express-validator'
+import { validateUserEmail } from '../middleware/validateUserEmail.js'
+import {
+  validateUserPassword,
+  validateUserPasswordConfirmation,
+} from '../middleware/validateUserPassword.js'
 
 const register = [
   body('username', 'Username must be at least 3 characters long')
     .trim()
     .isLength({ min: 3 })
     .escape(),
-  body('email', 'Invalid email').trim().normalizeEmail().isEmail().escape(),
-  body('password', 'Password must be at least 8 characters long')
-    .trim()
-    .isLength({ min: 8 }),
+  validateUserEmail,
+  validateUserPassword,
   asyncHandler(async (req, res, next) => {
     // Extract the validation errors from a request
     const errors = validationResult(req)
@@ -61,18 +64,8 @@ const register = [
 ]
 
 const login = [
-  body('email', 'Missing email')
-    .trim()
-    .notEmpty()
-    .normalizeEmail()
-    .isEmail()
-    .withMessage('Invalid email')
-    .escape(),
-  body('password', 'Missing password')
-    .trim()
-    .notEmpty()
-    .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters long'),
+  validateUserEmail,
+  validateUserPassword,
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req)
 
@@ -147,13 +140,7 @@ const logout = asyncHandler(async (req, res) => {
 })
 
 const forgotPassword = [
-  body('email', 'Email is required')
-    .trim()
-    .notEmpty()
-    .normalizeEmail()
-    .isEmail()
-    .withMessage('Please provide a valid email address')
-    .escape(),
+  validateUserEmail,
   asyncHandler(async (req, res, next) => {
     // Extract the validation errors from a request
     const errors = validationResult(req)
@@ -229,21 +216,8 @@ const validatePasswordResetToken = asyncHandler(async (req, res, next) => {
 })
 
 const resetPassword = [
-  body('password', 'Missing password')
-    .trim()
-    .notEmpty()
-    .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters long'),
-  body('confirmPassword', 'Missing password confirmation')
-    .trim()
-    .notEmpty()
-    .withMessage('Password confirmation is required')
-    .custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error('Passwords do not match')
-      }
-      return true
-    }),
+  validateUserPassword,
+  validateUserPasswordConfirmation,
   asyncHandler(async (req, res, next) => {
     // Extract the validation errors from a request
     const errors = validationResult(req)
