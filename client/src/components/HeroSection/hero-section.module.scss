@@ -1,4 +1,3 @@
-// Hero //
 .hero {
   position: relative;
   background-image: url('/hero.webp');
@@ -21,16 +20,16 @@
     }
 
     .title {
-      font-size: mantine.rem(60px);
+      font-size: mantine.rem(50px);
       line-height: 1.1;
 
       @media (max-width: mantine.$mantine-breakpoint-sm) {
-        font-size: mantine.rem(40px);
+        font-size: mantine.rem(36px);
         line-height: 1.2;
       }
 
       @media (max-width: mantine.$mantine-breakpoint-xs) {
-        font-size: mantine.rem(28px);
+        font-size: mantine.rem(30px);
         line-height: 1.3;
       }
     }
@@ -40,7 +39,6 @@
 
       @media (max-width: mantine.$mantine-breakpoint-sm) {
         max-width: 100%;
-        font-size: var(--mantine-font-size-sm);
       }
     }
 

@@ -59,9 +59,26 @@
     "inventory": "Coffees and Roasteries"
   },
   "homePage": {
-    "heroTitle": "Brew. Consistently.",
-    "heroDescription": "Elevate your coffee experience - log and refine your brewing results. Unlock the art of coffee brewing, one cup at a time.",
-    "heroButtonText": "Get Brewing"
+    "heroTitle": "Brew Better, Every Day.",
+    "heroDescription": "Unlock your best cups by logging, refining, and learning from every brew. Built for curious coffee lovers and everyday ritual makers.",
+    "heroButtonText": "Get Brewing",
+    "heroButtonSubtext": "Log in or register to begin"
+  },
+  "featureCards": {
+    "sectionTitle": "Built for Coffee Lovers, by Coffee Lovers",
+    "sectionDescription": "Whether you're a home barista or a coffee lover, you've come to the right place",
+    "trackBrews": {
+      "title": "Easily Track Your Brews",
+      "description": "Log any brew in seconds — from espresso to pour over. Keep notes, grind size, and more to perfect your next cup."
+    },
+    "visualizeStats": {
+      "title": "Visualize Your Coffee Journey",
+      "description": "See your brews as clear, interactive stats — favorite methods, top roasters, and consumption all in one dashboard."
+    },
+    "centralizedData": {
+      "title": "Everything in One Place",
+      "description": "Save every coffee you've tried, who roasted it, and how it tasted. Everything stays in one place so you can explore and remember."
+    }
   },
   "auth": {
     "welcome": "Welcome, {{formType}} with",
