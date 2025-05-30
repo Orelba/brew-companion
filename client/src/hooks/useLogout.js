@@ -5,7 +5,7 @@ import { notifications } from '@mantine/notifications'
 import { useTranslation } from 'react-i18next'
 
 const useLogout = () => {
-  const { setAuth } = useAuth()
+  const { setAuth, setPersist } = useAuth()
 
   const queryClient = useQueryClient()
 
@@ -15,6 +15,8 @@ const useLogout = () => {
     try {
       await logoutService()
       setAuth({}) // Clear auth state
+      setPersist(false) // Clear persist state
+      localStorage.removeItem('persist') // Remove persist from local storage
       queryClient.clear() // Clear the query cache
       notifications.show({
         title: t('notifications.logoutSuccessful'),
