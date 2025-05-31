@@ -21,7 +21,7 @@ const register = [
     .isLength({ min: 3 })
     .escape(),
   validateUserEmail,
-  validateUserPassword,
+  validateUserPassword('password'),
   asyncHandler(async (req, res, next) => {
     // Extract the validation errors from a request
     const errors = validationResult(req)
@@ -65,7 +65,7 @@ const register = [
 
 const login = [
   validateUserEmail,
-  validateUserPassword,
+  validateUserPassword('password'),
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req)
 
@@ -216,8 +216,8 @@ const validatePasswordResetToken = asyncHandler(async (req, res, next) => {
 })
 
 const resetPassword = [
-  validateUserPassword,
-  validateUserPasswordConfirmation,
+  validateUserPassword('password'),
+  validateUserPasswordConfirmation('confirmPassword', 'password'),
   asyncHandler(async (req, res, next) => {
     // Extract the validation errors from a request
     const errors = validationResult(req)
