@@ -1,5 +1,6 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
+import apiLimiter from './config/rateLimit.js'
 import logger from 'morgan'
 import mongoose from 'mongoose'
 import cors from 'cors'
@@ -14,6 +15,10 @@ import indexRouter from './routes/api/index.js'
 
 const app = express()
 
+// Trust the first proxy, needed for reverse proxy setups (e.g., Fly.io, Railway, Heroku)
+// Allows correct handling of secure cookies and req.ip / req.secure
+app.set('trust proxy', 1)
+
 // mongoDB connection setup
 mongoose.set('strictQuery', false)
 const mongoDB = process.env.MONGODB_URI
@@ -23,29 +28,24 @@ async function main() {
   await mongoose.connect(mongoDB)
 }
 
-app.use(logger('dev'))
+app.use(logger(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
 app.use(
-  cors()
-  // {
-  //   origin: [''], // TODO: Change to frontend address
-  //   methods: ['POST', 'GET', 'PUT', 'DELETE'],
-  //   credentials: true,
-  // }
+  cors({
+    origin: [process.env.FRONTEND_URL],
+    methods: ['POST', 'GET', 'PUT', 'PATCH', 'DELETE'],
+    credentials: true,
+  })
 )
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-// Set secure HTTP response headers, allow Google fonts to be loaded
+// Set secure HTTP response headers
 app.use(
-  helmet()
-  // {
-  //   contentSecurityPolicy: {
-  //     directives: {
-  //       'font-src': ['self', ''] // TODO: Add CSP Directives
-  //     }
-  //   }
-  // }
+  helmet({
+    // Disable CSP for simplicity as no assests are served
+    contentSecurityPolicy: false,
+  })
 )
 
 // Compress response bodies for all requests
@@ -62,7 +62,8 @@ if (process.env.NODE_ENV !== 'production') {
   )
 }
 
-app.use('/api', indexRouter)
+// Main API router, uses rate limiting to prevent abuse
+app.use('/api', apiLimiter, indexRouter)
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {

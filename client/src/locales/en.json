@@ -1,5 +1,7 @@
 {
   "notifications": {
+    "tooManyRequestsError": "Too many requests",
+    "tryAgainLater": "Please slow down and try again in a bit.",
     "loginSuccessful": "Login successful!",
     "loginFailed": "Login failed",
     "logoutSuccessful": "Logout successful",

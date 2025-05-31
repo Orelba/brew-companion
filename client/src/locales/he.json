@@ -1,5 +1,7 @@
 {
   "notifications": {
+    "tooManyRequestsError": "יותר מדי בקשות",
+    "tryAgainLater": "אנא נסה שוב בעוד כמה רגעים.",
     "loginSuccessful": "התחברת בהצלחה!",
     "loginFailed": "ההתחברות נכשלה",
     "logoutSuccessful": "התנתקת בהצלחה",
