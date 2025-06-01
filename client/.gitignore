@@ -25,3 +25,6 @@ dist-ssr
 
 # TODO file
 TODO.txt
+
+# dotenv environment variables file
+.env

@@ -2,11 +2,14 @@ import axios from 'axios'
 import { t } from 'i18next'
 import { notifications } from '@mantine/notifications'
 
+const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'
+
 const axiosInstance = axios.create({
-  // baseURL: '/api',
+  baseURL: baseURL,
 })
 
 export const axiosPrivate = axios.create({
+  baseURL: baseURL,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 })
