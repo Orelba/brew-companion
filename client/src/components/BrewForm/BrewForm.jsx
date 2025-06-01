@@ -156,7 +156,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
   // Get all brewing methods
   const { data: brewingMethods } = useQuery({
     queryKey: ['brewingMethods'],
-    queryFn: fetchBrewingMethods,
+    queryFn: () => fetchBrewingMethods(axiosPrivate),
     placeholderData: [],
   })
 

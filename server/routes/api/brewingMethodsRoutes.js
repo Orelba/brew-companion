@@ -1,8 +1,10 @@
 import { Router } from 'express'
-const router = Router()
-
+import authenticate from '../../middleware/authenticate.js'
 import { brewingMethodsList } from '../../controllers/brewingMethodsController.js'
 
-router.get('/', brewingMethodsList)
+const router = Router()
+
+// Get a list of all brewing methods
+router.get('/', authenticate, brewingMethodsList)
 
 export default router
