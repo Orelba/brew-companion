@@ -21,7 +21,8 @@ const QuickBrewCarousel = ({ data = [], isLoading, isError }) => {
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`)
   const isTablet = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
 
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const direction = i18n.dir()
 
   const [opened, { open, close }] = useDisclosure()
 
@@ -81,6 +82,7 @@ const QuickBrewCarousel = ({ data = [], isLoading, isError }) => {
             slidesToScroll: 'auto',
             containScroll: 'trimSnaps',
             dragFree: isMobile,
+            direction: direction,
           }}
           classNames={styles}
           withControls={!isTablet}

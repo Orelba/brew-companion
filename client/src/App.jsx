@@ -49,6 +49,7 @@ const App = () => {
 
   // Override the default Mantine theme
   const theme = createTheme({
+    dir: i18n.dir(),
     fontFamily: `${fontForLanguage}, sans-serif`,
     headings: { fontFamily: `${fontForLanguage}, sans-serif` },
     colors: {
