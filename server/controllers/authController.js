@@ -342,17 +342,6 @@ const refresh = asyncHandler(async (req, res, next) => {
   )
 })
 
-// TODO: DO I NEED THIS?
-const users = asyncHandler(async (req, res, next) => {
-  const users = await User.find().select('username email')
-
-  if (users.length === 0) {
-    return res.status(204).json({ message: 'No users found' })
-  }
-
-  return res.json(users)
-})
-
 export {
   register,
   login,
@@ -361,5 +350,4 @@ export {
   validatePasswordResetToken,
   resetPassword,
   refresh,
-  users,
 }

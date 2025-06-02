@@ -12,7 +12,6 @@ import RoasteriesPage from './pages/RoasteriesPage/RoasteriesPage'
 import AuthForm from './components/AuthForm/AuthForm'
 import PasswordResetPage from './pages/PasswordResetPage/PasswordResetPage'
 
-// TODO: Consider: Make the Authform get a state of type and go to /auth/login /auth/register /auth/reset-password
 const Router = () => {
   // Initialize a browser router
   const router = createBrowserRouter([

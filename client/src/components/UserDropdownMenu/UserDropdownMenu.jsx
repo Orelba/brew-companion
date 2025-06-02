@@ -22,7 +22,6 @@ const UserDropdownMenu = () => {
 
   const axiosPrivate = useAxiosPrivate()
 
-  // TODO: Handle errors (maybe with notification of something went wrong)
   const { data, isLoading, isError } = useQuery({
     queryKey: ['me'],
     queryFn: () => getCurrentUser(axiosPrivate),
