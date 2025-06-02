@@ -73,7 +73,6 @@ const logout = async () => {
       withCredentials: true,
     })
   } catch (error) {
-    console.error('Logout Failed:', error) // TODO: DELETE OR REPLACE?
     throw error
   }
 }
@@ -86,7 +85,6 @@ const forgotPassword = async (formValues) => {
     )
     return response?.data
   } catch (error) {
-    console.error(error) // TODO: DELETE OR REPLACE?
     throw error
   }
 }
@@ -98,7 +96,6 @@ const validatePasswordResetToken = async (token) => {
     )
     return response
   } catch (error) {
-    console.error('validatePasswordResetToken:', error) // TODO: DELETE OR REPLACE?
     throw error
   }
 }
@@ -111,7 +108,6 @@ const resetPassword = async (formValues, token) => {
     )
     return response
   } catch (error) {
-    console.error(error) // TODO: DELETE OR REPLACE?
     throw error
   }
 }

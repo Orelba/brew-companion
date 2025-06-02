@@ -35,17 +35,23 @@ const register = [
     // Check if user already exists
     const duplicate = await User.findOne({ $or: [{ email }, { username }] })
     if (duplicate) {
+      const duplicateErrors = []
+
       if (duplicate.email === email) {
-        return res
-          .status(409)
-          .json({ message: 'Email already exists', field: 'email' })
+        duplicateErrors.push({
+          message: 'Email already exists',
+          path: 'email',
+        })
       }
 
       if (duplicate.username === username) {
-        return res
-          .status(409)
-          .json({ message: 'Username already exists', field: 'username' })
+        duplicateErrors.push({
+          message: 'Username already exists',
+          path: 'username',
+        })
       }
+
+      return res.status(409).json({ errors: duplicateErrors })
     }
 
     // Create a new user
