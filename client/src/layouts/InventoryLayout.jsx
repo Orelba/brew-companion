@@ -11,7 +11,9 @@ import {
   Space,
   rem,
   Button,
+  useMantineTheme,
 } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 import { IconSearch } from '@tabler/icons-react'
 
 const InventoryLayout = () => {
@@ -20,6 +22,9 @@ const InventoryLayout = () => {
   const [tab, setTab] = useState('coffees')
 
   const { t } = useTranslation()
+
+  const theme = useMantineTheme()
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`)
 
   // Use the Inventory Context
   const {
@@ -33,8 +38,8 @@ const InventoryLayout = () => {
 
   // Create an array of coffee or roastery names for the autocomplete
   const autoCompleteData = (tab === 'coffees' ? coffees.data : roasteries.data)
-    // Match names to the archive state
-    .filter((item) => item.archived === isArchive)
+    // Match names to the archive state if applicable
+    .filter((item) => (item.archived ?? false) === isArchive)
     .map((item) => ({ value: item._id, label: item.name }))
 
   const handleTabChange = (newTab) => {
@@ -72,17 +77,21 @@ const InventoryLayout = () => {
               { value: 'roasteries', label: t('inventoryLayout.roasteries') },
             ]}
           />
-          <Group>
-            {tab === 'coffees' && (
-              <Button
-                variant={isArchive ? 'filled' : 'outline'}
-                onClick={toggleArchive}
-                color='yellow'
-              >
-                {t('inventoryLayout.archive')}
-              </Button>
+          {tab === 'coffees' && isMobile && (
+            <ArchiveButton
+              isArchive={isArchive}
+              toggleArchive={toggleArchive}
+            />
+          )}
+          <Group wrap='nowrap' w={isMobile ? '100%' : 'auto'}>
+            {tab === 'coffees' && !isMobile && (
+              <ArchiveButton
+                isArchive={isArchive}
+                toggleArchive={toggleArchive}
+              />
             )}
             <Autocomplete
+              w='100%'
               placeholder={t('inventoryLayout.search')}
               value={searchValue}
               onChange={setSearchValue}
@@ -100,6 +109,21 @@ const InventoryLayout = () => {
         <Outlet />
       </Container>
     </PageTransitionWrapper>
+  )
+}
+
+const ArchiveButton = ({ isArchive, toggleArchive }) => {
+  const { t } = useTranslation()
+
+  return (
+    <Button
+      variant={isArchive ? 'filled' : 'outline'}
+      onClick={toggleArchive}
+      color='yellow'
+      style={{ flexShrink: 0 }}
+    >
+      {t('inventoryLayout.archive')}
+    </Button>
   )
 }
 
