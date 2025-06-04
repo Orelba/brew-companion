@@ -1,10 +1,14 @@
 import { useTranslation } from 'react-i18next'
-import { Paper, Text } from '@mantine/core'
+import { Paper, Text, useMantineTheme } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 import { LineChart } from '@mantine/charts'
 import { formatWeight, getMonthName } from '../../utils/formatters'
 import styles from './monthly-consumed-coffee-stats-card.module.scss'
 
 const MonthlyConsumedCoffeeStatsCard = ({ data }) => {
+  const theme = useMantineTheme()
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`)
+
   const { t, i18n } = useTranslation()
 
   const isRTL = i18n.dir() === 'rtl'
@@ -51,7 +55,8 @@ const MonthlyConsumedCoffeeStatsCard = ({ data }) => {
               label: t('monthlyConsumedCoffeeStatsCard.consumption'),
             },
           ]}
-          curveType='linear'
+          curveType='monotone'
+          withTooltip={!isMobile}
           withPointLabels
           valueFormatter={(value) => formatWeight(value, t)}
           withYAxis={false}
