@@ -67,7 +67,12 @@ const aggregateBrews = (brews, coffeeMap) => {
       monthObj.consumption += Math.round(dose)
       monthObj.brews += 1
     } else {
-      monthlyBrews.push({ month, year, consumption: Math.round(dose), brews: 1 })
+      monthlyBrews.push({
+        month,
+        year,
+        consumption: Math.round(dose),
+        brews: 1,
+      })
     }
 
     coffeeSet.add(brew.coffee.toString())
@@ -194,8 +199,19 @@ const fetchLiveStats = async (userId) => {
     totalBrewedThisMonth: thisMonth?.brews ?? 0,
   })
 
+  // Prepare monthly brews data for the frontend, adjusting month numbers to be 1-indexed
+  const monthlyBrewsForFrontend = monthlyBrews.map((m) => ({
+    ...m,
+    month: m.month + 1,
+  }))
+
   // Return all the calculated stats, favorite roasteries, and monthly brews data
-  return { stats, favoriteRoasteries, monthlyBrews, userId }
+  return {
+    stats,
+    favoriteRoasteries,
+    monthlyBrews: monthlyBrewsForFrontend,
+    userId,
+  }
 }
 
 export { fetchLiveStats }
