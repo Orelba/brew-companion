@@ -1,11 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 import { fetchRecentBrews } from '../../services/brewsService'
 import { fetchStats } from '../../services/statsService'
+import { usePageTitle } from '../../hooks/usePageTitle'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import StatsGrid from '../../components/StatsGrid/StatsGrid'
 import QuickBrewCarousel from '../../components/QuickBrewCarousel/QuickBrewCarousel'
 
 const DashboardPage = () => {
+  usePageTitle('') // Set the page title
+
   const axiosPrivate = useAxiosPrivate()
 
   const {

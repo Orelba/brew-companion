@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import { useTranslation } from 'react-i18next'
+import { usePageTitle } from '../../hooks/usePageTitle'
 import { useForm } from '@mantine/form'
 import {
   PasswordInput,
@@ -21,6 +22,8 @@ import useLoadingScreen from '../../hooks/useLoadingScreen'
 
 const PasswordResetPage = () => {
   const { t } = useTranslation()
+
+  usePageTitle(t('pageTitles.passwordResetPage'))
 
   const navigate = useNavigate()
 

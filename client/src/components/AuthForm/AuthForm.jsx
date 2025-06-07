@@ -119,8 +119,7 @@ const AuthForm = ({ opened, onClose }) => {
 
   const handleResetPassword = async (formValues) => {
     try {
-      const data = await forgotPassword(formValues)
-      console.log(data)
+      await forgotPassword(formValues)
       notifications.show({
         title: t('notifications.passwordResetEmailSent'),
         color: 'green',
@@ -148,7 +147,10 @@ const AuthForm = ({ opened, onClose }) => {
         await handleResetPassword(formValues)
       }
     } catch (error) {
-      console.error('Unexpected error during form submission:', error)
+      notifications.show({
+        title: t('notifications.unexpectedError'),
+        color: 'red',
+      })
     } finally {
       setIsSubmitting(false)
     }
