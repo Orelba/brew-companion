@@ -6,13 +6,12 @@ import {
   Image,
   // hooks
   useComputedColorScheme,
+  useDrawersStack,
 } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
 import cx from 'classnames'
 import useAuth from '../../hooks/useAuth'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate, useLocation } from 'react-router'
-import { LanguagePicker } from '../LanguagePicker/LanguagePicker'
 import UserDropdownMenu from '../UserDropdownMenu/UserDropdownMenu'
 import SidebarNav from '../SidebarNav/SidebarNav'
 import styles from './header.module.scss'
@@ -26,8 +25,7 @@ const Header = () => {
   // Control language and direction
   const { t } = useTranslation()
 
-  // Control the sidebar navigation menu
-  const [opened, { close, toggle }] = useDisclosure(false)
+  const stack = useDrawersStack(['navigation', 'account'])
 
   const computedColorScheme = useComputedColorScheme()
 
@@ -81,7 +79,12 @@ const Header = () => {
     <AppShellHeader className={styles.header}>
       <div className={styles.inner}>
         <Group wrap='nowrap'>
-          <Burger opened={opened} onClick={toggle} size='sm' hiddenFrom='sm' />
+          <Burger
+            opened={stack.state.navigation}
+            onClick={() => stack.toggle('navigation')}
+            size='sm'
+            hiddenFrom='sm'
+          />
           <Image
             src={logo}
             h={40}
@@ -90,20 +93,17 @@ const Header = () => {
             className={styles.logo}
           />
           <SidebarNav
-            opened={opened}
-            onClose={close}
+            stack={stack}
             links={links}
             handleNavClick={handleNavClick}
           />
         </Group>
-        <Group>
-          <Group gap={5} visibleFrom='sm'>
-            {items}
-            <LanguagePicker />
-            <ColorSchemeSwitch />
-            {!!auth?.accessToken && <UserDropdownMenu />}
-          </Group>
+
+        <Group gap={5} visibleFrom='sm'>
+          {items}
+          {!!auth?.accessToken && <UserDropdownMenu />}
         </Group>
+        <ColorSchemeSwitch hiddenFrom='sm' />
       </div>
     </AppShellHeader>
   )

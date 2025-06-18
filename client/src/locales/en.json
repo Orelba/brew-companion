@@ -114,8 +114,15 @@
   },
   "weight": { "kg": "kg", "g": "g", "lbs": "lbs", "oz": "oz" },
   "userDropdownMenu": {
+    "preferencesLabel": "Preferences",
+    "language": "Language",
+    "switchLanguage": "Switch to Hebrew (שנה שפה לעברית)",
     "accountSettings": "Account settings",
     "logout": "Logout"
+  },
+  "ColorSchemeSwitch": {
+    "lightMode": "Light mode",
+    "darkMode": "Dark mode"
   },
   "passwordResetPage": {
     "title": "Reset Your Password",

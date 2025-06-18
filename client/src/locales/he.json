@@ -112,7 +112,17 @@
     "callToGoBack": "חזרה להתחברות"
   },
   "weight": { "kg": "ק\"ג", "g": "גרם", "lbs": "פאונד", "oz": "אונקיה" },
-  "userDropdownMenu": { "accountSettings": "הגדרות", "logout": "התנתק" },
+  "userDropdownMenu": {
+    "preferencesLabel": "העדפות",
+    "language": "שפה",
+    "switchLanguage": "שנה שפה לאנגלית (Switch to English)",
+    "accountSettings": "הגדרות",
+    "logout": "התנתק"
+  },
+  "ColorSchemeSwitch": {
+    "lightMode": "מצב בהיר",
+    "darkMode": "מצב כהה"
+  },
   "passwordResetPage": {
     "title": "אפס את הסיסמה שלך",
     "subtitle": "בחר סיסמה חדשה כדי להשלים את התהליך",
