@@ -186,7 +186,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
         text={coffee.name}
         textLineClamp={4}
         onClick={() => handleCardSelection('coffee', coffee._id)}
-        image='coffee-beans.jpg'
+        image='coffee-beans.webp'
       />
     ))
 
