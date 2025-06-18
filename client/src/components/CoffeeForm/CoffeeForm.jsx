@@ -177,16 +177,19 @@ const CoffeeForm = ({
     },
   })
 
+  // Extract setValues to avoid form object in useEffect deps
+  const { setValues } = form
+
   // Set the details of the coffee to update (In case of an update form)
   useEffect(() => {
     if (coffeeToUpdate && !isFetchingCoffeeToUpdate) {
-      form.setValues({
+      setValues({
         name: coffeeToUpdate.name || '',
         roastery: coffeeToUpdate.roastery._id || null,
         rating: coffeeToUpdate.rating || 0,
       })
     }
-  }, [coffeeToUpdate, isFetchingCoffeeToUpdate])
+  }, [coffeeToUpdate, isFetchingCoffeeToUpdate, setValues])
 
   const handleSaveCoffee = () => {
     form.validate()

@@ -22,7 +22,7 @@ const register = [
     .escape(),
   validateUserEmail,
   validateUserPassword('password'),
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     // Extract the validation errors from a request
     const errors = validationResult(req)
 
@@ -72,7 +72,7 @@ const register = [
 const login = [
   validateUserEmail,
   validateUserPassword('password'),
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
@@ -121,13 +121,13 @@ const login = [
   }),
 ]
 
-const logout = asyncHandler(async (req, res) => {
+const logout = asyncHandler(async (req, res, _next) => {
   const cookies = req.cookies
   if (!cookies?.refreshToken) {
     return res.sendStatus(204)
   }
   const refreshToken = cookies.refreshToken
-  const { maxAge, ...clearCookieOptions } = refreshTokenCookieOptions
+  const { maxAge: _maxAge, ...clearCookieOptions } = refreshTokenCookieOptions
 
   const user = await User.findOne({ 'sessions.token': refreshToken }).exec()
   if (!user) {
@@ -204,7 +204,7 @@ const forgotPassword = [
   }),
 ]
 
-const validatePasswordResetToken = asyncHandler(async (req, res, next) => {
+const validatePasswordResetToken = asyncHandler(async (req, res, _next) => {
   // Hash the provided token using SHA-256
   const token = createHash('sha256').update(req.params.token).digest('hex')
 
@@ -224,7 +224,7 @@ const validatePasswordResetToken = asyncHandler(async (req, res, next) => {
 const resetPassword = [
   validateUserPassword('password'),
   validateUserPasswordConfirmation('confirmPassword', 'password'),
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     // Extract the validation errors from a request
     const errors = validationResult(req)
 
@@ -269,7 +269,7 @@ const resetPassword = [
   }),
 ]
 
-const refresh = asyncHandler(async (req, res, next) => {
+const refresh = asyncHandler(async (req, res, _next) => {
   const cookies = req.cookies
 
   if (!cookies?.refreshToken) {

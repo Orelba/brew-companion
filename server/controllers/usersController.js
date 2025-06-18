@@ -2,7 +2,7 @@ import User from '../models/user.js'
 
 import asyncHandler from 'express-async-handler'
 
-const getCurrentUser = asyncHandler((req, res, next) => {
+const getCurrentUser = asyncHandler((req, res, _next) => {
   if (!req.user) {
     return res.status(404).json({ message: 'User not found' })
   }
@@ -15,6 +15,5 @@ const getCurrentUser = asyncHandler((req, res, next) => {
 
   res.json(user)
 })
-
 
 export { getCurrentUser }

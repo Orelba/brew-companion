@@ -3,7 +3,7 @@ const fetchCoffees = async (axiosInstance) => {
   try {
     const response = await axiosInstance.get('/api/coffees')
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to fetch coffees')
   }
 }
@@ -13,7 +13,7 @@ const createCoffee = async (coffee, axiosInstance) => {
   try {
     const response = await axiosInstance.post('/api/coffees/create', coffee)
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to create coffee')
   }
 }
@@ -23,7 +23,7 @@ const fetchCoffeeForUpdate = async (coffeeId, axiosInstance) => {
   try {
     const response = await axiosInstance.get(`/api/coffees/${coffeeId}/update`)
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to fetch coffee')
   }
 }
@@ -36,7 +36,7 @@ const updateCoffee = async (coffee, axiosInstance) => {
       coffee
     )
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to update coffee')
   }
 }
@@ -51,7 +51,7 @@ const toggleCoffeeArchiveStatus = async (
     await axiosInstance.patch(`/api/coffees/${coffeeId}/archive`, {
       archived: isArchived,
     })
-  } catch (error) {
+  } catch {
     console.error('Failed to update archive status')
   }
 }
@@ -60,7 +60,7 @@ const toggleCoffeeArchiveStatus = async (
 const deleteCoffee = async (coffeeId, axiosInstance) => {
   try {
     await axiosInstance.delete(`/api/coffees/${coffeeId}/delete`)
-  } catch (error) {
+  } catch {
     throw new Error('Failed to delete coffee')
   }
 }

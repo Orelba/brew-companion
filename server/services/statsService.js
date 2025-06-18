@@ -60,7 +60,7 @@ const aggregateBrews = (brews, coffeeMap) => {
     const month = date.getMonth()
     const year = date.getFullYear()
 
-    let monthObj = monthlyBrews.find(
+    const monthObj = monthlyBrews.find(
       (m) => m.month === month && m.year === year
     )
     if (monthObj) {

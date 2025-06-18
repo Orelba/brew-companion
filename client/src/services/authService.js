@@ -68,48 +68,32 @@ const login = async (formValues) => {
 }
 
 const logout = async () => {
-  try {
-    await axiosInstance.get(`${AUTH_URL}/logout`, {
-      withCredentials: true,
-    })
-  } catch (error) {
-    throw error
-  }
+  await axiosInstance.get(`${AUTH_URL}/logout`, {
+    withCredentials: true,
+  })
 }
 
 const forgotPassword = async (formValues) => {
-  try {
-    const response = await axiosInstance.post(
-      `${AUTH_URL}/reset-password`,
-      formValues
-    )
-    return response?.data
-  } catch (error) {
-    throw error
-  }
+  const response = await axiosInstance.post(
+    `${AUTH_URL}/reset-password`,
+    formValues
+  )
+  return response?.data
 }
 
 const validatePasswordResetToken = async (token) => {
-  try {
-    const response = await axiosInstance.post(
-      `${AUTH_URL}/reset-password/validate/${token}`
-    )
-    return response
-  } catch (error) {
-    throw error
-  }
+  const response = await axiosInstance.post(
+    `${AUTH_URL}/reset-password/validate/${token}`
+  )
+  return response
 }
 
 const resetPassword = async (formValues, token) => {
-  try {
-    const response = await axiosInstance.post(
-      `${AUTH_URL}/reset-password/${token}`,
-      formValues
-    )
-    return response
-  } catch (error) {
-    throw error
-  }
+  const response = await axiosInstance.post(
+    `${AUTH_URL}/reset-password/${token}`,
+    formValues
+  )
+  return response
 }
 
 const refreshAccessToken = async () => {

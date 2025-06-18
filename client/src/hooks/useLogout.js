@@ -22,7 +22,7 @@ const useLogout = () => {
         title: t('notifications.logoutSuccessful'),
         color: 'green',
       })
-    } catch (error) {
+    } catch {
       notifications.show({
         title: t('notifications.logoutFailed'),
         color: 'red',

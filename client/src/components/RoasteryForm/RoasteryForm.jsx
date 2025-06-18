@@ -167,15 +167,19 @@ const RoasteryForm = ({
     },
   })
 
+  // Extract setValues to avoid form object in useEffect deps
+  const { setValues } = form
+
+  // Set the details of the roastery to update (In case of an update form)
   useEffect(() => {
     if (roasteryToUpdate && !isFetchingRoasteryToUpdate) {
-      form.setValues({
+      setValues({
         name: roasteryToUpdate.name || '',
         country: roasteryToUpdate.country || null,
         rating: roasteryToUpdate.rating || 0,
       })
     }
-  }, [roasteryToUpdate, isFetchingRoasteryToUpdate])
+  }, [roasteryToUpdate, isFetchingRoasteryToUpdate, setValues])
 
   const handleSaveRoastery = () => {
     form.validate()

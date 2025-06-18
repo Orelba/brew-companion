@@ -3,7 +3,7 @@ const fetchBrews = async (axiosInstance) => {
   try {
     const response = await axiosInstance.get('/api/brews')
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to fetch brews')
   }
 }
@@ -13,7 +13,7 @@ const fetchRecentBrews = async (axiosInstance) => {
   try {
     const response = await axiosInstance.get('/api/brews/recent')
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to fetch brews')
   }
 }
@@ -23,7 +23,7 @@ const createBrew = async (brew, axiosInstance) => {
   try {
     const response = await axiosInstance.post('/api/brews/create', brew)
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to create brew')
   }
 }
@@ -33,7 +33,7 @@ const fetchBrewForUpdate = async (brewId, axiosInstance) => {
   try {
     const response = await axiosInstance.get(`/api/brews/${brewId}/update`)
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to fetch brew')
   }
 }
@@ -46,7 +46,7 @@ const updateBrew = async (brew, axiosInstance) => {
       brew
     )
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to update brew')
   }
 }
@@ -55,7 +55,7 @@ const updateBrew = async (brew, axiosInstance) => {
 const deleteBrew = async (brew, axiosInstance) => {
   try {
     await axiosInstance.delete(`/api/brews/${brew._id}/delete`)
-  } catch (error) {
+  } catch {
     throw new Error('Failed to delete brew')
   }
 }

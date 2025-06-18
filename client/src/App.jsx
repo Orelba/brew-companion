@@ -34,7 +34,7 @@ const App = () => {
   // Set the direction of the document based on the language
   useEffect(() => {
     document.dir = i18n.dir()
-  }, [i18n.resolvedLanguage])
+  }, [i18n, i18n.resolvedLanguage])
 
   // Set the font based on the language
   const fontForLanguage =

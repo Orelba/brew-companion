@@ -3,7 +3,7 @@ const fetchRoasteries = async (axiosInstance) => {
   try {
     const response = await axiosInstance.get('/api/roasteries')
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to fetch roasteries')
   }
 }
@@ -16,7 +16,7 @@ const createRoastery = async (roastery, axiosInstance) => {
       roastery
     )
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to create roastery')
   }
 }
@@ -28,7 +28,7 @@ const fetchRoasteryForUpdate = async (roasteryId, axiosInstance) => {
       `/api/roasteries/${roasteryId}/update`
     )
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to fetch roastery')
   }
 }
@@ -41,7 +41,7 @@ const updateRoastery = async (roastery, axiosInstance) => {
       roastery
     )
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to update roastery')
   }
 }
@@ -50,7 +50,7 @@ const updateRoastery = async (roastery, axiosInstance) => {
 const deleteRoastery = async (roasteryId, axiosInstance) => {
   try {
     await axiosInstance.delete(`/api/roasteries/${roasteryId}/delete`)
-  } catch (error) {
+  } catch {
     throw new Error('Failed to delete roastery')
   }
 }

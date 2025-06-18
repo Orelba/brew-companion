@@ -41,7 +41,7 @@ const NotFoundPage = () => {
               size='md'
               mt='xl'
               className={styles.control}
-              color={'var(--mantine-color-brown-outline)'}
+              color='var(--mantine-color-brown-outline)'
             >
               Get back to home page
             </Button>

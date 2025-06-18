@@ -6,7 +6,7 @@ import { validationResult } from 'express-validator'
 import validateBrewData from '../middleware/validateBrewData.js'
 import validateMongoDBObjectId from '../middleware/validateMongoDBObjectId.js'
 
-const brewList = asyncHandler(async (req, res, next) => {
+const brewList = asyncHandler(async (req, res, _next) => {
   const allBrews = await Brew.find({ userId: req.user.id })
     .sort({ date: -1 })
     .populate([{ path: 'coffee', populate: 'roastery' }, 'brewingMethod'])
@@ -15,7 +15,7 @@ const brewList = asyncHandler(async (req, res, next) => {
   res.json(allBrews)
 })
 
-const brewListRecent = asyncHandler(async (req, res, next) => {
+const brewListRecent = asyncHandler(async (req, res, _next) => {
   const recentBrews = await Brew.aggregate([
     // Step 1: Match user by userId
     {
@@ -93,7 +93,7 @@ const brewCreatePost = [
   validateBrewData,
 
   // Process request after validation and sanitization
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     // Extract the validation errors from the request
     const errors = validationResult(req)
 
@@ -126,7 +126,7 @@ const brewCreatePost = [
 
 const brewUpdateGet = [
   validateMongoDBObjectId,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     const brew = await Brew.findById(req.params.id)
 
     // Handle document not found
@@ -146,7 +146,7 @@ const brewUpdateGet = [
 const brewUpdatePut = [
   validateMongoDBObjectId,
   validateBrewData,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     const errors = validationResult(req)
 
     // Find the brew by its ID to check ownership before updating
@@ -197,7 +197,7 @@ const brewUpdatePut = [
 
 const brewDelete = [
   validateMongoDBObjectId,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     // Find the brew to check ownership before deleting
     const brewToDelete = await Brew.findById(req.params.id)
 

@@ -3,7 +3,7 @@ const fetchBrewingMethods = async (axiosInstance) => {
   try {
     const response = await axiosInstance.get('/api/brewing-methods')
     return response.data
-  } catch (error) {
+  } catch {
     throw new Error('Failed to fetch brewing methods')
   }
 }

@@ -7,7 +7,7 @@ import { validationResult } from 'express-validator'
 import validateCoffeeData from '../middleware/validateCoffeeData.js'
 import validateMongoDBObjectId from '../middleware/validateMongoDBObjectId.js'
 
-const coffeeList = asyncHandler(async (req, res, next) => {
+const coffeeList = asyncHandler(async (req, res, _next) => {
   const allCoffees = await Coffee.find({ userId: req.user.id })
     .populate('roastery')
     .sort({ createdAt: -1 })
@@ -18,7 +18,7 @@ const coffeeList = asyncHandler(async (req, res, next) => {
 
 const coffeeCreatePost = [
   validateCoffeeData,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
@@ -44,7 +44,7 @@ const coffeeCreatePost = [
 
 const coffeeUpdateGet = [
   validateMongoDBObjectId,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     const coffeeId = req.params.id
     const userId = req.user.id
 
@@ -65,7 +65,7 @@ const coffeeUpdateGet = [
 const coffeeUpdatePut = [
   validateMongoDBObjectId,
   validateCoffeeData,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     const errors = validationResult(req)
 
     // If there are validation errors, return them
@@ -104,7 +104,7 @@ const coffeeUpdatePut = [
 
 const coffeeToggleArchiveStatusPatch = [
   validateMongoDBObjectId,
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, _next) => {
     const coffeeId = req.params.id
     const userId = req.user.id
     const { archived } = req.body
@@ -139,7 +139,7 @@ const coffeeToggleArchiveStatusPatch = [
 
 const coffeeDeleteWithBrews = [
   validateMongoDBObjectId,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     const coffeeId = req.params.id
     const userId = req.user.id
 

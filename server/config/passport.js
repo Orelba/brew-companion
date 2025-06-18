@@ -1,4 +1,3 @@
-import passport from 'passport'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
 import User from '../models/user.js'
 
@@ -15,7 +14,7 @@ const passportConfig = (passport) => {
       try {
         // Find the user by the ID in the JWT payload
         const user = await User.findById(payload.id)
-        
+
         // If the user is found, return the user object
         if (user) {
           return done(null, user)

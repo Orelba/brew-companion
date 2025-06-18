@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { IconListDetails, IconCoffee, IconTimeline } from '@tabler/icons-react'
 import {
-  Image,
   Card,
   Container,
   Group,

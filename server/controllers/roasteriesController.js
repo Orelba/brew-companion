@@ -8,7 +8,7 @@ import { validationResult } from 'express-validator'
 import validateRoasteryData from '../middleware/validateRoasteryData.js'
 import validateMongoDBObjectId from '../middleware/validateMongoDBObjectId.js'
 
-const roasteriesList = asyncHandler(async (req, res, next) => {
+const roasteriesList = asyncHandler(async (req, res, _next) => {
   const allRoasteries = await Roastery.find({ userId: req.user.id })
     .sort({ createdAt: -1 })
     .exec()
@@ -17,7 +17,7 @@ const roasteriesList = asyncHandler(async (req, res, next) => {
 
 const roasteryCreatePost = [
   validateRoasteryData,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
@@ -45,7 +45,7 @@ const roasteryCreatePost = [
 
 const roasteryUpdateGet = [
   validateMongoDBObjectId,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     const roasteryId = req.params.id
     const userId = req.user.id
 
@@ -64,7 +64,7 @@ const roasteryUpdateGet = [
 const roasteryUpdatePut = [
   validateMongoDBObjectId,
   validateRoasteryData,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     const errors = validationResult(req)
 
     // If there are validation errors, return them
@@ -103,7 +103,7 @@ const roasteryUpdatePut = [
 
 const roasteryDeleteWithCoffeesAndBrews = [
   validateMongoDBObjectId,
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res, _next) => {
     const roasteryId = req.params.id
     const userId = req.user.id
 

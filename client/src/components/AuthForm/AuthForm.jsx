@@ -146,7 +146,7 @@ const AuthForm = ({ opened, onClose }) => {
       } else if (type === 'resetPassword') {
         await handleResetPassword(formValues)
       }
-    } catch (error) {
+    } catch {
       notifications.show({
         title: t('notifications.unexpectedError'),
         color: 'red',
