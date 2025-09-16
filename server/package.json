@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "prettier": "npx prettier . --w",
-    "start": "node ./bin/www",
+    "start": "node --env-file=.env ./bin/www",
+    "start:prod": "node ./bin/www",
     "devstart": "nodemon --env-file=.env ./bin/www",
     "serverstart": "SET DEBUG=server:* & npm run devstart"
   },
