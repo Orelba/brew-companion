@@ -11,6 +11,8 @@ import CoffeesPage from './pages/CoffeesPage/CoffeesPage'
 import RoasteriesPage from './pages/RoasteriesPage/RoasteriesPage'
 import AuthForm from './components/AuthForm/AuthForm'
 import PasswordResetPage from './pages/PasswordResetPage/PasswordResetPage'
+import TermsPage from './pages/TermsPage/TermsPage'
+import PrivacyPage from './pages/PrivacyPage/PrivacyPage'
 
 const Router = () => {
   // Initialize a browser router
@@ -37,6 +39,14 @@ const Router = () => {
         {
           path: '/reset-password/:token',
           element: <PasswordResetPage />,
+        },
+        {
+          path: '/terms',
+          element: <TermsPage />,
+        },
+        {
+          path: '/privacy',
+          element: <PrivacyPage />,
         },
         {
           path: '/brews',

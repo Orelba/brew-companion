@@ -6,11 +6,10 @@ import styles from './footer.module.scss'
 export function Footer() {
   const { t } = useTranslation()
 
-  // TODO: Create routes
   const links = [
-    { link: '#', label: t('footer.links.contact') },
-    { link: '#', label: t('footer.links.privacy') },
-    { link: '#', label: t('footer.links.tos') },
+    { link: '#', label: t('footer.links.contact') }, // TODO: Create contact route and page
+    { link: '/privacy', label: t('footer.links.privacy') },
+    { link: '/terms', label: t('footer.links.tos') },
   ]
 
   const items = links.map((link) => (
@@ -18,7 +17,7 @@ export function Footer() {
       c='dimmed'
       key={link.label}
       href={link.link}
-      onClick={(event) => event.preventDefault()}
+      // onClick={(event) => event.preventDefault()}
       size='sm'
     >
       {link.label}
