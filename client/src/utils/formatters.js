@@ -1,3 +1,16 @@
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import 'dayjs/locale/en'
+import 'dayjs/locale/he'
+import i18n from '../locales/i18n'
+
+dayjs.extend(relativeTime)
+
+export const formatRelativeTime = (dateString) => {
+  dayjs.locale(i18n.language || 'en')
+  return dayjs(dateString).fromNow()
+}
+
 export const formatWeight = (grams, t, unitSystem = 'metric') => {
   // Accessing nested translation keys
   const kgLabel = t('weight.kg')

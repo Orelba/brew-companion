@@ -1,4 +1,4 @@
-import { Accordion, Divider, Group, Text } from '@mantine/core'
+import { Accordion, Divider, Box, Group, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IconArrowNarrowRight } from '@tabler/icons-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -8,6 +8,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import BrewForm from '../BrewForm/BrewForm'
 import ExtractionRating from '../ExtractionRating/ExtractionRating'
 import ItemDropdown from '../ItemDropdown/ItemDropdown'
+import RelativeTime from '../RelativeTime/RelativeTime'
 
 const AccordionItemWithMenu = ({ item }) => {
   const { t, i18n } = useTranslation()
@@ -88,11 +89,13 @@ const AccordionItemWithMenu = ({ item }) => {
       {/* Collapsible Panel */}
       <Accordion.Panel>
         {/* Brew Settings Section */}
-        <Divider
-          label={t('accordionItemWithMenu.brewSettings')}
-          fs='italic'
-          labelPosition='left'
-        />
+        <Box c='dimmed' fz='xs' fs='italic'>
+          <Group gap='xs' align='center'>
+            {t('accordionItemWithMenu.brewSettings')}
+            <Divider flex={1} />
+            <RelativeTime date={item.date} />
+          </Group>
+        </Box>
         <Text fw={500}>
           {t('accordionItemWithMenu.grindSetting')}:{' '}
           <Text component='span'>{item.grindSetting}</Text>
