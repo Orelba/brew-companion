@@ -1,4 +1,4 @@
-import rateLimit from 'express-rate-limit'
+import { rateLimit } from 'express-rate-limit'
 
 // Limit the number of requests to the API to prevent abuse
 const apiLimiter = rateLimit({
