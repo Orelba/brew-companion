@@ -72,15 +72,15 @@
     "sectionDescription": "Whether you're a home barista or a coffee lover, you've come to the right place",
     "trackBrews": {
       "title": "Easily Track Your Brews",
-      "description": "Log any brew in seconds — from espresso to pour over. Keep notes, grind size, and more to perfect your next cup."
+      "description": "Save any brew in seconds - from espresso to pour over. Keep notes on grind size, ratios, and more to perfect your next cup."
     },
     "visualizeStats": {
       "title": "Visualize Your Coffee Journey",
-      "description": "See your brews as clear, interactive stats — favorite methods, top roasters, and consumption all in one dashboard."
+      "description": "View your brews through clear, interactive stats - see your favorite methods, top roasters, and how your consumption changes over time."
     },
     "centralizedData": {
       "title": "Everything in One Place",
-      "description": "Save every coffee you've tried, who roasted it, and how it tasted. Everything stays in one place so you can explore and remember."
+      "description": "Browse your coffee collection - every brew, roaster, and note neatly organized in one place."
     }
   },
   "auth": {
