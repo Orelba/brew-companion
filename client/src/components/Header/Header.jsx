@@ -16,6 +16,7 @@ import UserDropdownMenu from '../UserDropdownMenu/UserDropdownMenu'
 import SidebarNav from '../SidebarNav/SidebarNav'
 import styles from './header.module.scss'
 import ColorSchemeSwitch from '../ColorSchemeSwitch/ColorSchemeSwitch'
+import LanguageSwitch from '../LanguageSwitch/LanguageSwitch'
 
 const Header = () => {
   const navigate = useNavigate()
@@ -79,12 +80,21 @@ const Header = () => {
     <AppShellHeader className={styles.header}>
       <div className={styles.inner}>
         <Group wrap='nowrap'>
-          <Burger
-            opened={stack.state.navigation}
-            onClick={() => stack.toggle('navigation')}
-            size='sm'
-            hiddenFrom='sm'
-          />
+          {!!auth?.accessToken && (
+            <>
+              <Burger
+                opened={stack.state.navigation}
+                onClick={() => stack.toggle('navigation')}
+                size='sm'
+                hiddenFrom='sm'
+              />
+              <SidebarNav
+                stack={stack}
+                links={links}
+                handleNavClick={handleNavClick}
+              />
+            </>
+          )}
           <Image
             src={logo}
             h={40}
@@ -92,18 +102,22 @@ const Header = () => {
             onClick={() => navigate('/')}
             className={styles.logo}
           />
-          <SidebarNav
-            stack={stack}
-            links={links}
-            handleNavClick={handleNavClick}
-          />
         </Group>
 
         <Group gap={5} visibleFrom='sm'>
-          {items}
+          {!!auth?.accessToken && items}
           {!!auth?.accessToken && <UserDropdownMenu />}
         </Group>
-        <ColorSchemeSwitch hiddenFrom='sm' />
+        {!auth?.accessToken ? (
+          <Group gap={12}>
+            <ColorSchemeSwitch />
+            <LanguageSwitch />
+          </Group>
+        ) : (
+          <ColorSchemeSwitch
+            hiddenFrom={auth?.accessToken ? 'sm' : undefined}
+          />
+        )}
       </div>
     </AppShellHeader>
   )
