@@ -61,6 +61,11 @@
     "brews": "Brews",
     "inventory": "Coffees and Roasteries"
   },
+  "notFoundPage": {
+    "title": "Something's brewing, but not quite right...",
+    "description": "The page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL.",
+    "goHomeButton": "Back to home page"
+  },
   "homePage": {
     "heroTitle": "Brew Better, Every Day.",
     "heroDescription": "Unlock your best cups by logging, refining, and learning from every brew. Built for curious coffee lovers and everyday ritual makers.",

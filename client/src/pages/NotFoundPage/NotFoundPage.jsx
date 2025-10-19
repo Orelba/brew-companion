@@ -27,12 +27,9 @@ const NotFoundPage = () => {
         <SimpleGrid spacing={{ base: 40, sm: 80 }} cols={{ base: 1, sm: 2 }}>
           <Image src={NotFoundImageSrc} className={styles.mobileImage} />
           <div>
-            <Title className={styles.title}>
-              Something&apos;s brewing, but not quite right..
-            </Title>
+            <Title className={styles.title}>{t('notFoundPage.title')}</Title>
             <Text c='dimmed' size='lg'>
-              The page you are trying to open does not exist. You may have
-              mistyped the address, or the page has been moved to another URL.
+              {t('notFoundPage.description')}
             </Text>
             <Button
               component={Link}
@@ -43,7 +40,7 @@ const NotFoundPage = () => {
               className={styles.control}
               color='var(--mantine-color-brown-outline)'
             >
-              Get back to home page
+              {t('notFoundPage.goHomeButton')}
             </Button>
           </div>
           <Image src={NotFoundImageSrc} className={styles.desktopImage} />
