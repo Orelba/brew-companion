@@ -4,10 +4,11 @@ import ms from 'ms'
 const refreshTokenTTL = process.env.REFRESH_TOKEN_TTL || '30d' // fallback to 30 days
 const refreshTokenTTLInMs = ms(refreshTokenTTL)
 
-const createSession = (req, refreshToken) => {
+const createSession = (req, refreshToken, clientIp) => {
   return {
     token: refreshToken,
     ip:
+      clientIp || // prefer frontend-provided IP
       req.ip ||
       req.headers['x-forwarded-for'] ||
       req.socket.remoteAddress ||

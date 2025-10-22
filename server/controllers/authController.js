@@ -79,7 +79,7 @@ const login = [
       return res.status(400).json({ ...errors })
     }
 
-    const { email, password } = req.body
+    const { email, password, clientIp } = req.body
 
     // Find the user by username
     const user = await User.findOne({ email })
@@ -111,7 +111,7 @@ const login = [
 
     // Create a new session and add it to the user's sessions
     // This function creates a session object with the refresh token and other details
-    user.sessions.push(createSession(req, refreshToken))
+    user.sessions.push(createSession(req, refreshToken, clientIp))
     await user.save()
 
     res.cookie('refreshToken', refreshToken, refreshTokenCookieOptions)

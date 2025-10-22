@@ -48,9 +48,22 @@ const register = async (formValues) => {
   }
 }
 
+const getClientIp = async () => {
+  try {
+    const res = await axiosInstance.get('https://api.ipify.org?format=json')
+    return res.data.ip
+  } catch (err) {
+    console.error('Could not fetch client IP', err)
+    return null
+  }
+}
+
 const login = async (formValues) => {
   try {
-    const response = await axiosInstance.post(`${AUTH_URL}/login`, formValues, {
+    const clientIp = await getClientIp()
+    const payload = { ...formValues, clientIp }
+
+    const response = await axiosInstance.post(`${AUTH_URL}/login`, payload, {
       withCredentials: true,
     })
     return response?.data
