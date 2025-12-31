@@ -39,7 +39,7 @@ const App = () => {
 
   // Set the font based on the language
   const fontForLanguage =
-    i18n.resolvedLanguage === 'he' ? 'Open Sans' : 'Geist Variable'
+    i18n.resolvedLanguage === 'he' ? 'Open Sans' : 'Geist-Variable'
 
   // Bug fix: Prevent right margin due to use of react-remove-scroll in Mantine (Only when document direction is RTL)
   const RTLMarginFix = {
