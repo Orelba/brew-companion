@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router'
 import PersistLogin from './components/PersistLogin/PersistLogin'
 import RequireAuth from './components/RequireAuth/RequireAuth'
-import { InventoryProvider } from './contexts/InventoryContext'
+import RequireOnboarding from './components/RequireOnboarding/RequireOnboarding'
 import Layout from './layouts/Layout'
 import ProtectedHomePage from './pages/ProtectedHomePage/ProtectedHomePage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
@@ -52,7 +52,9 @@ const Router = () => {
           path: '/brews',
           element: (
             <RequireAuth>
-              <BrewsPage />
+              <RequireOnboarding>
+                <BrewsPage />
+              </RequireOnboarding>
             </RequireAuth>
           ),
         },
@@ -60,9 +62,9 @@ const Router = () => {
           path: '/inventory',
           element: (
             <RequireAuth>
-              <InventoryProvider>
+              <RequireOnboarding>
                 <InventoryLayout />
-              </InventoryProvider>
+              </RequireOnboarding>
             </RequireAuth>
           ),
           children: [

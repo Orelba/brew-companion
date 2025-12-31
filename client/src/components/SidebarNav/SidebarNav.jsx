@@ -53,7 +53,7 @@ const SidebarNav = ({ stack, links, handleNavClick }) => {
   ))
 
   const handleAccountClick = () => {
-    stack.close('navigation') // close sidebar drawer (burger goes to hamburger)
+    stack.close('navigation') // close sidebar drawer
     stack.open('account') // then open account drawer
   }
 

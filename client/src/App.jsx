@@ -12,6 +12,7 @@ import { LoadingScreenProvider } from './contexts/LoadingScreenContext'
 import { Notifications } from '@mantine/notifications'
 import { generateColors } from '@mantine/colors-generator'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { InventoryProvider } from './contexts/InventoryContext'
 import Router from './Router'
 import 'non.geist' // Vercel Geist Sans Font
 import { useTranslation } from 'react-i18next'
@@ -71,7 +72,9 @@ const App = () => {
               <Notifications />
               {ready ? (
                 <QueryClientProvider client={queryClient}>
-                  <Router />
+                  <InventoryProvider>
+                    <Router />
+                  </InventoryProvider>
                 </QueryClientProvider>
               ) : (
                 <ContentLoader visible transitionProps={{ duration: 0 }} />

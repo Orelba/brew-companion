@@ -10,6 +10,7 @@ import {
 } from '@mantine/core'
 import cx from 'classnames'
 import useAuth from '../../hooks/useAuth'
+import useInventoryStatus from '../../hooks/useInventoryStatus'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useNavigate, useLocation } from 'react-router'
 import UserDropdownMenu from '../UserDropdownMenu/UserDropdownMenu'
@@ -22,6 +23,7 @@ const Header = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { auth } = useAuth()
+  const { isInventoryComplete } = useInventoryStatus()
 
   // Control language and direction
   const { t } = useTranslation()
@@ -90,7 +92,7 @@ const Header = () => {
               />
               <SidebarNav
                 stack={stack}
-                links={links}
+                links={isInventoryComplete ? links : [links[0]]}
                 handleNavClick={handleNavClick}
               />
             </>
@@ -105,7 +107,7 @@ const Header = () => {
         </Group>
 
         <Group gap={5} visibleFrom='sm'>
-          {!!auth?.accessToken && items}
+          {!!auth?.accessToken && isInventoryComplete && items}
           {!!auth?.accessToken && <UserDropdownMenu />}
         </Group>
         {!auth?.accessToken ? (

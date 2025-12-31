@@ -2,14 +2,26 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchRecentBrews } from '../../services/brewsService'
 import { fetchStats } from '../../services/statsService'
 import { usePageTitle } from '../../hooks/usePageTitle'
+import useLoadingScreen from '../../hooks/useLoadingScreen'
+import PageTransitionWrapper from '../../components/PageTransitionWrapper/PageTransitionWrapper'
+import useInventoryStatus from '../../hooks/useInventoryStatus'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
-import StatsGrid from '../../components/StatsGrid/StatsGrid'
+import GettingStarted from '../../components/GettingStarted/GettingStarted'
 import QuickBrewCarousel from '../../components/QuickBrewCarousel/QuickBrewCarousel'
+import StatsGrid from '../../components/StatsGrid/StatsGrid'
 
 const DashboardPage = () => {
   usePageTitle('') // Set the page title
 
   const axiosPrivate = useAxiosPrivate()
+
+  const {
+    isInventoryReady,
+    hasBrews,
+    hasCoffees,
+    hasRoasteries,
+    isInventoryComplete,
+  } = useInventoryStatus()
 
   const {
     data: recentBrews,
@@ -31,19 +43,35 @@ const DashboardPage = () => {
     placeholderData: initialStats,
   })
 
+  useLoadingScreen(!isInventoryReady)
+
+  if (!isInventoryReady) {
+    return null
+  }
+
   return (
-    <>
-      <QuickBrewCarousel
-        data={recentBrews}
-        isLoading={isRecentBrewsPlaceholderData}
-        isError={isRecentBrewsError}
-      />
-      <StatsGrid
-        data={stats}
-        isLoading={isStatsPlaceholderData}
-        isError={isStatsError}
-      />
-    </>
+    <PageTransitionWrapper>
+      {!isInventoryComplete ? (
+        <GettingStarted
+          hasRoasteries={hasRoasteries}
+          hasCoffees={hasCoffees}
+          hasBrews={hasBrews}
+        />
+      ) : (
+        <>
+          <QuickBrewCarousel
+            data={recentBrews}
+            isLoading={isRecentBrewsPlaceholderData}
+            isError={isRecentBrewsError}
+          />
+          <StatsGrid
+            data={stats}
+            isLoading={isStatsPlaceholderData}
+            isError={isStatsError}
+          />
+        </>
+      )}
+    </PageTransitionWrapper>
   )
 }
 

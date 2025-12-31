@@ -61,6 +61,16 @@
     "brews": "Brews",
     "inventory": "Coffees and Roasteries"
   },
+  "gettingStarted": {
+    "title": "Welcome to Brew Companion!",
+    "subtitle": "Complete these steps to start brewing.",
+    "step1Title": "Create a roastery",
+    "step1DoneTitle": "Roastery created",
+    "step2Title": "Add a coffee",
+    "step2DoneTitle": "Coffee added",
+    "step3Title": "Add your first brew",
+    "step3DoneTitle": "First brew added"
+  },
   "notFoundPage": {
     "title": "Something's brewing, but not quite right...",
     "description": "The page you are trying to open does not exist. You may have mistyped the address, or the page has been moved to another URL.",
