@@ -9,13 +9,7 @@
 
     @media (max-width: mantine.$mantine-breakpoint-sm) {
       flex-direction: column;
-      padding: 0.5rem;
-    }
-
-    .links {
-      @media (max-width: mantine.$mantine-breakpoint-sm) {
-        margin-top: var(--mantine-spacing-sm);
-      }
+      padding: 0.4rem;
     }
   }
 }

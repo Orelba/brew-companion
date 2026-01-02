@@ -12,7 +12,7 @@ export function Footer() {
     { link: '/privacy', label: t('footer.links.privacy') },
     { link: '/terms', label: t('footer.links.tos') },
     {
-      link: 'https://www.buymeacoffee.com/orel4502',
+      link: 'https://www.buymeacoffee.com/orelba',
       label: isRTL ? 'Buy me a coffee ☕' : '☕ Buy me a coffee',
     },
   ]
@@ -24,7 +24,7 @@ export function Footer() {
       href={link.link}
       target={link.link.startsWith('http') ? '_blank' : '_self'}
       rel={link.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-      size='sm'
+      size='xs'
     >
       {link.label}
     </Anchor>
@@ -33,7 +33,7 @@ export function Footer() {
   return (
     <AppShellFooter className={styles.footer}>
       <Container className={styles.inner}>
-        <Text size='sm' c='dimmed'>
+        <Text size='xs' c='dimmed'>
           {t('footer.text', {
             year: new Date().getFullYear(),
             appName: APP_NAME,

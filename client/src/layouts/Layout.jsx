@@ -21,7 +21,7 @@ const Layout = () => {
         },
       }}
       header={{ height: rem(56) }}
-      footer={{ height: rem(70) }}
+      footer={{ height: { base: rem(52), sm: rem(42) } }}
     >
       <Header />
 
