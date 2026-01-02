@@ -15,7 +15,7 @@ const manifestForPlugin = {
   ],
   manifest: {
     name: 'Brew Companion',
-    short_name: 'BrewCompanion',
+    short_name: 'Brew Companion',
     description:
       'Track your brews, analyze coffee trends, and discover your favorite roasteries',
     icons: [

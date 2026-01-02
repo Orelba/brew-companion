@@ -1,6 +1,6 @@
 # Brew Companion | Elevate your coffee experience
 
-BrewCompanion is an app that helps coffee enthusiasts organize and track their coffees, brews, and roasteries.<br>
+Brew Companion is an app that helps coffee enthusiasts organize and track their coffees, brews, and roasteries.<br>
 It provides insights, personalized statistics, and an easy way to explore, remember, and improve your coffee experience.
 
 ---
