@@ -13,8 +13,7 @@ const validateBrewData = [
   body('brewingMethod', 'Brewing method must be specified.').trim().isMongoId(),
   body('grindSetting', 'Grind setting must be specified.')
     .trim()
-    .isLength({ min: 1 })
-    .escape(),
+    .isLength({ min: 1 }),
   body('time', 'Time must be in the format of MM:SS or HH:MM:SS')
     .optional({ checkFalsy: true })
     .matches(/^([01]\d|2[0-3]):([0-5]\d)(:[0-5]\d)?$/),
@@ -37,7 +36,7 @@ const validateBrewData = [
     .customSanitizer((value) => Math.round(value))
     .withMessage('Temperature must be a number'),
   body('rating', 'Rating must be between 0 to 5').isInt({ min: 0, max: 5 }),
-  body('notes').optional({ values: 'falsy' }).trim().escape(),
+  body('notes').optional({ values: 'falsy' }).trim(),
 ]
 
 export default validateBrewData
