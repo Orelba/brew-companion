@@ -9,6 +9,7 @@ import BrewForm from '../BrewForm/BrewForm'
 import ExtractionRating from '../ExtractionRating/ExtractionRating'
 import ItemDropdown from '../ItemDropdown/ItemDropdown'
 import RelativeTime from '../RelativeTime/RelativeTime'
+import { formatRatio } from '../../utils/formatters'
 
 const AccordionItemWithMenu = ({ item }) => {
   const { t, i18n } = useTranslation()
@@ -167,13 +168,7 @@ const AccordionItemWithMenu = ({ item }) => {
 
 const BrewRatio = ({ brewDose, brewYield }) => {
   if (!brewDose || !brewYield) return null
-
-  const brewRatio = brewYield / brewDose
-  const formattedBrewRatio = Number.isInteger(brewRatio)
-    ? brewRatio.toFixed(0)
-    : brewRatio.toFixed(1)
-
-  return ` (1:${formattedBrewRatio})`
+  return ` (1:${formatRatio(brewYield / brewDose)})`
 }
 
 export default AccordionItemWithMenu
