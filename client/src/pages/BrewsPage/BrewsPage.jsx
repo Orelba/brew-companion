@@ -19,6 +19,7 @@ import {
   Switch,
   useMantineTheme,
 } from '@mantine/core'
+import DirectionAwareIndicator from '../../components/DirectionAwareIndicator/DirectionAwareIndicator'
 import BrewRatioFilter from '../../components/BrewRatioFilter/BrewRatioFilter'
 import { IconAdjustmentsHorizontal, IconRotate } from '@tabler/icons-react'
 import AccordionItemWithMenu from '../../components/AccordionItemWithMenu/AccordionItemWithMenu'
@@ -171,13 +172,11 @@ const BrewsPage = () => {
             />
             <Menu>
               <Menu.Target>
-                <ActionIcon
-                  size='36'
-                  variant='default'
-                  onClick={(event) => event.stopPropagation()}
-                >
-                  <IconAdjustmentsHorizontal stroke={1.5} />
-                </ActionIcon>
+                <DirectionAwareIndicator disabled={!ratioRange}>
+                  <ActionIcon size='36' variant='default'>
+                    <IconAdjustmentsHorizontal stroke={1.5} />
+                  </ActionIcon>
+                </DirectionAwareIndicator>
               </Menu.Target>
               <Menu.Dropdown onClick={(event) => event.stopPropagation()}>
                 <Menu.Label>{t('brewsPage.advancedOptions')}</Menu.Label>

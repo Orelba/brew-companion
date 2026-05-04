@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RangeSlider, Text, Group, Stack, NumberInput } from '@mantine/core'
+import DirectionAwareIndicator from '../DirectionAwareIndicator/DirectionAwareIndicator'
 import { formatRatio } from '../../utils/formatters'
 
 const calcRatio = (dose, brewYield) => brewYield / dose
@@ -46,9 +47,11 @@ const BrewRatioFilter = ({ brews, value, onChange }) => {
 
   return (
     <Stack gap='xs' px='sm' py='xs' style={{ width: 'min(280px, 90vw)' }}>
-      <Text size='sm' c='dimmed'>
-        {t('brewRatioFilter.ratio')}
-      </Text>
+      <DirectionAwareIndicator disabled={!value} size={6} position='middle-end'>
+        <Text size='sm' c='dimmed'>
+          {t('brewRatioFilter.ratio')}
+        </Text>
+      </DirectionAwareIndicator>
       <RangeSlider
         min={min}
         max={max}
@@ -56,9 +59,13 @@ const BrewRatioFilter = ({ brews, value, onChange }) => {
         minRange={0}
         value={localRange}
         onChange={setLocalRange}
-        onChangeEnd={onChange}
+        onChangeEnd={(val) => {
+          const isFullRange = val[0] === min && val[1] === max
+          onChange(isFullRange ? null : val)
+        }}
         label={(val) => `1:${formatRatio(val)}`}
         mb='xs'
+        styles={{ thumb: { zIndex: 300 } }} // Ensure the thumb label is above the indicator
       />
       <Group grow>
         <NumberInput
