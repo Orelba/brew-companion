@@ -166,8 +166,14 @@
     "allCoffees": "כל הקליות",
     "allMethods": "כל שיטות ההכנה",
     "noCoffeesFound": "לא נמצאו קליות",
+    "advancedOptions": "אפשרויות מתקדמות",
+    "noBrewsFound": "לא נמצאו רשומות התואמות את הסינון שנבחר. נסה לשנות את טווח היחס או לאפס את הסינון.",
     "resetFilters": "אפס סינון",
     "addBrew": "הוסף רשומה"
+  },
+  "brewRatioFilter": {
+    "ratio": "יחס",
+    "allSameRatio": "כל הרשומות חולקות את אותו היחס"
   },
   "newBrewForm": {
     "stepOneTitle": "מה הכנת?",

@@ -168,8 +168,14 @@
     "allCoffees": "All Coffees",
     "allMethods": "All Brewing Methods",
     "noCoffeesFound": "No coffees found",
+    "advancedOptions": "Advanced Options",
+    "noBrewsFound": "No brews match the selected filters. Try adjusting the ratio range or resetting the filters.",
     "resetFilters": "Reset filters",
     "addBrew": "Add Brew"
+  },
+  "brewRatioFilter": {
+    "ratio": "Ratio",
+    "allSameRatio": "All brews share the same ratio"
   },
   "newBrewForm": {
     "stepOneTitle": "What did you brew?",

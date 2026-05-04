@@ -7,6 +7,7 @@ import { fetchBrews } from '../../services/brewsService'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import {
   Accordion,
+  Text,
   ActionIcon,
   Button,
   Container,
@@ -14,9 +15,12 @@ import {
   Select,
   Space,
   Tooltip,
+  Menu,
+  Switch,
   useMantineTheme,
 } from '@mantine/core'
-import { IconRotate } from '@tabler/icons-react'
+import BrewRatioFilter from '../../components/BrewRatioFilter/BrewRatioFilter'
+import { IconAdjustmentsHorizontal, IconRotate } from '@tabler/icons-react'
 import AccordionItemWithMenu from '../../components/AccordionItemWithMenu/AccordionItemWithMenu'
 import BrewForm from '../../components/BrewForm/BrewForm'
 import useLoadingScreen from '../../hooks/useLoadingScreen'
@@ -26,6 +30,8 @@ import styles from './brews-page.module.scss'
 const BrewsPage = () => {
   const [coffeeSelectValue, setCoffeeSelectValue] = useState(null)
   const [methodSelectValue, setMethodSelectValue] = useState(null)
+  const [showOnlyNonArchived, setShowOnlyNonArchived] = useState(true)
+  const [ratioRange, setRatioRange] = useState(null)
 
   // Get the translations for the page
   const { t } = useTranslation()
@@ -59,18 +65,28 @@ const BrewsPage = () => {
 
   if (error) return <div>An error occurred: {error.message}</div>
 
-  // Filter the brews to exclude brews that use archived coffees
-  const nonArchivedBrews = brews.filter((brew) => !brew.coffee.archived)
+  // Filter the brews to exclude or include brews that use archived coffees
+  const activeBrews = showOnlyNonArchived
+    ? brews.filter((brew) => !brew.coffee.archived)
+    : brews
 
   // Filter brews based on selected coffee
-  const filteredBrewsByCoffee = nonArchivedBrews.filter(
+  const filteredBrewsByCoffee = activeBrews.filter(
     (brew) => !coffeeSelectValue || brew.coffee._id === coffeeSelectValue
   )
 
   // Filter brews based on selected brewing method
-  const filteredBrewsByMethod = nonArchivedBrews.filter(
+  const filteredBrewsByMethod = activeBrews.filter(
     (brew) => !methodSelectValue || brew.brewingMethod._id === methodSelectValue
   )
+
+  // Combined filter for items + ratio slider
+  const filteredBrews = activeBrews.filter((brew) => {
+    if (coffeeSelectValue && brew.coffee._id !== coffeeSelectValue) return false
+    if (methodSelectValue && brew.brewingMethod._id !== methodSelectValue)
+      return false
+    return true
+  })
 
   // Get all brewing methods and remove duplicates based on selected coffee
   const brewingMethodsOptions = filteredBrewsByCoffee.reduce(
@@ -105,26 +121,21 @@ const BrewsPage = () => {
   }, [])
 
   // Check if both select fields are empty for the reset button
-  const areSelectFieldsEmpty = !coffeeSelectValue && !methodSelectValue
+  const areSelectFieldsEmpty =
+    !coffeeSelectValue && !methodSelectValue && !ratioRange
 
   // Reset select fields
   const resetSelections = () => {
     setCoffeeSelectValue(null)
     setMethodSelectValue(null)
+    setRatioRange(null)
   }
 
-  const items = nonArchivedBrews
+  const items = filteredBrews
     .filter((brew) => {
-      // If a coffee is selected, only include brews that use the selected coffee
-      if (coffeeSelectValue && brew.coffee._id !== coffeeSelectValue)
-        return false
-
-      // If a method is selected, only include brews that use the selected method
-      if (methodSelectValue && brew.brewingMethod._id !== methodSelectValue)
-        return false
-
-      // If neither coffee nor method is selected, or if the brew matches both selections, include the brew
-      return true
+      if (!ratioRange || !brew.dose || !brew.yield) return true
+      const ratio = brew.yield / brew.dose
+      return ratio >= ratioRange[0] && ratio <= ratioRange[1]
     })
     .map((brew) => <AccordionItemWithMenu key={brew._id} item={brew} />)
 
@@ -142,7 +153,10 @@ const BrewsPage = () => {
               placeholder={t('brewsPage.allCoffees')}
               data={coffeeOptions}
               value={coffeeSelectValue}
-              onChange={setCoffeeSelectValue}
+              onChange={(value) => {
+                setCoffeeSelectValue(value)
+                setRatioRange(null)
+              }}
               searchable
               nothingFoundMessage={t('brewsPage.noCoffeesFound')}
             />
@@ -150,8 +164,40 @@ const BrewsPage = () => {
               placeholder={t('brewsPage.allMethods')}
               data={brewingMethodsOptions}
               value={methodSelectValue}
-              onChange={setMethodSelectValue}
+              onChange={(value) => {
+                setMethodSelectValue(value)
+                setRatioRange(null)
+              }}
             />
+            <Menu>
+              <Menu.Target>
+                <ActionIcon
+                  size='36'
+                  variant='default'
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <IconAdjustmentsHorizontal stroke={1.5} />
+                </ActionIcon>
+              </Menu.Target>
+              <Menu.Dropdown onClick={(event) => event.stopPropagation()}>
+                <Menu.Label>{t('brewsPage.advancedOptions')}</Menu.Label>
+                {/* TODO: Show Archived Toggle, Dose RangeSlider, USE TRANSLATION */}
+                <BrewRatioFilter
+                  key={filteredBrews.length} // Reset the internal state of the component when the range of ratios changes
+                  brews={filteredBrews}
+                  value={ratioRange}
+                  onChange={setRatioRange}
+                />
+                {/* FIXME: This works but is super slow */}
+                {/* <Switch
+                  label='Show Archived'
+                  checked={!showOnlyNonArchived}
+                  onChange={(event) =>
+                    setShowOnlyNonArchived(!event.currentTarget.checked)
+                  }
+                /> */}
+              </Menu.Dropdown>
+            </Menu>
             <Tooltip
               label={t('brewsPage.resetFilters')}
               transitionProps={{ transition: 'pop' }}
@@ -189,7 +235,16 @@ const BrewsPage = () => {
             {t('brewsPage.addBrew')}
           </Button>
         )}
-        <Accordion chevronPosition='left'>{items}</Accordion>
+        <Accordion chevronPosition='left'>
+          {' '}
+          {items.length > 0 ? (
+            items
+          ) : (
+            <Text c='dimmed' ta='center' py='xl'>
+              {t('brewsPage.noBrewsFound')}
+            </Text>
+          )}
+        </Accordion>
       </Container>
     </PageTransitionWrapper>
   )

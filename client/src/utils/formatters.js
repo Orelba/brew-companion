@@ -38,3 +38,6 @@ export const getMonthName = (monthNumber, locale) => {
     new Date(0, monthNumber - 1) // Convert 1-based monthNumber to 0-based month index
   )
 }
+
+export const formatRatio = (ratio) =>
+  Number.isInteger(ratio) ? ratio.toFixed(0) : ratio.toFixed(1)
