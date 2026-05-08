@@ -8,31 +8,6 @@ import heLocale from 'i18n-iso-countries/langs/he.json'
 countries.registerLocale(enLocale)
 countries.registerLocale(heLocale)
 
-const useCountryOptions = () => {
-  const { i18n } = useTranslation()
-  const currentLang = i18n.language || 'en'
-
-  const countryNames = useMemo(() => {
-    return countries.getNames(currentLang, { select: 'alias' }) || {}
-  }, [currentLang])
-
-  const options = useMemo(() => {
-    return Object.entries(countryNames)
-      .filter(([code]) => !excludeCountryCodes.includes(code))
-      .map(([code, name]) => ({
-        value: code,
-        label: name,
-      }))
-  }, [countryNames])
-
-  const getCountryName = useCallback(
-    (code) => countryNames[code] || code,
-    [countryNames]
-  )
-
-  return { options, getCountryName }
-}
-
 // List of country codes to exclude
 const excludeCountryCodes = [
   'AQ', // Antarctica
@@ -79,5 +54,32 @@ const excludeCountryCodes = [
   'PS',
   'SY',
 ]
+
+const useCountryOptions = () => {
+  const { i18n } = useTranslation()
+  const currentLang = (i18n.language || 'en').split('-')[0]
+
+  const countryNames = useMemo(() => {
+    const names = countries.getNames(currentLang, { select: 'alias' })
+    if (names && Object.keys(names).length > 0) return names
+    return countries.getNames('en', { select: 'alias' })
+  }, [currentLang])
+
+  const options = useMemo(() => {
+    return Object.entries(countryNames)
+      .filter(([code]) => !excludeCountryCodes.includes(code))
+      .map(([code, name]) => ({
+        value: code,
+        label: name,
+      }))
+  }, [countryNames])
+
+  const getCountryName = useCallback(
+    (code) => countryNames[code] || code,
+    [countryNames]
+  )
+
+  return { options, getCountryName }
+}
 
 export default useCountryOptions
