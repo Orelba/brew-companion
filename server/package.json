@@ -18,7 +18,7 @@
     "debug": "^4.3.6",
     "express": "^5.1.0",
     "express-async-handler": "^1.2.0",
-    "express-rate-limit": "^8.1.0",
+    "express-rate-limit": "^8.5.1",
     "express-validator": "^7.2.0",
     "helmet": "^8.0.0",
     "http-errors": "^2.0.0",
@@ -28,7 +28,7 @@
     "mongoose": "^9.1.1",
     "morgan": "^1.10.0",
     "ms": "^2.1.3",
-    "nodemailer": "^8.0.1",
+    "nodemailer": "^8.0.7",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1"
   },
@@ -37,5 +37,11 @@
     "globals": "^17.3.0",
     "nodemon": "^3.1.4",
     "prettier": "^3.3.3"
+  },
+  "overrides": {
+    "lodash": ">=4.17.23",
+    "path-to-regexp": ">=0.1.13",
+    "ip-address": ">=9.0.5",
+    "picomatch": ">=4.0.2"
   }
 }
