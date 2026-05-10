@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'node:path'
 import { VitePWA } from 'vite-plugin-pwa'
+import { Features } from 'lightningcss'
 
 const manifestForPlugin = {
   registerType: 'autoUpdate',
@@ -68,6 +69,9 @@ export default defineConfig({
     },
   },
   css: {
+    lightningcss: {
+      exclude: Features.LightDark, // Prevent Lightning CSS from transforming light-dark() into --lightningcss-light/dark syntax
+    },
     preprocessorOptions: {
       scss: {
         api: 'modern-compiler',
