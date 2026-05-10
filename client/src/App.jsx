@@ -6,6 +6,7 @@ import {
   Drawer,
   Modal,
   MantineProvider,
+  v8CssVariablesResolver,
 } from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'
 import { LoadingScreenProvider } from './contexts/LoadingScreenContext'
@@ -66,7 +67,10 @@ const App = () => {
   return (
     <AuthProvider>
       <DirectionProvider>
-        <MantineProvider theme={theme}>
+        <MantineProvider
+          theme={theme}
+          cssVariablesResolver={v8CssVariablesResolver}
+        >
           <ModalsProvider>
             <LoadingScreenProvider>
               <Notifications />

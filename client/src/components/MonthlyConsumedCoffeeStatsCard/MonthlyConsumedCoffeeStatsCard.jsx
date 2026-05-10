@@ -44,6 +44,12 @@ const MonthlyConsumedCoffeeStatsCard = ({ data }) => {
         </Text>
       ) : (
         <LineChart
+          // Silences recharts 3 ResponsiveContainer warning - https://github.com/mantinedev/mantine/issues/8399
+          attributes={{
+            container: {
+              height: 100,
+            },
+          }}
           className={isRTL ? styles.rtl : undefined}
           mih={100}
           data={isRTL ? formattedData : [...formattedData].reverse()}
