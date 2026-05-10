@@ -17,7 +17,7 @@ const DirectionAwareIndicator = ({
   }
 
   return (
-    <Indicator position={getPosition()} {...props}>
+    <Indicator position={getPosition()} zIndex={99} {...props}>
       {children}
     </Indicator>
   )
