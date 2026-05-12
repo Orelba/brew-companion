@@ -1,4 +1,12 @@
-import { Accordion, Divider, Box, Group, Stack, Text } from '@mantine/core'
+import {
+  Accordion,
+  Divider,
+  Box,
+  Group,
+  Stack,
+  Scroller,
+  Text,
+} from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IconArrowNarrowRight } from '@tabler/icons-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -75,9 +83,11 @@ const AccordionItemWithMenu = ({ item }) => {
             <Text component='span' fw={300} c='dimmed' fz='xs'>
               {item.brewingMethod.name && t(item.brewingMethod.name)}
             </Text>
-            <Text component='span' fw={500} truncate fz='sm'>
-              {item.coffee.name}
-            </Text>
+            <Scroller controlSize={35}>
+              <Text component='span' fw={500} fz='sm'>
+                {item.coffee.name}
+              </Text>
+            </Scroller>
           </Stack>
           <Group gap='xs' wrap='nowrap'>
             {/* Extraction Rating */}
