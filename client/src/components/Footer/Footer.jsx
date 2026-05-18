@@ -4,16 +4,15 @@ import { APP_NAME } from '../../constants'
 import styles from './footer.module.scss'
 
 export function Footer() {
-  const { t, i18n } = useTranslation()
-  const isRTL = i18n.dir() === 'rtl'
+  const { t } = useTranslation()
 
   const links = [
     { link: '#', label: t('footer.links.contact') }, // TODO: Create contact route and page
     { link: '/privacy', label: t('footer.links.privacy') },
     { link: '/terms', label: t('footer.links.tos') },
     {
-      link: 'https://www.buymeacoffee.com/orelba',
-      label: isRTL ? 'Buy me a coffee ☕' : '☕ Buy me a coffee',
+      link: 'https://ko-fi.com/orelba',
+      label: t('footer.links.supportMe'),
     },
   ]
 
