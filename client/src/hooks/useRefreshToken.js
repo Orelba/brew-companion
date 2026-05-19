@@ -1,9 +1,10 @@
 import useAuth from './useAuth'
 import { refreshAccessToken } from '../services/authService'
 
+let refreshPromise = null // Store the refresh request promise
+
 const useRefreshToken = () => {
   const { setAuth } = useAuth()
-  let refreshPromise = null // Store the refresh request promise
 
   const refresh = async () => {
     if (!refreshPromise) {
