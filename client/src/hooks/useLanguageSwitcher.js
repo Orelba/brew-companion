@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { dir as i18nDir } from 'i18next'
 import { useDirection } from '@mantine/core'
@@ -24,14 +23,7 @@ const useLanguageSwitcher = () => {
   const { i18n } = useTranslation()
   const { setDirection } = useDirection()
 
-  const [selected, setSelected] = useState(() =>
-    getLanguageFromCode(i18n.language)
-  )
-
-  useEffect(() => {
-    setSelected(getLanguageFromCode(i18n.language))
-    setDirection(i18nDir(i18n.language))
-  }, [i18n.language, setDirection])
+  const selected = getLanguageFromCode(i18n.language)
 
   const changeLanguage = (langCode) => {
     const language = languages.find((lang) => lang.code === langCode)
