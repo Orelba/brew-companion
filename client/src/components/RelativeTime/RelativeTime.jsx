@@ -4,16 +4,20 @@ import { formatRelativeTime } from '../../utils/formatters'
 
 const RelativeTime = ({ date }) => {
   const { i18n } = useTranslation()
-  const [display, setDisplay] = useState(formatRelativeTime(date))
+
+  const [display, setDisplay] = useState(() => formatRelativeTime(date))
 
   useEffect(() => {
-    // Recalculate every minute
-    const interval = setInterval(() => {
+    // Update the displayed relative time
+    const update = () => {
       setDisplay(formatRelativeTime(date))
-    }, 60000)
+    }
 
     // Update immediately when mounted (e.g., after language switch)
-    setDisplay(formatRelativeTime(date))
+    update()
+
+    // Recalculate every minute
+    const interval = setInterval(update, 60000)
 
     return () => clearInterval(interval)
   }, [date, i18n.language])
