@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { useNavigate, useLocation, Outlet } from 'react-router'
 import InventoryContext from '../contexts/InventoryContext'
 import PageTransitionWrapper from '../components/PageTransitionWrapper/PageTransitionWrapper'
@@ -19,7 +19,7 @@ import { IconSearch } from '@tabler/icons-react'
 const InventoryLayout = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const [tab, setTab] = useState('coffees')
+  const tab = location.pathname.split('/').pop()
 
   const { t } = useTranslation()
 
@@ -43,7 +43,6 @@ const InventoryLayout = () => {
     .map((item) => ({ value: item._id, label: item.name }))
 
   const handleTabChange = (newTab) => {
-    setTab(newTab)
     navigate(newTab)
     setIsArchive(false)
     setSearchValue('')
@@ -53,12 +52,6 @@ const InventoryLayout = () => {
     setSearchValue('')
     setIsArchive((prevState) => !prevState)
   }
-
-  // Update the tab state when the location changes
-  useEffect(() => {
-    // Set the tab based on the last part of the URL
-    setTab(location.pathname.split('/').pop())
-  }, [location.pathname])
 
   return (
     <PageTransitionWrapper>
