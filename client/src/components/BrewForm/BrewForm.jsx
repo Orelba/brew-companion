@@ -59,7 +59,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
   const isUpdateMode = opened && !!brewIdToUpdate
 
   // check if the form is already submitted to prevent multiple submissions
-  const isSubmittingRef = useRef(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Form mangement and validation
   const form = useForm({
@@ -283,7 +283,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       })
     },
     onSettled: () => {
-      isSubmittingRef.current = false // Reset the submission flag
+      setIsSubmitting(false) // Reset the submission flag
       queryClient.invalidateQueries({ queryKey: ['brews'] })
       queryClient.invalidateQueries({ queryKey: ['latestBrews'] })
       queryClient.invalidateQueries({ queryKey: ['stats'] })
@@ -330,7 +330,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       })
     },
     onSettled: (updatedBrew, err, variables, context) => {
-      isSubmittingRef.current = false // Reset the submission flag
+      setIsSubmitting(false) // Reset the submission flag
       queryClient.invalidateQueries({ queryKey: ['brews'] })
       queryClient.invalidateQueries({ queryKey: ['latestBrews'] })
       queryClient.invalidateQueries({
@@ -342,9 +342,9 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
 
   const handleSaveBrew = () => {
     // Prevent multiple submissions
-    if (isSubmittingRef.current) return
+    if (isSubmitting) return
     // Set the flag to indicate submission in progress
-    isSubmittingRef.current = true
+    setIsSubmitting(true)
 
     // Validate and show errors if found
     form.validate()
@@ -488,7 +488,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
           <Button
             variant='outline'
             onClick={handleSaveBrew}
-            disabled={isSubmittingRef.current}
+            disabled={isSubmitting}
           >
             {t('newBrewForm.save')}
           </Button>
