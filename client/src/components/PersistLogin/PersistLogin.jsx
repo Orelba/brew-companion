@@ -13,23 +13,25 @@ const PersistLogin = ({ children }) => {
 
     const verifyRefreshToken = async () => {
       try {
-        await refresh() // Attempt to refresh the access token
+        if (!auth?.accessToken && persist) {
+          await refresh() // Attempt to refresh the access token
+        }
       } catch (error) {
         console.error(error) // Log any errors during the refresh process
       } finally {
-        isMounted && setIsLoading(false) // Stop loading once token is verified or refresh attempt completes
+        if (isMounted) setIsLoading(false) // Stop loading once verification completes
       }
     }
 
-    // Verify or refresh token if none exists
-    !auth?.accessToken && persist ? verifyRefreshToken() : setIsLoading(false)
+    verifyRefreshToken()
 
     return () => {
       isMounted = false
     }
   }, [refresh, auth?.accessToken, persist])
 
-  return !persist ? children : isLoading ? null : children
+  if (!persist || !isLoading) return children
+  return null
 }
 
 export default PersistLogin
