@@ -359,6 +359,8 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
         createMutation.mutate(form.getValues())
       }
       onClose()
+    } else {
+      setIsSubmitting(false) // Reset the submission flag if validation fails
     }
   }
 
