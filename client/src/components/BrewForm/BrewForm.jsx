@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { v4 as uuidv4 } from 'uuid'
 import {
   ActionIcon,
   Button,
@@ -30,6 +29,7 @@ import {
 } from '../../services/brewsService'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import { fetchCoffees } from '../../services/coffeesService'
+import { generateOptimisticBrew } from '../../utils/brewUtils'
 
 import ButtonCard from '../ButtonCard/ButtonCard'
 import ExtractionRating from '../ExtractionRating/ExtractionRating'
@@ -213,47 +213,6 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
     form.reset()
   }
 
-  const generateOptimisticBrewFromFormValues = (formValues) => {
-    const coffeeName = coffees.find(
-      (coffee) => coffee._id === formValues.coffee
-    )?.name
-
-    const brewingMethod = brewingMethods.find(
-      (brewingMethod) => brewingMethod._id === formValues.brewingMethod
-    )
-
-    const OptimisticBrewObject = {
-      coffee: {
-        _id: formValues.coffee,
-        name: coffeeName || t('accordionItemWithMenu.savingBrew'),
-        archived: false,
-        roastery: {
-          _id: '',
-          name: '',
-          country: '',
-        },
-      },
-      date: '2024-05-24T02:08:20.344Z',
-      dose: formValues.dose,
-      grindSetting: formValues.grindSetting,
-      brewingMethod: {
-        _id: formValues.brewingMethod,
-        name: t(brewingMethod?.name),
-        image: brewingMethod?.image,
-      },
-      notes: formValues.notes,
-      rating: formValues.rating,
-      temperature: formValues.temperature,
-      time: formValues.time,
-      yield: formValues.yield,
-      __v: 0,
-      // the id is checked in the AccordionItemWithMenu so the menu is disabled if it's an optimistic update placeholder
-      _id: `optimistic-${uuidv4()}`,
-    }
-
-    return OptimisticBrewObject
-  }
-
   // Create a mutation to send a new brew to the log
   const createMutation = useMutation({
     mutationFn: (newBrew) => createBrew(newBrew, axiosPrivate),
@@ -263,7 +222,11 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       const previousBrews = queryClient.getQueryData(['brews'])
 
       queryClient.setQueryData(['brews'], (oldData) => {
-        const optimisticBrew = generateOptimisticBrewFromFormValues(newBrew)
+        const optimisticBrew = generateOptimisticBrew(newBrew, {
+          coffees,
+          brewingMethods,
+        })
+
         return oldData ? [optimisticBrew, ...oldData] : [optimisticBrew]
       })
 
@@ -298,7 +261,10 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       const previousBrew = queryClient.getQueryData(['brews'])
 
       queryClient.setQueryData(['brews'], (oldData) => {
-        const optimisticBrew = generateOptimisticBrewFromFormValues(updatedBrew)
+        const optimisticBrew = generateOptimisticBrew(updatedBrew, {
+          coffees,
+          brewingMethods,
+        })
 
         const newData = oldData.map((brew) => {
           if (brew._id === updatedBrew._id) {
