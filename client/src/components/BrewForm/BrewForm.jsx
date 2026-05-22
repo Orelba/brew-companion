@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -19,17 +19,13 @@ import { TimeInput } from '@mantine/dates'
 import { useForm } from '@mantine/form'
 import { useMediaQuery } from '@mantine/hooks'
 import { IconArrowNarrowLeft } from '@tabler/icons-react'
-import { notifications } from '@mantine/notifications'
 
 import { fetchBrewingMethods } from '../../services/brewingMethodsService'
-import {
-  createBrew,
-  fetchBrewForUpdate,
-  updateBrew,
-} from '../../services/brewsService'
-import useAxiosPrivate from '../../hooks/useAxiosPrivate'
+import { fetchBrewForUpdate } from '../../services/brewsService'
 import { fetchCoffees } from '../../services/coffeesService'
-import { generateOptimisticBrew } from '../../utils/brewUtils'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
+import useCreateBrew from '../../hooks/mutations/useCreateBrew'
+import useUpdateBrew from '../../hooks/mutations/useUpdateBrew'
 
 import ButtonCard from '../ButtonCard/ButtonCard'
 import ExtractionRating from '../ExtractionRating/ExtractionRating'
@@ -38,28 +34,19 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
   const theme = useMantineTheme()
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`)
 
-  // Access the global queryClient instance
-  const queryClient = useQueryClient()
-
-  // Retrieve the Axios instance configured with authentication and interceptors
+  // Authenticated Axios instance
   const axiosPrivate = useAxiosPrivate()
 
-  // Get the translations for the page
   const { t, i18n } = useTranslation()
 
-  // Max steps in stepper
   const maxFormSteps = 2
 
-  // Current active step
-  const [active, setActive] = useState(
-    getInitialValues || brewIdToUpdate ? 2 : 0
-  )
+  // Determine the initial step based on whether it's a quick brew (getInitialValues) or an update form (brewIdToUpdate)
+  const initialStep = getInitialValues || brewIdToUpdate ? 2 : 0
 
-  // Check if it's an update form
+  const [active, setActive] = useState(initialStep)
+
   const isUpdateMode = opened && !!brewIdToUpdate
-
-  // check if the form is already submitted to prevent multiple submissions
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Form mangement and validation
   const form = useForm({
@@ -110,6 +97,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
     },
   })
 
+  // Use a ref to access the form instance inside useEffect without causing it to re-run when form state changes
   const formRef = useRef(form)
 
   // Quick Brew: set form values to supplied initial values
@@ -192,7 +180,7 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
 
   // Get the name of a document by its object id (coffee / brewing method)
   const getTruncatedDocumentNameByObjectId = (id, data) => {
-    const item = data.find((item) => item._id === id)
+    const item = data?.find((item) => item._id === id)
     if (!item) return null
 
     const name = t(item.name)
@@ -202,131 +190,35 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
     const truncatedName =
       name.length > maxLength ? name.slice(0, maxLength - 3) + '...' : name
 
-    // Return truncated name
     return truncatedName
   }
 
   // Close the modal and reset the stepper
   const closeAndReset = () => {
     onClose()
-    setActive(getInitialValues || brewIdToUpdate ? 2 : 0)
+    setActive(initialStep)
     form.reset()
   }
 
-  // Create a mutation to send a new brew to the log
-  const createMutation = useMutation({
-    mutationFn: (newBrew) => createBrew(newBrew, axiosPrivate),
-    onMutate: async (newBrew) => {
-      await queryClient.cancelQueries({ queryKey: ['brews'] })
+  const createMutation = useCreateBrew({ coffees, brewingMethods })
+  const updateMutation = useUpdateBrew({ coffees, brewingMethods })
 
-      const previousBrews = queryClient.getQueryData(['brews'])
-
-      queryClient.setQueryData(['brews'], (oldData) => {
-        const optimisticBrew = generateOptimisticBrew(newBrew, {
-          coffees,
-          brewingMethods,
-        })
-
-        return oldData ? [optimisticBrew, ...oldData] : [optimisticBrew]
-      })
-
-      return { previousBrews }
-    },
-    onSuccess: () => {
-      notifications.show({
-        title: t('notifications.brewSaveSuccess'),
-        color: 'green',
-      })
-    },
-    onError: (err, variables, context) => {
-      queryClient.setQueryData(['brews'], context.previousBrews)
-      notifications.show({
-        title: t('notifications.brewSaveError'),
-        color: 'red',
-      })
-    },
-    onSettled: () => {
-      setIsSubmitting(false) // Reset the submission flag
-      queryClient.invalidateQueries({ queryKey: ['brews'] })
-      queryClient.invalidateQueries({ queryKey: ['latestBrews'] })
-      queryClient.invalidateQueries({ queryKey: ['stats'] })
-    },
-  })
-
-  const updateMutation = useMutation({
-    mutationFn: (updatedBrew) => updateBrew(updatedBrew, axiosPrivate),
-    onMutate: async (updatedBrew) => {
-      await queryClient.cancelQueries({ queryKey: ['brews'] })
-
-      const previousBrew = queryClient.getQueryData(['brews'])
-
-      queryClient.setQueryData(['brews'], (oldData) => {
-        const optimisticBrew = generateOptimisticBrew(updatedBrew, {
-          coffees,
-          brewingMethods,
-        })
-
-        const newData = oldData.map((brew) => {
-          if (brew._id === updatedBrew._id) {
-            return optimisticBrew
-          } else {
-            return brew
-          }
-        })
-
-        return oldData ? newData : [optimisticBrew]
-      })
-
-      return { previousBrew, updatedBrew }
-    },
-    onSuccess: () => {
-      notifications.show({
-        title: t('notifications.brewSaveSuccess'),
-        color: 'green',
-      })
-    },
-    onError: (err, variables, context) => {
-      queryClient.setQueryData(
-        ['brews', context.updatedBrew._id],
-        context.previousBrew
-      )
-      notifications.show({
-        title: t('notifications.brewSaveError'),
-        color: 'red',
-      })
-    },
-    onSettled: (updatedBrew, err, variables, context) => {
-      setIsSubmitting(false) // Reset the submission flag
-      queryClient.invalidateQueries({ queryKey: ['brews'] })
-      queryClient.invalidateQueries({ queryKey: ['latestBrews'] })
-      queryClient.invalidateQueries({
-        queryKey: ['brews', context.updatedBrew._id],
-      })
-      queryClient.invalidateQueries({ queryKey: ['stats'] })
-    },
-  })
+  // Prevent duplicate submissions
+  const isSubmitting = createMutation.isPending || updateMutation.isPending
 
   const handleSaveBrew = () => {
-    // Prevent multiple submissions
     if (isSubmitting) return
-    // Set the flag to indicate submission in progress
-    setIsSubmitting(true)
 
-    // Validate and show errors if found
     form.validate()
 
     if (form.isValid()) {
       // Check if the brew already exists (if it has an _id field it does)
       if (brewIdToUpdate) {
-        // Update an existing brew
         updateMutation.mutate(form.getValues())
       } else {
-        // Save a new brew
         createMutation.mutate(form.getValues())
       }
       onClose()
-    } else {
-      setIsSubmitting(false) // Reset the submission flag if validation fails
     }
   }
 
