@@ -1,0 +1,24 @@
+{
+  "name": "brew-companion",
+  "version": "1.0.0",
+  "description": "Brew Companion is an app that helps coffee enthusiasts organize and track their coffees, brews, and roasteries. It provides insights, personalized statistics, and an easy way to explore, remember, and improve your coffee experience.",
+  "homepage": "https://github.com/Orelba/brew-companion#readme",
+  "bugs": {
+    "url": "https://github.com/Orelba/brew-companion/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Orelba/brew-companion.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Orelba",
+  "scripts": {
+    "dev": "concurrently --kill-others-on-fail -n CLIENT,SERVER -c blue,green \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
+    "prettier": "npx prettier client/src server/src --write",
+    "lint": "concurrently -n CLIENT,SERVER -c blue,green \"npm run lint --prefix client\" \"npm run lint --prefix server\"",
+    "lint:fix": "concurrently -n CLIENT,SERVER -c blue,green \"npm run lint:fix --prefix client\" \"npm run lint:fix --prefix server\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
