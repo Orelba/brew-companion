@@ -300,6 +300,29 @@
     "callToRate": "דרג את בית הקלייה",
     "save": "שמור"
   },
+  "contactPage": {
+    "title": "צור קשר",
+    "subtitle": "יש לך שאלות, משוב, או סתם רוצה לדבר על קפה? אשמח לשמוע ממך.",
+    "fields": {
+      "name": "שם",
+      "email": "אימייל",
+      "category": "קטגוריה",
+      "message": "הודעה"
+    },
+    "placeholders": {
+      "name": "השם שלך",
+      "email": "your@email.com",
+      "message": "במה תרצה לשתף?"
+    },
+    "categories": {
+      "general": "כללי",
+      "feedback": "משוב",
+      "bug": "דיווח על באג"
+    },
+    "submit": "שלח הודעה",
+    "successNotification": "ההודעה נשלחה! אחזור אליך בקרוב.",
+    "errorNotification": "משהו השתבש — אנא נסה שוב."
+  },
   "footer": {
     "text": "© {{year}} {{appName}}. כל הזכויות שמורות.",
     "links": {

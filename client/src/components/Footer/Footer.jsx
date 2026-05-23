@@ -7,7 +7,7 @@ export function Footer() {
   const { t } = useTranslation()
 
   const links = [
-    { link: '#', label: t('footer.links.contact') }, // TODO: Create contact route and page
+    { link: '/contact', label: t('footer.links.contact') },
     { link: '/privacy', label: t('footer.links.privacy') },
     { link: '/terms', label: t('footer.links.tos') },
     {

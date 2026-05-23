@@ -45,6 +45,7 @@
     "coffeesPage": "Coffees",
     "roasteriesPage": "Roasteries",
     "passwordResetPage": "Reset Password",
+    "contactPage": "Contact",
     "notFoundPage": "Not Found"
   },
   "brewingMethods": {
@@ -301,6 +302,29 @@
     },
     "callToRate": "Rate the roastery",
     "save": "Save"
+  },
+  "contactPage": {
+    "title": "Get in Touch",
+    "subtitle": "Questions, feedback, or just want to talk brew? I'd love to hear from you.",
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "category": "Category",
+      "message": "Message"
+    },
+    "placeholders": {
+      "name": "Your name",
+      "email": "your@email.com",
+      "message": "What's on your mind?"
+    },
+    "categories": {
+      "general": "General",
+      "feedback": "Feedback",
+      "bug": "Bug Report"
+    },
+    "submit": "Send Message",
+    "successNotification": "Message sent! I'll get back to you soon.",
+    "errorNotification": "Something went wrong — please try again."
   },
   "footer": {
     "text": "© {{year}} {{appName}}. All rights reserved.",
