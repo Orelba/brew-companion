@@ -16,4 +16,16 @@ const authenticate = (req, res, next) => {
   })(req, res, next) // Immediately invoke the authenticate function
 }
 
+const authenticateOptional = (req, res, next) => {
+  passport.authenticate('jwt', { session: false }, (err, user) => {
+    if (!err && user) {
+      user.password = undefined
+      req.user = user
+    }
+
+    next()
+  })(req, res, next) // Immediately invoke the authenticate function
+}
+
 export default authenticate
+export { authenticateOptional }
