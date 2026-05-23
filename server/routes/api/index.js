@@ -8,6 +8,7 @@ import roasteriesRoutes from './roasteriesRoutes.js'
 import brewingMethodsRoutes from './brewingMethodsRoutes.js'
 import brewRoutes from './brewsRoutes.js'
 import statsRoutes from './statsRoutes.js'
+import contactRoutes from './contactRoutes.js'
 
 router.use('/auth', authRoutes)
 router.use('/users', usersRoutes)
@@ -16,5 +17,6 @@ router.use('/roasteries', roasteriesRoutes)
 router.use('/brewing-methods', brewingMethodsRoutes)
 router.use('/brews', brewRoutes)
 router.use('/stats', statsRoutes)
+router.use('/contact', contactRoutes)
 
 export default router
