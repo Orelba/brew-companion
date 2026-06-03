@@ -96,13 +96,13 @@ const deleteAccount = asyncHandler(async (req, res) => {
     await session.commitTransaction()
 
     // Clear the refresh token cookie
-    const { maxAge, ...clearCookieOptions } = refreshTokenCookieOptions
+    const { maxAge: _maxAge, ...clearCookieOptions } = refreshTokenCookieOptions
     res.clearCookie('refreshToken', clearCookieOptions)
 
     return res
       .status(200)
       .json({ message: 'Account and all related data deleted' })
-  } catch (err) {
+  } catch {
     // If any operation fails, abort the transaction
     await session.abortTransaction()
     return res
