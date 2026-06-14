@@ -46,6 +46,8 @@
     "roasteriesPage": "Roasteries",
     "passwordResetPage": "Reset Password",
     "contactPage": "Contact",
+    "privacyPage": "Privacy Policy",
+    "termsPage": "Terms of Service",
     "notFoundPage": "Not Found"
   },
   "brewingMethods": {

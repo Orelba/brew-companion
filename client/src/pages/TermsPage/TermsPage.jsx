@@ -1,8 +1,13 @@
+import { useTranslation } from 'react-i18next'
+import { usePageTitle } from '../../hooks/usePageTitle'
 import { Container } from '@mantine/core'
 import ReactMarkdown from 'react-markdown'
 import terms from '../../content/terms.md?raw'
 
 const TermsPage = () => {
+  const { t } = useTranslation()
+  usePageTitle(t('pageTitles.termsPage'))
+
   return (
     <Container
       size='100vw'

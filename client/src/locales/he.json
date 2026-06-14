@@ -45,6 +45,9 @@
     "coffeesPage": "קליות",
     "roasteriesPage": "בתי קלייה",
     "passwordResetPage": "איפוס סיסמה",
+    "contactPage": "צור קשר",
+    "privacyPage": "פרטיות",
+    "termsPage": "תנאי שימוש",
     "notFoundPage": "העמוד לא נמצא"
   },
   "brewingMethods": {
