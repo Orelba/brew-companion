@@ -19,6 +19,6 @@
     "lint:fix": "concurrently -n CLIENT,SERVER -c blue,green \"npm run lint:fix --prefix client\" \"npm run lint:fix --prefix server\""
   },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^10.0.3"
   }
 }
