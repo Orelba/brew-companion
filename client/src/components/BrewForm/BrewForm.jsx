@@ -27,6 +27,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import useCreateBrew from '../../hooks/mutations/useCreateBrew'
 import useUpdateBrew from '../../hooks/mutations/useUpdateBrew'
 
+import ContentLoader from '../ContentLoader/ContentLoader'
 import ButtonCard from '../ButtonCard/ButtonCard'
 import ExtractionRating from '../ExtractionRating/ExtractionRating'
 
@@ -230,7 +231,15 @@ const BrewForm = ({ opened, onClose, getInitialValues, brewIdToUpdate }) => {
       fullScreen={isMobile}
       size='xl'
       onClick={(event) => event.stopPropagation()}
+      overlayProps={{ blur: 2 }}
+      styles={{
+        header: {
+          zIndex: 1002,
+          backgroundColor: isFetching ? 'transparent' : undefined,
+        },
+      }}
     >
+      <ContentLoader visible={isFetching} zIndex={1001} />
       <Stepper active={active} onStepClick={setActive}>
         {/* Choose Brewing Method */}
         <Stepper.Step

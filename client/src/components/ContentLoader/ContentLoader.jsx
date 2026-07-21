@@ -3,7 +3,7 @@ import { LoadingOverlay, Stack, Text } from '@mantine/core'
 import LoaderLogo from '../LoaderLogo/LoaderLogo'
 
 // Renders a loading overlay that covers the closest parent with relative positioning
-const ContentLoader = ({ visible, text, transitionProps }) => {
+const ContentLoader = ({ visible, text, transitionProps, zIndex = 90 }) => {
   // Prevent scrolling when the loader is visible
   useEffect(() => {
     if (visible) {
@@ -21,7 +21,7 @@ const ContentLoader = ({ visible, text, transitionProps }) => {
   return (
     <LoadingOverlay
       visible={visible}
-      zIndex={90}
+      zIndex={zIndex}
       loaderProps={{
         children: (
           <Stack align='center' gap='0.3rem'>

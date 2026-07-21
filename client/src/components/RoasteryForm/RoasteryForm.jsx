@@ -213,8 +213,17 @@ const RoasteryForm = ({
       fullScreen={isMobile}
       size='xl'
       onClick={(event) => event.stopPropagation()}
+      overlayProps={{ blur: 2 }}
+      styles={{
+        header: {
+          zIndex: 1002,
+          backgroundColor: isFetchingRoasteryToUpdate
+            ? 'transparent'
+            : undefined,
+        },
+      }}
     >
-      <ContentLoader visible={isFetchingRoasteryToUpdate} />
+      <ContentLoader visible={isFetchingRoasteryToUpdate} zIndex={1001} />
       <Stack mb='lg' align='center'>
         <TextInput
           label={t('roasteryForm.inputs.name.label')}

@@ -166,6 +166,7 @@ const AuthForm = ({ opened, onClose }) => {
       onClose={closeAndReset}
       fullScreen={isMobile}
       withCloseButton={isMobile ? true : false}
+      overlayProps={{ blur: 2 }}
     >
       <Paper radius='md' p='lg'>
         <Text size='lg' fw={500} mb='sm'>

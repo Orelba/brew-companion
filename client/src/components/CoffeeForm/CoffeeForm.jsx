@@ -220,8 +220,15 @@ const CoffeeForm = ({
       fullScreen={isMobile}
       size='xl'
       onClick={(event) => event.stopPropagation()}
+      overlayProps={{ blur: 2 }}
+      styles={{
+        header: {
+          zIndex: 1002,
+          backgroundColor: isFetchingCoffeeToUpdate ? 'transparent' : undefined,
+        },
+      }}
     >
-      <ContentLoader visible={isFetchingCoffeeToUpdate} />
+      <ContentLoader visible={isFetchingCoffeeToUpdate} zIndex={1001} />
       <Stack mb='lg' align='center'>
         <TextInput
           label={t('coffeeForm.inputs.name.label')}
