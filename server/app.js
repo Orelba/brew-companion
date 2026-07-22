@@ -14,7 +14,16 @@ import passportConfig from './config/passport.js'
 import indexRouter from './routes/api/index.js'
 
 // Environment validation - critical variables
-const requiredEnvVars = ['MONGODB_URI', 'JWT_SECRET', 'REFRESH_TOKEN_SECRET']
+const requiredEnvVars = [
+  'NODE_ENV',
+  'FRONTEND_URL',
+  'CORS_ORIGINS',
+  'MONGODB_URI',
+  'JWT_SECRET',
+  'REFRESH_TOKEN_SECRET',
+  'SMTP_USER',
+  'SMTP_PASS',
+]
 
 requiredEnvVars.forEach((envVar) => {
   if (!process.env[envVar]) {
@@ -69,14 +78,14 @@ app.use(
 app.use(compression())
 
 // CORS configuration
-const allowedOrigins = process.env.FRONTEND_URL
-  ? process.env.FRONTEND_URL.split(',').map((origin) => origin.trim())
-  : []
+const allowedOrigins = process.env.CORS_ORIGINS.split(',')
+  .map((value) => value.trim())
+  .filter(Boolean)
+  .map((value) => new URL(value).origin)
 
 app.use(
   cors({
     origin: allowedOrigins,
-    methods: ['POST', 'GET', 'PUT', 'PATCH', 'DELETE'],
     credentials: true,
   })
 )
@@ -106,7 +115,7 @@ app.use((req, res, next) => {
 })
 
 // Error handler
-app.use((err, req, res) => {
+app.use((err, req, res, _next) => {
   // Determine if in development mode
   const isDevelopment = process.env.NODE_ENV === 'development'
   const errorDetails = isDevelopment
