@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import { randomBytes, createHash } from 'node:crypto'
+import { PASSWORD_RESET_EXPIRY_MINUTES } from '../constants/auth.js'
 
 const Schema = mongoose.Schema
 
@@ -27,7 +28,8 @@ UserSchema.methods.createResetPasswordToken = function () {
   const token = randomBytes(32).toString('hex')
 
   this.passwordResetToken = createHash('sha256').update(token).digest('hex')
-  this.passwordResetTokenExpires = Date.now() + 10 * 60 * 1000 // 10 minutes
+  this.passwordResetTokenExpires =
+    Date.now() + PASSWORD_RESET_EXPIRY_MINUTES * 60 * 1000
 
   return token
 }

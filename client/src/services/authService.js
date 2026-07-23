@@ -86,10 +86,10 @@ const logout = async () => {
   })
 }
 
-const forgotPassword = async (formValues) => {
+const forgotPassword = async (payload) => {
   const response = await axiosInstance.post(
     `${AUTH_URL}/reset-password`,
-    formValues
+    payload
   )
   return response?.data
 }

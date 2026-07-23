@@ -18,7 +18,9 @@ const sendEmail = async (options) => {
     from: `"BrewCompanion Support" <${process.env.SMTP_USER}>`,
     to: options.email,
     subject: options.subject,
-    text: options.message,
+    text: options.text ?? options.message,
+    html: options.html,
+    attachments: options.attachments,
     replyTo: options.replyTo || undefined,
   }
 

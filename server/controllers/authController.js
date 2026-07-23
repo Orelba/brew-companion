@@ -5,6 +5,7 @@ import { generateAccessToken, generateRefreshToken } from '../utils/token.js'
 import { refreshTokenCookieOptions } from '../utils/cookie.js'
 import { createSession } from '../utils/session.js'
 import { sendEmail } from '../utils/email.js'
+import { createPasswordResetEmail } from '../templates/passwordResetEmail.js'
 import { createHash } from 'node:crypto'
 
 import asyncHandler from 'express-async-handler'
@@ -156,7 +157,7 @@ const forgotPassword = [
     }
 
     // Find the user by email
-    const { email } = req.body
+    const { email, locale } = req.body
     const user = await User.findOne({ email })
 
     // Ensures consistent messaging to prevent email enumeration
@@ -169,15 +170,18 @@ const forgotPassword = [
       await user.save()
 
       const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`
-
-      const emailMessage = `We received a request to reset your password. Use the link below to set a new password:\n\n${resetUrl}\n\nThis link is valid for 10 minutes.`
+      const passwordResetEmail = createPasswordResetEmail({
+        resetUrl,
+        username: user.username,
+        appUrl: process.env.FRONTEND_URL,
+        locale,
+      })
 
       // Try sending the email with the token
       try {
         await sendEmail({
           email: user.email,
-          subject: 'Password Reset Request',
-          message: emailMessage,
+          ...passwordResetEmail,
         })
 
         return res.status(200).json({

@@ -22,7 +22,7 @@ import { notifications } from '@mantine/notifications'
 
 const AuthForm = ({ opened, onClose }) => {
   // Get the translations for the form
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const theme = useMantineTheme()
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`)
@@ -119,7 +119,9 @@ const AuthForm = ({ opened, onClose }) => {
 
   const handleResetPassword = async (formValues) => {
     try {
-      await forgotPassword(formValues)
+      const locale = i18n.resolvedLanguage?.startsWith('he') ? 'he' : 'en'
+
+      await forgotPassword({ email: formValues.email, locale })
       notifications.show({
         title: t('notifications.passwordResetEmailSent'),
         color: 'green',
