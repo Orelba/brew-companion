@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22.22.0"
+  },
   "scripts": {
     "dev": "vite",
     "hosteddev": "vite --host",
@@ -35,12 +38,12 @@
     "i18next-browser-languagedetector": "^8.0.0",
     "motion": "^12.6.3",
     "non.geist": "^2.0.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "react-i18next": "^17.0.7",
     "react-icons": "^5.5.0",
     "react-markdown": "^10.1.0",
-    "react-router": "^7.0.1",
+    "react-router": "^8.3.0",
     "recharts": "^3.8.1",
     "uuid": "^14.0.0"
   },
@@ -70,7 +73,7 @@
     "@babel/plugin-transform-modules-systemjs": "^7.29.7"
   },
   "allowScripts": {
-    "@parcel/watcher@2.5.6": true,
-    "fsevents@2.3.3": true
+    "fsevents@2.3.3": true,
+    "@parcel/watcher@2.6.0": true
   }
 }
