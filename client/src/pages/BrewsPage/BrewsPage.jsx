@@ -14,9 +14,9 @@ import {
   Group,
   Select,
   Space,
+  Stack,
   Tooltip,
   Menu,
-  Switch,
   useMantineTheme,
 } from '@mantine/core'
 import DirectionAwareIndicator from '../../components/DirectionAwareIndicator/DirectionAwareIndicator'
@@ -54,6 +54,8 @@ const BrewsPage = () => {
   const {
     data: brews,
     error,
+    refetch,
+    isFetching,
     isPlaceholderData,
   } = useQuery({
     queryKey: ['brews'],
@@ -64,7 +66,33 @@ const BrewsPage = () => {
   // Set the global loading state based on the use of placeholder data
   useLoadingScreen(isPlaceholderData, t('loading.brews'))
 
-  if (error) return <div>An error occurred: {error.message}</div>
+  if (error) {
+    return (
+      <PageTransitionWrapper>
+        <Container
+          m={{ base: 10, xs: 20, sm: 40, lg: 50, xl: 60 }}
+          p={0}
+          className={styles.container}
+          fluid
+        >
+          <Stack flex={1} align='center' justify='center' gap='xs' ta='center'>
+            <Text fw={600} fz='xl'>
+              {t('brewsPage.fetchErrorTitle')}
+            </Text>
+            <Text c='dimmed'>{t('brewsPage.fetchErrorDescription')}</Text>
+            <Button
+              mt='xs'
+              variant='light'
+              loading={isFetching}
+              onClick={() => refetch()}
+            >
+              {t('brewsPage.retry')}
+            </Button>
+          </Stack>
+        </Container>
+      </PageTransitionWrapper>
+    )
+  }
 
   // Filter the brews to exclude or include brews that use archived coffees
   const activeBrews = showOnlyNonArchived

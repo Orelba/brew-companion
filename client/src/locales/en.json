@@ -174,7 +174,10 @@
     "advancedOptions": "Advanced Options",
     "noBrewsFound": "No brews match the selected filters. Try adjusting the ratio range or resetting the filters.",
     "resetFilters": "Reset filters",
-    "addBrew": "Add Brew"
+    "addBrew": "Add Brew",
+    "fetchErrorTitle": "Something’s still brewing…",
+    "fetchErrorDescription": "We couldn’t load your brews just yet. Give it another moment, then try again.",
+    "retry": "Try again"
   },
   "brewRatioFilter": {
     "ratio": "Ratio",

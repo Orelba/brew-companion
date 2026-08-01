@@ -172,7 +172,10 @@
     "advancedOptions": "אפשרויות מתקדמות",
     "noBrewsFound": "לא נמצאו רשומות התואמות את הסינון שנבחר. נסה לשנות את טווח היחס או לאפס את הסינון.",
     "resetFilters": "אפס סינון",
-    "addBrew": "הוסף רשומה"
+    "addBrew": "הוסף רשומה",
+    "fetchErrorTitle": "לוג הקפה עוד מתבשל…",
+    "fetchErrorDescription": "לא הצלחנו לטעון אותו כרגע. כדאי לתת לו עוד רגע ולנסות שוב.",
+    "retry": "נסה שוב"
   },
   "brewRatioFilter": {
     "ratio": "יחס",
