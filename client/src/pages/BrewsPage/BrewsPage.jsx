@@ -160,6 +160,7 @@ const BrewsPage = () => {
               }}
               searchable
               nothingFoundMessage={t('brewsPage.noCoffeesFound')}
+              comboboxProps={{ width: 'clamp(0px, 97.5vw, 450px)' }}
             />
             <Select
               placeholder={t('brewsPage.allMethods')}
