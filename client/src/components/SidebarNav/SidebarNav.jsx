@@ -28,8 +28,8 @@ const SidebarNav = ({ stack, links, handleNavClick }) => {
   const items = links.map((link, i) => (
     <motion.div
       key={link.label}
-      initial={{ opacity: 0, translateX: i18n.dir() === 'ltr' ? -10 : 10 }}
-      animate={{ opacity: 1, translateX: 0 }}
+      initial={{ opacity: 0, x: i18n.dir() === 'ltr' ? -10 : 10 }}
+      animate={{ opacity: 1, x: 0 }}
       transition={{
         duration: animationDuration,
         delay: drawerTransitionDelay + i * animationDuration,
