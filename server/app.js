@@ -38,6 +38,11 @@ const app = express()
 // Allows correct handling of secure cookies and req.ip / req.secure
 app.set('trust proxy', 1)
 
+// Liveness probe - bypasses all middleware for monitoring
+app.get('/healthz', (_req, res) => {
+  res.status(200).json({ status: 'ok' })
+})
+
 // mongoDB connection setup
 mongoose.set('strictQuery', false)
 const mongoDB = process.env.MONGODB_URI
